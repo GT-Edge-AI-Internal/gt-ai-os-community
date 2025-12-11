@@ -1,7 +1,7 @@
 # Testing dependencies for GT 2.0 Resource Cluster
 pytest==7.4.3
 pytest-asyncio==0.21.1
-pytest-mock==3.12.0
+pytest-mock==3.15.1
 pytest-cov==4.1.0
 httpx==0.25.2
 factory-boy==3.3.0
