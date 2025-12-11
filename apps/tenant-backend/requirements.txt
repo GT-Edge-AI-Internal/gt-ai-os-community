@@ -38,7 +38,7 @@ python-docx==1.1.0     # DOCX text extraction
 beautifulsoup4==4.12.2 # HTML parsing
 lxml==4.9.3            # XML/HTML processing
 openpyxl==3.1.2        # Excel file support
-markdown==3.5.1        # Markdown processing
+markdown==3.10        # Markdown processing
 pandas==2.0.3          # CSV processing
 numpy==1.24.4          # Required by pandas, pin to 1.x to avoid binary incompatibility
 
