@@ -22,7 +22,7 @@ sqlalchemy==2.0.44
 asyncpg==0.29.0
 
 # LLM and AI integrations
-groq==0.34.1
+groq==0.37.1
 openai==1.6.1
 transformers>=4.35.0  # BGE-M3 tokenizer for accurate embedding token counting
 
