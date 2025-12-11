@@ -8,7 +8,7 @@ python-multipart==0.0.6
 # Async and networking
 httpx==0.28.1
 aiohttp==3.11.2
-websockets==12.0
+websockets==15.0.1
 
 # Security and authentication
 python-jose[cryptography]==3.3.0
