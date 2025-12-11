@@ -4,7 +4,7 @@
 fastapi==0.121.2
 uvicorn[standard]==0.38.0
 pydantic[email]==2.12.4
-pydantic-settings==2.1.0
+pydantic-settings==2.12.0
 
 # Database - PostgreSQL
 sqlalchemy==2.0.44
