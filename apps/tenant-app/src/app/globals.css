@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GT 2.0 Custom Styles */
+@layer base {
+  :root {
+    --gt-white: #ffffff;
+    --gt-black: #000000;
+    --gt-green: #00d084;
+    --gt-gray-50: #fafbfc;
+    --gt-gray-100: #f4f6f8;
+    --gt-gray-200: #e8ecef;
+    --gt-gray-300: #d1d9e0;
+    --gt-gray-400: #9aa5b1;
+    --gt-gray-500: #677489;
+    --gt-gray-600: #4a5568;
+    --gt-gray-700: #2d3748;
+    --gt-gray-800: #1a202c;
+    --gt-gray-900: #171923;
+  }
+
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  body {
+    @apply bg-gt-white text-gt-gray-900 antialiased;
+  }
+}
+
+@layer components {
+  /* Chat Interface Styles */
+  .chat-container {
+    @apply grid grid-rows-[auto_1fr_auto] h-screen bg-gt-white;
+  }
+
+  .chat-messages {
+    @apply flex-1 overflow-y-auto px-4 py-6 space-y-4;
+  }
+
+  .message-user {
+    @apply bg-gt-gray-100 text-gt-gray-900 ml-12 rounded-2xl rounded-br-sm px-4 py-3;
+  }
+
+
+  .message-system {
+    @apply bg-gt-gray-50 text-gt-gray-700 mx-8 rounded-lg px-3 py-2 text-sm text-center;
+  }
+
+  /* Input Styles */
+  .chat-input {
+    @apply bg-gt-white border-2 border-gt-gray-200 rounded-xl px-4 py-3 transition-colors duration-150 resize-none;
+  }
+
+  .chat-input:focus {
+    @apply outline-none border-gt-green shadow-[0_0_0_3px_rgba(0,208,132,0.1)];
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-gt-green text-gt-white font-medium px-4 py-2 rounded-lg transition-all duration-150 hover:bg-opacity-90 hover:-translate-y-0.5 hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply bg-gt-white text-gt-gray-700 font-medium px-4 py-2 rounded-lg border border-gt-gray-300 transition-all duration-150 hover:bg-gt-gray-50;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-gt-gray-600 font-medium px-4 py-2 rounded-lg transition-all duration-150 hover:bg-gt-gray-50;
+  }
+
+  /* Status Indicators */
+  .status-indicator {
+    @apply w-2 h-2 rounded-full;
+  }
+
+  .status-online {
+    @apply bg-gt-green;
+  }
+
+  .status-offline {
+    @apply bg-gt-gray-400;
+  }
+
+  .status-error {
+    @apply bg-red-500;
+  }
+
+  /* Animations */
+  .typing-indicator {
+    @apply flex items-center gap-1;
+  }
+
+  .typing-dot {
+    @apply w-1.5 h-1.5 bg-gt-green rounded-full animate-neural-pulse;
+  }
+
+  /* Chat Animation Classes */
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Enhanced Message Styles */
+  .message-agent {
+    @apply bg-gradient-to-r from-gt-green to-green-600 text-white mr-12 rounded-2xl rounded-bl-sm px-4 py-3 shadow-lg;
+  }
+
+  .message-agent:hover {
+    @apply shadow-xl transform-gpu;
+  }
+
+  /* Code Block Improvements */
+  .hljs {
+    background: #1a202c !important;
+    color: #e2e8f0 !important;
+  }
+
+  /* Scrollbar Styling */
+  .chat-messages::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(0, 208, 132, 0.3);
+    border-radius: 3px;
+  }
+
+  .chat-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 208, 132, 0.5);
+  }
+
+  .typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  /* Document Upload */
+  .upload-zone {
+    @apply border-2 border-dashed border-gt-gray-300 rounded-lg p-8 text-center bg-gt-gray-25 transition-all duration-200;
+  }
+
+  .upload-zone.dragover {
+    @apply border-gt-green bg-gt-green bg-opacity-5;
+  }
+
+  /* Loading States */
+  .loading-skeleton {
+    @apply bg-gt-gray-200 animate-pulse-gentle rounded;
+  }
+
+  /* Security Indicators */
+  .security-badge {
+    @apply inline-flex items-center px-2 py-1 rounded-sm text-xs font-medium;
+  }
+
+  .security-badge.secure {
+    @apply bg-green-100 text-green-700 border border-green-300;
+  }
+
+  .security-badge.warning {
+    @apply bg-yellow-100 text-yellow-700 border border-yellow-300;
+  }
+
+  .security-badge.error {
+    @apply bg-red-100 text-red-700 border border-red-300;
+  }
+}
+
+@layer utilities {
+  /* Custom Select - Hide Native Arrow */
+  .select-no-arrow {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+  }
+
+  .select-no-arrow::-ms-expand {
+    display: none;
+  }
+
+  /* Custom Scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--gt-gray-300) var(--gt-gray-100);
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: var(--gt-gray-100);
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--gt-gray-300);
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: var(--gt-gray-400);
+  }
+
+  /* Text Utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+}

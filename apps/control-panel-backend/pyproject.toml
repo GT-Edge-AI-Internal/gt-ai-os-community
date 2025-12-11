@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gt2-control-panel-backend"
+version = "1.0.0"
+description = "GT 2.0 Control Panel Backend API"
+dependencies = [
+    "fastapi>=0.104.1",
+    "uvicorn[standard]>=0.24.0",
+    "sqlalchemy>=2.0.23",
+    "alembic>=1.13.1",
+    "psycopg2-binary>=2.9.9",
+    # "redis>=5.0.1",  # Redis removed - PostgreSQL handles all caching
+    "pydantic>=2.5.2",
+    "pydantic-settings>=2.1.0",
+    "python-multipart>=0.0.6",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "bcryptjs>=3.2.0",
+    "structlog>=23.2.0",
+    "kubernetes>=28.1.0",
+    "asyncpg>=0.29.0",
+    "httpx>=0.25.2",
+    "celery>=5.3.4",
+    # "minio>=7.2.0"  # MinIO removed - PostgreSQL handles all file storage
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.pydocstyle]
+convention = "google"
+add-ignore = ["D100", "D104"]  # Allow missing docstrings in __init__.py
+match = "(?!test_).*\\.py"     # Exclude test files
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--cov=app",
+    "--cov-report=html",
+    "--cov-report=term-missing",
+    "--cov-fail-under=80",
+    "--strict-markers",
+    "-v",
+]
+markers = [
+    "unit: Fast isolated tests (<100ms)",
+    "integration: Cross-service tests",
+    "slow: Long-running tests (>1s)",
+    "security: Security-focused tests",
+]
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/venv/*",
+    "*/env/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "migrations", "venv", ".venv"]
+skips = ["B101", "B601"]  # B101=assert_used, B601=shell_injection (for subprocess)

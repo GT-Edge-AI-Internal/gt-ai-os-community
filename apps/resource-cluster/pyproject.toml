@@ -1,0 +1,72 @@
+[tool.poetry]
+name = "gt2-resource-cluster"
+version = "1.0.0"
+description = "GT 2.0 Resource Cluster - Centralized AI resource management with HA support"
+authors = ["GT Edge AI"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pydocstyle]
+convention = "google"
+add-ignore = ["D100", "D104"]  # Allow missing docstrings in __init__.py
+match = "(?!test_).*\\.py"     # Exclude test files
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--cov=app",
+    "--cov-report=html",
+    "--cov-report=term-missing",
+    "--cov-fail-under=80",
+    "--strict-markers",
+    "-v",
+]
+markers = [
+    "unit: Fast isolated tests (<100ms)",
+    "integration: Cross-service tests",
+    "slow: Long-running tests (>1s)",
+    "security: Security-focused tests",
+]
+asyncio_mode = "auto"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+strict_optional = true
+
+[tool.coverage.run]
+source = ["app"]
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/venv/*",
+    "*/env/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "migrations", "venv", ".venv"]
+skips = ["B101", "B601"]  # B101=assert_used, B601=shell_injection (for subprocess)

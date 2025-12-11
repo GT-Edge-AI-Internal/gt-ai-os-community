@@ -1,0 +1,257 @@
+# Dependencies
+node_modules/
+# Keep package-lock.json for CI/CD reproducibility
+# package-lock.json should be committed
+yarn.lock
+pnpm-lock.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+# Python build/dist directories (only at root level)
+/build/
+develop-eggs/
+/dist/
+downloads/
+eggs/
+.eggs/
+# Python lib directories (only at root level)
+/lib/
+/lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+venv/
+ENV/
+env/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+*.cover
+.coverage.*
+coverage.xml
+*.log
+
+# Environment variables
+# .env contains secrets and must not be committed to public repos
+.env
+.env.local
+.env.production.local
+.env.development.local
+.env.test.local
+
+# Internal/Development files (not for public repo)
+CLAUDE.md
+.claude/
+tests/
+docs/
+.analysis/
+.deployment/
+!.deployment/docker/
+backups/
+config/pgbouncer/
+infra/kubernetes/
+infra/terraform/
+
+# Internal scripts (not for public repo)
+scripts/backup/
+scripts/dev/
+scripts/dgx/
+scripts/production/
+scripts/seed/
+scripts/staging/
+scripts/x86/
+scripts/demo-data/
+scripts/validation/
+scripts/postgresql/.archive/
+scripts/postgresql/hotfixes/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Build outputs
+.next/
+out/
+# Build directories (but not in packages)
+apps/*/build/
+node_modules/
+# Next.js build directories  
+apps/*/.next/
+*.egg-info/
+.cache/
+.parcel-cache/
+# Note: packages/*/dist/ is NOT ignored - these are needed for monorepo builds
+
+# Testing
+coverage/
+.nyc_output/
+junit.xml
+test-results/
+playwright-report/
+test-results.json
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
+
+# MinIO removed - PostgreSQL handles all file storage
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# MCP Server PIDs
+.context7.pid
+.playwright.pid
+*.pid
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Docker
+docker-compose.override.yml
+
+# Kubernetes
+*.kubeconfig
+kubeconfig
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Secrets and credentials
+*credentials*.txt
+*credentials*.json
+*secrets*.txt
+*secrets*.json
+*.pem
+*.key
+*.crt
+*.cer
+*.pfx
+*.p12
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# MinIO removed - PostgreSQL handles all file storage
+
+# Redis removed - PostgreSQL handles all caching
+
+# PostgreSQL data
+postgres-data/
+
+# ChromaDB data
+chroma-data/
+
+# Grafana data
+grafana-data/
+
+# Prometheus data
+prometheus-data/
+
+# Next.js specific
+.next/
+out/
+next-env.d.ts
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files (development .env is now tracked)
+.env.development.local
+.env.test.local
+.env.production.local
+# .env.local is now tracked to ensure console logging defaults are consistent
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Turborepo
+.turbo
+
+# Misc
+*.seed
+*.pid.lock
+*.log.gz
+*.gz
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Redis cache files removed - PostgreSQL handles all caching
+
+# Archive directory for temporary files
+archive/
+volumes/

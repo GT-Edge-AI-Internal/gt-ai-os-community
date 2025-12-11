@@ -1,0 +1,93 @@
+# Docker Compose DGX Overlay
+# Platform-specific overrides for NVIDIA DGX (Grace ARM + Blackwell GPU)
+#
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dgx.yml up -d
+
+volumes:
+  ollama_models:
+    driver: local
+
+services:
+  # Control Panel Backend - DGX Configuration
+  control-panel-backend:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "ollama-host:host-gateway"
+    healthcheck:
+      start_period: 120s
+
+  # Tenant Backend - DGX Environment
+  tenant-backend:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "ollama-host:host-gateway"
+    environment:
+      ENVIRONMENT: production
+      DEBUG: "false"
+      # Linux Docker networking for embedding service
+      EMBEDDING_ENDPOINT: http://vllm-embeddings:8000
+    healthcheck:
+      start_period: 120s
+
+  # Tenant PostgreSQL Primary - DGX Performance Tuning
+  tenant-postgres-primary:
+    environment:
+      # DGX Performance settings - 128GB memory optimized
+      POSTGRES_SHARED_BUFFERS: 4GB
+      POSTGRES_EFFECTIVE_CACHE_SIZE: 96GB
+      POSTGRES_MAINTENANCE_WORK_MEM: 1GB
+      POSTGRES_MAX_CONNECTIONS: 500
+      POSTGRES_WORK_MEM: 256MB
+    deploy:
+      resources:
+        limits:
+          memory: 24G
+        reservations:
+          memory: 16G
+    labels:
+      - "gt2.platform=dgx"
+      - "gt2.architecture=grace-arm"
+
+  # Resource Cluster - DGX Host Access
+  resource-cluster:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "ollama-host:host-gateway"
+    environment:
+      ENVIRONMENT: production
+      DEBUG: "false"
+
+  # VLLM Embeddings Service - DGX Grace ARM Optimized
+  vllm-embeddings:
+    platform: linux/arm64
+    build:
+      context: .
+      dockerfile: .deployment/docker/Dockerfile.vllm-dgx
+    environment:
+      - MODEL_NAME=BAAI/bge-m3
+      # DGX Grace 20-core optimization
+      - OMP_NUM_THREADS=20
+      - MKL_NUM_THREADS=20
+      - PYTORCH_NUM_THREADS=20
+      - BLIS_NUM_THREADS=20
+      - VECLIB_MAXIMUM_THREADS=20
+      - OPENBLAS_NUM_THREADS=20
+      # DGX-specific optimizations
+      - PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0
+      - PYTORCH_ENABLE_MPS_FALLBACK=1
+      - CUDA_VISIBLE_DEVICES=""
+      - GT2_PLATFORM=dgx
+      - MALLOC_ARENA_MAX=8
+      - USE_ONNX_RUNTIME=true
+      # Grace architecture optimizations
+      - CFLAGS=-march=armv8.2-a+fp16+rcpc+dotprod -O3
+      - CXXFLAGS=-march=armv8.2-a+fp16+rcpc+dotprod -O3
+    deploy:
+      resources:
+        limits:
+          memory: 32G
+        reservations:
+          memory: 16G
+    labels:
+      - "gt2.platform=dgx"
+      - "gt2.architecture=grace-arm"
