@@ -5,7 +5,7 @@ pytest-mock==3.12.0
 pytest-cov==4.1.0
 httpx==0.25.2
 factory-boy==3.3.0
-faker==20.1.0
+faker==38.2.0
 freezegun==1.2.2
 pytest-env==1.1.3
 pytest-xdist==3.3.1
