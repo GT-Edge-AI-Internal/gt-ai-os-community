@@ -262,8 +262,9 @@ install_nvidia_container_toolkit() {
     apt-get update -qq
     apt-get install -y -qq nvidia-container-toolkit
 
-    # Configure Docker
-    nvidia-ctk runtime configure --runtime=docker
+    # NOTE: Do NOT run "nvidia-ctk runtime configure --runtime=docker" on DGX OS 7
+    # DGX OS 7 configures Docker via /etc/systemd/system/docker.service.d/docker-override.conf
+    # Running nvidia-ctk creates /etc/docker/daemon.json which conflicts with the override.conf
     systemctl restart docker
 
     print_success "NVIDIA Container Toolkit installed"
