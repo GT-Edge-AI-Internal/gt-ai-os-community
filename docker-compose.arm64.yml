@@ -1,0 +1,29 @@
+# Docker Compose ARM64 Overlay
+# Platform-specific overrides for Apple Silicon (M2+)
+#
+# Usage: docker compose -f docker-compose.yml -f docker-compose.arm64.yml up -d
+
+services:
+  # VLLM Embeddings Service - ARM64 CPU Optimized
+  vllm-embeddings:
+    platform: linux/arm64
+    build:
+      context: .
+      dockerfile: .deployment/docker/Dockerfile.vllm-arm
+    environment:
+      - MODEL_NAME=BAAI/bge-m3
+      - OMP_NUM_THREADS=8
+      - MKL_NUM_THREADS=8
+      - PYTORCH_NUM_THREADS=8
+      - PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0
+      - PYTORCH_ENABLE_MPS_FALLBACK=1
+      - CUDA_VISIBLE_DEVICES=""
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+        reservations:
+          memory: 3G
+    labels:
+      - "gt2.platform=arm64"
+      - "gt2.architecture=apple-silicon"

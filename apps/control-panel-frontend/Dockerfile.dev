@@ -1,0 +1,35 @@
+# Development Dockerfile for Control Panel Frontend
+# This is separate from production Dockerfile
+
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install dependencies for building native modules
+RUN apk add --no-cache python3 make g++ git
+
+# Copy package files from the app
+COPY package.json ./
+
+# Remove problematic Radix UI packages temporarily
+RUN sed -i '/"@radix-ui\/react-badge":/d; /"@radix-ui\/react-button":/d; /"@radix-ui\/react-card":/d; /"@radix-ui\/react-form":/d; /"@radix-ui\/react-input":/d; /"@radix-ui\/react-table":/d' package.json
+
+# Remove workspace dependencies temporarily for install
+RUN sed -i '/"@gt2\/types":/d; /"@gt2\/utils":/d' package.json
+
+# Install dependencies (using npm install since we don't have lock files)
+RUN npm install
+
+# Copy application code
+COPY . .
+
+# Create minimal workspace packages
+RUN mkdir -p node_modules/@gt2/types node_modules/@gt2/utils
+RUN echo "export const GT2_VERSION = '1.0.0-dev';" > node_modules/@gt2/types/index.js
+RUN echo "export const formatDate = (d) => new Date(d).toLocaleDateString();" > node_modules/@gt2/utils/index.js
+
+# Expose port
+EXPOSE 3000
+
+# Development command (will be overridden by docker-compose)
+CMD ["npm", "run", "dev"]

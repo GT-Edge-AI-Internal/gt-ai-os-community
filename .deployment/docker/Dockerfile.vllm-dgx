@@ -1,0 +1,73 @@
+FROM python:3.11-slim
+
+# Install system dependencies for DGX Grace ARM with optimized libraries
+# Note: Removed libatlas-base-dev as it's not available in Debian Trixie ARM64
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    curl \
+    libblas-dev \
+    liblapack-dev \
+    libopenblas-dev \
+    gfortran \
+    pkg-config \
+    build-essential \
+    cmake \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install PyTorch CPU-only for ARM with optimized BLAS
+RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+
+# Install optimized dependencies for DGX Grace ARM64
+RUN pip install --no-cache-dir \
+    transformers>=4.36.0 \
+    sentence-transformers \
+    fastapi \
+    uvicorn \
+    numpy \
+    accelerate \
+    onnxruntime \
+    optimum[onnxruntime] \
+    psutil
+
+# Set comprehensive DGX Grace ARM64 environment variables for maximum performance
+ENV OMP_NUM_THREADS=20
+ENV MKL_NUM_THREADS=20
+ENV BLIS_NUM_THREADS=20
+ENV OPENBLAS_NUM_THREADS=20
+ENV VECLIB_MAXIMUM_THREADS=20
+ENV PYTORCH_NUM_THREADS=20
+ENV PYTORCH_ENABLE_MPS_FALLBACK=1
+ENV PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0
+ENV CUDA_VISIBLE_DEVICES=""
+ENV USE_ONNX_RUNTIME=true
+ENV MALLOC_ARENA_MAX=8
+
+# DGX Grace architecture optimizations
+ENV CFLAGS="-march=armv8.2-a+fp16+rcpc+dotprod -O3 -ffast-math"
+ENV CXXFLAGS="-march=armv8.2-a+fp16+rcpc+dotprod -O3 -ffast-math"
+
+# Memory optimization for 128GB system
+ENV PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:512
+ENV OMP_STACKSIZE=2M
+ENV KMP_STACKSIZE=2M
+
+# Platform identification
+ENV GT2_PLATFORM=dgx
+ENV GT2_ARCHITECTURE=grace-arm
+
+# Create app directory
+WORKDIR /app
+
+# Copy the custom OpenAI-compatible BGE-M3 server optimized for DGX
+COPY .deployment/docker/embedding_server_dgx.py /app/embedding_server.py
+
+# Expose port
+EXPOSE 8000
+
+# Health check with longer timeout for DGX startup
+HEALTHCHECK --interval=30s --timeout=60s --start-period=600s --retries=5 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Run the embedding server
+CMD ["python", "embedding_server.py"]

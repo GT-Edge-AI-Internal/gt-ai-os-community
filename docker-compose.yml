@@ -1,0 +1,431 @@
+# GT 2.0 Unified Production Deployment
+# Complete three-cluster architecture with Simple HA PostgreSQL
+# Synthesized from full-stack and unified-deploy configurations
+
+# NOTE: No explicit project name - Docker Compose derives it from directory name
+# This ensures existing volumes (gt-20_*, gt2_*, etc.) continue to be used
+
+networks:
+  gt2-admin:
+    driver: bridge
+    name: gt2-admin-network
+  gt2-tenant:
+    driver: bridge
+    name: gt2-tenant-network
+  gt2-resource:
+    driver: bridge
+    name: gt2-resource-network
+  gt2-shared:
+    driver: bridge
+    name: gt2-shared-network
+  tenant-test-network:
+    driver: bridge
+    name: tenant-test-network
+
+volumes:
+  # ==============================================
+  # ADMIN CLUSTER VOLUMES
+  # No explicit names - Docker Compose derives from project/directory name
+  # This ensures existing volumes continue to be used
+  # ==============================================
+  admin_postgres_data:
+    driver: local
+  rabbitmq_data:
+    driver: local
+
+  # ==============================================
+  # TENANT CLUSTER VOLUMES (PostgreSQL)
+  # ==============================================
+  tenant_postgres_primary_data:
+    driver: local
+
+  # Per-Tenant Persistent Storage
+  tenant_test_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./volumes/tenants/test/tablespaces
+  tenant_test_files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./volumes/tenants/test/files
+
+  # Resource Cluster volumes
+  consul_data:
+    driver: local
+  resource_cluster_data:
+    driver: local
+
+services:
+  # ==============================================
+  # ADMIN CLUSTER - Control Panel Infrastructure
+  # ==============================================
+
+  # Control Panel PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: gentwo-controlpanel-postgres
+    entrypoint: ["/usr/local/bin/admin-entrypoint-wrapper.sh"]
+    command: ["postgres"]
+    environment:
+      POSTGRES_DB: gt2_admin
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${ADMIN_POSTGRES_PASSWORD:-dev_password_change_in_prod}
+      POSTGRES_HOST_AUTH_METHOD: md5
+      POSTGRES_INITDB_ARGS: "--auth-host=md5"
+    volumes:
+      - admin_postgres_data:/var/lib/postgresql/data
+      - ./scripts/postgresql/admin-entrypoint-wrapper.sh:/usr/local/bin/admin-entrypoint-wrapper.sh:ro
+      - ./scripts/postgresql/unified/00-create-databases.sql:/docker-entrypoint-initdb.d/00-create-databases.sql
+      - ./scripts/postgresql/admin-extensions.sql:/docker-entrypoint-initdb.d/00a-init-extensions.sql
+      - ./scripts/postgresql/unified/01-create-admin-roles.sql:/docker-entrypoint-initdb.d/01-create-roles.sql
+      - ./scripts/postgresql/unified/01-init-control-panel-schema-complete.sql:/docker-entrypoint-initdb.d/02-init-schema.sql
+      - ./scripts/postgresql/unified/05-create-test-data.sql:/docker-entrypoint-initdb.d/03-create-test-data.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - gt2-admin
+      - gt2-shared
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d gt2_admin"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # RabbitMQ for inter-cluster messaging
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: gentwo-controlpanel-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: gt2_admin
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-dev_password_change_in_prod}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"    # AMQP
+      - "15672:15672"  # Management UI
+    networks:
+      - gt2-admin
+      - gt2-shared
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Control Panel Backend
+  control-panel-backend:
+    image: ${IMAGE_REGISTRY:-ghcr.io/gt-edge-ai-internal/gt-ai-os-community}/control-panel-backend:${IMAGE_TAG:-latest}
+    build:
+      context: ./apps/control-panel-backend
+      dockerfile: Dockerfile
+    container_name: gentwo-controlpanel-backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:${ADMIN_POSTGRES_PASSWORD:-dev_password_change_in_prod}@postgres:5432/gt2_admin
+      RABBITMQ_URL: amqp://gt2_admin:${RABBITMQ_PASSWORD:-dev_password_change_in_prod}@rabbitmq:5672/
+      SECRET_KEY: ${SECRET_KEY:-production-secret-key}
+      JWT_SECRET: ${JWT_SECRET}
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      DEBUG: "${DEBUG:-false}"
+      # API Key Encryption (for tenant API keys stored in DB)
+      API_KEY_ENCRYPTION_KEY: ${API_KEY_ENCRYPTION_KEY:-}
+      SERVICE_AUTH_TOKEN: ${SERVICE_AUTH_TOKEN:-internal-service-token}
+      # SMTP Configuration (Brevo) - Enterprise Only
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL:-}
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME:-}
+      SMTP_USE_TLS: ${SMTP_USE_TLS:-}
+      # Two-Factor Authentication Configuration
+      TFA_ENCRYPTION_KEY: ${TFA_ENCRYPTION_KEY:-}
+      TFA_ISSUER_NAME: ${TFA_ISSUER_NAME:-}
+      TFA_TEMP_TOKEN_EXPIRY_MINUTES: ${TFA_TEMP_TOKEN_EXPIRY_MINUTES:-}
+      TFA_RATE_LIMIT_ATTEMPTS: ${TFA_RATE_LIMIT_ATTEMPTS:-}
+      TFA_RATE_LIMIT_WINDOW_MINUTES: ${TFA_RATE_LIMIT_WINDOW_MINUTES:-}
+      # Tenant Database Connection (for user sync)
+      TENANT_POSTGRES_PASSWORD: ${TENANT_USER_PASSWORD}
+    ports:
+      - "8001:8000"
+    networks:
+      - gt2-admin
+      - gt2-shared
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Control Panel Frontend
+  control-panel-frontend:
+    image: ${IMAGE_REGISTRY:-ghcr.io/gt-edge-ai-internal/gt-ai-os-community}/control-panel-frontend:${IMAGE_TAG:-latest}
+    build:
+      context: ./apps/control-panel-frontend
+      dockerfile: Dockerfile
+      args:
+        INTERNAL_API_URL: http://control-panel-backend:8000
+        NEXT_PUBLIC_API_URL: http://localhost:8001
+        NEXT_PUBLIC_WS_URL: ws://localhost:8001
+    container_name: gentwo-controlpanel-frontend
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://localhost:8001
+      INTERNAL_API_URL: http://control-panel-backend:8000
+      NEXT_PUBLIC_ENVIRONMENT: ${ENVIRONMENT:-production}
+    ports:
+      - "3001:3000"
+    networks:
+      - gt2-admin
+      - gt2-shared
+    restart: unless-stopped
+    depends_on:
+      control-panel-backend:
+        condition: service_healthy
+
+  # ==============================================
+  # TENANT CLUSTER - User-Facing Services
+  # ==============================================
+
+  # Tenant PostgreSQL Primary (with PGVector)
+  tenant-postgres-primary:
+    image: pgvector/pgvector:pg15
+    container_name: gentwo-tenant-postgres-primary
+    entrypoint: ["/usr/local/bin/docker-entrypoint-wrapper.sh"]
+    command: ["postgres"]
+    environment:
+      POSTGRES_DB: gt2_tenants
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${TENANT_POSTGRES_PASSWORD:-gt2_tenant_dev_password}
+      POSTGRES_REPLICATION_USER: replicator
+      POSTGRES_REPLICATION_PASSWORD: ${TENANT_REPLICATOR_PASSWORD:-tenant_replicator_dev_password}
+      # User password for gt2_tenant_user (used by wrapper to sync passwords)
+      TENANT_USER_PASSWORD: ${TENANT_USER_PASSWORD:-gt2_tenant_dev_password}
+      POSTGRES_HOST_AUTH_METHOD: md5
+      POSTGRES_INITDB_ARGS: "--auth-host=md5"
+      # Performance settings
+      POSTGRES_SHARED_BUFFERS: 256MB
+      POSTGRES_EFFECTIVE_CACHE_SIZE: 1GB
+      POSTGRES_MAINTENANCE_WORK_MEM: 64MB
+      POSTGRES_MAX_CONNECTIONS: 200
+    volumes:
+      - tenant_postgres_primary_data:/var/lib/postgresql/data
+      - tenant_test_data:/var/lib/postgresql/tablespaces/tenant_test
+      - tenant_test_files:/var/lib/postgresql/files/tenant_test
+      - ./scripts/postgresql/docker-entrypoint-wrapper.sh:/usr/local/bin/docker-entrypoint-wrapper.sh:ro
+      - ./scripts/postgresql/unified/00-create-tenant-database.sql:/docker-entrypoint-initdb.d/00-create-database.sql
+      - ./scripts/postgresql/tenant-extensions.sql:/docker-entrypoint-initdb.d/00a-init-extensions.sql
+      - ./scripts/postgresql/unified/01-create-tenant-roles.sql:/docker-entrypoint-initdb.d/00b-create-roles.sql
+      - ./scripts/postgresql/unified/04-init-tenant-schema-complete.sql:/docker-entrypoint-initdb.d/01-init-tenant-schema.sql
+      - ./scripts/postgresql/unified/05-create-tenant-test-data.sql:/docker-entrypoint-initdb.d/04-create-test-data.sql
+      - ./scripts/postgresql/setup-tenant-tablespaces.sql:/docker-entrypoint-initdb.d/02-setup-tablespaces.sql
+    ports:
+      - "5433:5432"
+    networks:
+      - gt2-tenant
+      - gt2-shared
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d gt2_tenants"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    labels:
+      - "gt2.service=postgres"
+      - "gt2.cluster=tenant"
+      - "gt2.role=primary"
+      - "gt2.tenant_schema=tenant_test_company"
+
+  # Tenant Backend
+  tenant-backend:
+    image: ${IMAGE_REGISTRY:-ghcr.io/gt-edge-ai-internal/gt-ai-os-community}/tenant-backend:${IMAGE_TAG:-latest}
+    build:
+      context: ./apps/tenant-backend
+      dockerfile: Dockerfile
+    container_name: gentwo-tenant-backend
+    environment:
+      DATABASE_URL: postgresql://gt2_tenant_user:${TENANT_USER_PASSWORD:-gt2_tenant_dev_password}@tenant-postgres-primary:5432/gt2_tenants
+      RESOURCE_CLUSTER_URL: http://resource-cluster:8000
+      CONTROL_PANEL_URL: http://control-panel-backend:8000
+      REQUIRE_OAUTH2_AUTH: "false"
+      SECRET_KEY: ${SECRET_KEY:-production-secret-key}
+      JWT_SECRET: ${JWT_SECRET}
+      TENANT_ID: "test"
+      TENANT_DOMAIN: test-company
+      POSTGRES_SCHEMA: tenant_test_company
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      DEBUG: "${DEBUG:-false}"
+      # Control Panel Database connection for billing logs
+      CONTROL_PANEL_DB_HOST: gentwo-controlpanel-postgres
+      CONTROL_PANEL_DB_NAME: gt2_admin
+      CONTROL_PANEL_DB_USER: postgres
+      CONTROL_PANEL_DB_PASSWORD: ${ADMIN_POSTGRES_PASSWORD:-dev_password_change_in_prod}
+      # Two-Factor Authentication Configuration
+      TFA_ENCRYPTION_KEY: ${TFA_ENCRYPTION_KEY:-}
+      TFA_ISSUER_NAME: ${TFA_ISSUER_NAME:-}
+      TFA_TEMP_TOKEN_EXPIRY_MINUTES: ${TFA_TEMP_TOKEN_EXPIRY_MINUTES:-}
+      TFA_RATE_LIMIT_ATTEMPTS: ${TFA_RATE_LIMIT_ATTEMPTS:-}
+      TFA_RATE_LIMIT_WINDOW_MINUTES: ${TFA_RATE_LIMIT_WINDOW_MINUTES:-}
+    ports:
+      - "8002:8000"
+    networks:
+      - gt2-tenant
+      - gt2-shared
+      - tenant-test-network
+    restart: unless-stopped
+    depends_on:
+      tenant-postgres-primary:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Tenant App (Frontend)
+  tenant-app:
+    image: ${IMAGE_REGISTRY:-ghcr.io/gt-edge-ai-internal/gt-ai-os-community}/tenant-app:${IMAGE_TAG:-latest}
+    build:
+      context: ./apps/tenant-app
+      dockerfile: Dockerfile
+      args:
+        INTERNAL_BACKEND_URL: http://tenant-backend:8000
+        NEXT_PUBLIC_API_URL: http://localhost:8002
+        NEXT_PUBLIC_WS_URL: ws://localhost:8002
+        NEXT_PUBLIC_TENANT_DOMAIN: test-company
+    container_name: gentwo-tenant-frontend
+    environment:
+      NODE_ENV: production
+      CONTROL_PANEL_URL: http://control-panel-backend:8000
+      TENANT_DOMAIN: test-company
+      TENANT_BACKEND_URL: http://tenant-backend:8000
+      NEXT_PUBLIC_TENANT_BACKEND_URL: http://localhost:8002
+      NEXT_PUBLIC_API_URL: http://localhost:8002
+      NEXT_PUBLIC_WS_URL: ws://localhost:8002
+      NEXT_PUBLIC_TENANT_DOMAIN: test-company
+      NEXT_PUBLIC_ENVIRONMENT: ${ENVIRONMENT:-production}
+      INTERNAL_BACKEND_URL: http://tenant-backend:8000
+    ports:
+      - "3002:3001"
+    networks:
+      - gt2-tenant
+      - gt2-shared
+    restart: unless-stopped
+    depends_on:
+      tenant-backend:
+        condition: service_healthy
+
+  # ==============================================
+  # RESOURCE CLUSTER - AI/ML Services
+  # ==============================================
+
+  # Consul for service discovery
+  consul:
+    image: hashicorp/consul:1.16
+    container_name: gentwo-resource-consul
+    command: agent -dev -ui -client=0.0.0.0
+    volumes:
+      - consul_data:/consul/data
+    ports:
+      - "8500:8500"   # HTTP API
+      - "8600:8600"   # DNS
+    networks:
+      - gt2-resource
+      - gt2-shared
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "consul", "members"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Resource Backend (MCP Orchestration)
+  resource-cluster:
+    image: ${IMAGE_REGISTRY:-ghcr.io/gt-edge-ai-internal/gt-ai-os-community}/resource-cluster:${IMAGE_TAG:-latest}
+    build:
+      context: ./apps/resource-cluster
+      dockerfile: Dockerfile
+    container_name: gentwo-resource-backend
+    environment:
+      # DEPRECATED: GROQ_API_KEY now comes from Control Panel DB (#158, #219)
+      # Keep temporarily for backwards compatibility during migration
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      # Control Panel Integration for API key retrieval
+      CONTROL_PANEL_URL: http://control-panel-backend:8000
+      SERVICE_AUTH_TOKEN: ${SERVICE_AUTH_TOKEN:-internal-service-token}
+      # Service configuration
+      CONSUL_URL: http://consul:8500
+      SECRET_KEY: ${SECRET_KEY:-production-secret-key}
+      CAPABILITY_JWT_SECRET: ${CAPABILITY_JWT_SECRET:-production-capability-jwt-secret}
+      ENVIRONMENT: ${ENVIRONMENT:-production}
+      DEBUG: "${DEBUG:-false}"
+      # Control Panel Database connection for billing logs
+      CONTROL_PANEL_DB_HOST: gentwo-controlpanel-postgres
+      CONTROL_PANEL_DB_NAME: gt2_admin
+      CONTROL_PANEL_DB_USER: postgres
+      CONTROL_PANEL_DB_PASSWORD: ${ADMIN_POSTGRES_PASSWORD:-dev_password_change_in_prod}
+    ports:
+      - "8004:8000"
+    networks:
+      - gt2-resource
+      - gt2-shared
+    volumes:
+      - resource_cluster_data:/data
+    restart: unless-stopped
+    depends_on:
+      consul:
+        condition: service_healthy
+      vllm-embeddings:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # VLLM Embeddings Service for RAG
+  # Platform-specific settings in overlay files (arm64.yml, x86.yml, dgx.yml)
+  vllm-embeddings:
+    container_name: gentwo-vllm-embeddings
+    # Default build context - overridden by platform-specific overlays
+    build:
+      context: .
+      dockerfile: .deployment/docker/Dockerfile.vllm-arm
+    ports:
+      - "8005:8000"
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    networks:
+      - gt2-resource
+      - gt2-shared
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 15s
+      retries: 10
+      start_period: 300s
+    labels:
+      - "gt2.service=vllm-embeddings"
+      - "gt2.cluster=resource"
+      - "gt2.component=embedding"
+
+  # ==============================================
+  # DEVELOPMENT UTILITIES
+  # ==============================================

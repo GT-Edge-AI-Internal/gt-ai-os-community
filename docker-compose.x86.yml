@@ -1,0 +1,76 @@
+# Docker Compose x86_64 Overlay
+# Platform-specific overrides for x86_64 Linux (Ubuntu)
+#
+# Usage: docker compose -f docker-compose.yml -f docker-compose.x86.yml up -d
+
+services:
+  # Control Panel Backend - x86 host.docker.internal
+  control-panel-backend:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "ollama-host:host-gateway"
+    environment:
+      ENVIRONMENT: production
+      DEBUG: "false"
+
+  # Tenant Backend - x86 host.docker.internal
+  tenant-backend:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "ollama-host:host-gateway"
+    environment:
+      ENVIRONMENT: production
+      DEBUG: "false"
+
+  # Resource Cluster - x86 host.docker.internal
+  resource-cluster:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "ollama-host:host-gateway"
+    environment:
+      ENVIRONMENT: production
+      DEBUG: "false"
+
+  # Tenant PostgreSQL Primary - x86 Performance Tuning
+  tenant-postgres-primary:
+    environment:
+      # x86_64 Performance settings - optimized for typical server specs
+      POSTGRES_SHARED_BUFFERS: 2GB
+      POSTGRES_EFFECTIVE_CACHE_SIZE: 6GB
+      POSTGRES_MAINTENANCE_WORK_MEM: 512MB
+      POSTGRES_MAX_CONNECTIONS: 300
+      POSTGRES_WORK_MEM: 128MB
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+    labels:
+      - "gt2.platform=x86_64"
+
+  # VLLM Embeddings Service - x86_64 Optimized
+  vllm-embeddings:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: .deployment/docker/Dockerfile.vllm-x86
+    environment:
+      - MODEL_NAME=BAAI/bge-m3
+      # x86_64 optimization - adjust based on your CPU
+      - OMP_NUM_THREADS=8
+      - MKL_NUM_THREADS=8
+      - PYTORCH_NUM_THREADS=8
+      - OPENBLAS_NUM_THREADS=8
+      # x86_64-specific optimizations
+      - GT2_PLATFORM=x86_64
+      - MALLOC_ARENA_MAX=4
+      - USE_ONNX_RUNTIME=true
+    deploy:
+      resources:
+        limits:
+          memory: 16G
+        reservations:
+          memory: 8G
+    labels:
+      - "gt2.platform=x86_64"

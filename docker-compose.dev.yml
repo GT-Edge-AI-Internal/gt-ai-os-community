@@ -1,0 +1,161 @@
+# Docker Compose Development Mode Override
+# Enables hot reload for faster iteration during development
+#
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+#
+# IMPORTANT: This overrides production Dockerfiles with volume mounts and dev commands.
+# DO NOT use in production deployments.
+
+services:
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Tenant Cluster - Development Mode with Hot Reload
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  tenant-backend:
+    build:
+      context: ./apps/tenant-backend
+      args:
+        INSTALL_DEV: "true"
+    volumes:
+      # Mount source code for hot reload
+      - ./apps/tenant-backend:/app
+      # Prevent overwriting installed dependencies
+      - /app/.venv
+    command:
+      - "uvicorn"
+      - "app.main:composite_app"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "8000"
+      - "--reload"  # Enable hot reload
+      - "--reload-dir"
+      - "/app"
+    environment:
+      # Force watchdog to poll filesystem (required for Docker volumes)
+      - WATCHFILES_FORCE_POLLING=true
+      - PYTHONUNBUFFERED=1
+    # Remove production workers setting
+    # workers: 1 (implied by --reload)
+
+  tenant-app:
+    volumes:
+      # Mount source code for hot reload
+      - ./apps/tenant-app:/app
+      # Prevent overwriting node_modules
+      - /app/node_modules
+      - /app/.next
+    command:
+      - "npm"
+      - "run"
+      - "dev"  # Development server with hot reload
+    environment:
+      # Enable file watching in Docker
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - NODE_ENV=development
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Control Panel - Development Mode with Hot Reload
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  control-panel-backend:
+    build:
+      context: ./apps/control-panel-backend
+      args:
+        INSTALL_DEV: "true"
+    volumes:
+      - ./apps/control-panel-backend:/app
+      - /app/.venv
+    command:
+      - "uvicorn"
+      - "app.main:app"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "8000"
+      - "--reload"
+      - "--reload-dir"
+      - "/app"
+    environment:
+      - WATCHFILES_FORCE_POLLING=true
+      - PYTHONUNBUFFERED=1
+
+  control-panel-frontend:
+    volumes:
+      - ./apps/control-panel-frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command:
+      - "npm"
+      - "run"
+      - "dev"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - NODE_ENV=development
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Resource Cluster - Development Mode
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  resource-cluster:
+    build:
+      context: ./apps/resource-cluster
+      args:
+        INSTALL_DEV: "true"
+    volumes:
+      - ./apps/resource-cluster:/app
+      - /app/.venv
+    command:
+      - "uvicorn"
+      - "app.main:app"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "8000"
+      - "--reload"
+      - "--reload-dir"
+      - "/app"
+    environment:
+      - WATCHFILES_FORCE_POLLING=true
+      - PYTHONUNBUFFERED=1
+
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  # Notes:
+  # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  #
+  # Databases, RabbitMQ, Consul, vLLM not overridden:
+  # - PostgreSQL: No code changes, no hot reload needed
+  # - RabbitMQ: Standalone service
+  # - Consul: Service discovery
+  # - vLLM Embeddings: Model loading takes 5min, avoid restarts
+  #
+  # Volume Mount Strategy:
+  # - Mount source code directory
+  # - Anonymous volumes for /node_modules and /.venv
+  #   (prevents overwriting installed dependencies)
+  #
+  # Performance Considerations:
+  # - WATCHFILES_FORCE_POLLING: Required for Docker FS events
+  # - CHOKIDAR_USEPOLLING: Next.js file watching in Docker
+  # - May increase CPU usage (polling overhead)
+  # - Disable polling for production (use production docker-compose.yml)
+  #
+  # When to Use:
+  # ✅ Rapid iteration on Python/TypeScript code
+  # ✅ Frontend UI development
+  # ✅ API endpoint changes
+  # ❌ Database schema changes (use migrations)
+  # ❌ Dockerfile changes (requires rebuild)
+  # ❌ requirements.txt / package.json changes (requires rebuild)
+  #
+  # Switching Between Modes:
+  #
+  # Development Mode:
+  #   docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+  #
+  # Production Mode:
+  #   docker compose up -d
+  #
+  # See: docs/DEVELOPMENT-SETUP.md for detailed usage guide
