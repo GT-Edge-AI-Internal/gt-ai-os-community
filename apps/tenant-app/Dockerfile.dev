@@ -1,0 +1,25 @@
+# Development Dockerfile for Tenant App
+# This is separate from production Dockerfile
+
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install dependencies for building native modules
+RUN apk add --no-cache python3 make g++ git
+
+# Copy package files from the app
+COPY package.json ./
+
+# Install dependencies (tenant-app doesn't have workspace dependencies in package.json)
+# Use --legacy-peer-deps to handle jspdf-autotable peer dependency mismatch
+RUN npm install --legacy-peer-deps
+
+# Copy application code
+COPY . .
+
+# Expose port
+EXPOSE 3000
+
+# Development command (will be overridden by docker-compose)
+CMD ["npm", "run", "dev"]

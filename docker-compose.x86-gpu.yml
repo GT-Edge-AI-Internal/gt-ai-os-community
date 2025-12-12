@@ -1,0 +1,24 @@
+# Docker Compose x86_64 GPU Overlay
+# Auto-applied by installer when NVIDIA GPU + Container Toolkit detected
+# This overlay enables GPU passthrough for the vLLM embeddings container
+
+services:
+  vllm-embeddings:
+    deploy:
+      resources:
+        # GPU mode: model loads into VRAM (~2.5GB), minimal system RAM needed
+        limits:
+          memory: 4G
+        reservations:
+          memory: 2G
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      # GPU-specific settings
+      - CUDA_VISIBLE_DEVICES=0
+      - PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+    labels:
+      - "gt2.gpu=enabled"
+      - "gt2.gpu.vendor=nvidia"
