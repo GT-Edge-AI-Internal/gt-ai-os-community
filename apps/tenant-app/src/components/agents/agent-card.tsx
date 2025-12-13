@@ -95,7 +95,7 @@ export function AgentCard({
   return (
     <div
       className={cn(
-        'bg-white border rounded-lg p-4 hover:shadow-md transition-all duration-200 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6 cursor-pointer',
+        'bg-gt-white border rounded-lg p-4 hover:shadow-md transition-all duration-200 flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6 cursor-pointer',
         className
       )}
       onClick={() => onSelect?.(agent)}

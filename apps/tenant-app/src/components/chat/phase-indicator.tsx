@@ -163,7 +163,7 @@ export function PhaseIndicator({
   }
 
   return (
-    <div className={cn('flex items-center space-x-4 p-4 bg-white border rounded-lg', className)}>
+    <div className={cn('flex items-center space-x-4 p-4 bg-gt-white border rounded-lg', className)}>
       {/* Phase Icon and Status */}
       <div className={cn('flex items-center space-x-3', config.bgColor, 'rounded-full px-4 py-2', config.borderColor, 'border')}>
         <div className={cn('relative', config.color)}>

@@ -118,7 +118,7 @@ export function AddMemberInlineForm({
               onValueChange={(value) => setPermission(value as 'view' | 'share' | 'manager')}
             >
               <div className="space-y-2">
-                <div className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-white cursor-pointer">
+                <div className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-gt-white cursor-pointer">
                   <RadioGroupItem value="view" id="inline-permission-view" />
                   <Label htmlFor="inline-permission-view" className="flex items-center gap-2 cursor-pointer flex-1">
                     <Shield className="w-4 h-4 text-gray-600" />
@@ -128,7 +128,7 @@ export function AddMemberInlineForm({
                     </div>
                   </Label>
                 </div>
-                <div className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-white cursor-pointer">
+                <div className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-gt-white cursor-pointer">
                   <RadioGroupItem value="share" id="inline-permission-share" />
                   <Label htmlFor="inline-permission-share" className="flex items-center gap-2 cursor-pointer flex-1">
                     <Shield className="w-4 h-4 text-blue-600" />
@@ -138,7 +138,7 @@ export function AddMemberInlineForm({
                     </div>
                   </Label>
                 </div>
-                <div className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-white cursor-pointer">
+                <div className="flex items-center space-x-2 p-3 rounded-lg border hover:bg-gt-white cursor-pointer">
                   <RadioGroupItem value="manager" id="inline-permission-manager" />
                   <Label htmlFor="inline-permission-manager" className="flex items-center gap-2 cursor-pointer flex-1">
                     <Shield className="w-4 h-4 text-gt-green" />

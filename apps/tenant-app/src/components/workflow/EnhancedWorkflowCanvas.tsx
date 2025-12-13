@@ -452,7 +452,7 @@ export function EnhancedWorkflowCanvas({
     <TooltipProvider>
       <div className={cn("workflow-canvas-container h-full flex flex-col bg-gray-50", className)}>
         {/* Enhanced Toolbar */}
-        <div className="workflow-toolbar p-4 bg-white border-b border-gray-200 flex items-center justify-between shadow-sm">
+        <div className="workflow-toolbar p-4 bg-gt-white border-b border-gray-200 flex items-center justify-between shadow-sm">
           <div className="flex items-center gap-3">
             {/* Mode Toggle */}
             <div className="flex bg-gray-100 rounded-lg p-1">
@@ -873,12 +873,12 @@ export function EnhancedWorkflowCanvas({
                           {/* Error/Warning indicators */}
                           {node.errors && node.errors.length > 0 && (
                             <div className="absolute -top-2 -right-2 z-20">
-                              <AlertTriangle className="w-4 h-4 text-red-500 bg-white rounded-full p-0.5" />
+                              <AlertTriangle className="w-4 h-4 text-red-500 bg-gt-white rounded-full p-0.5" />
                             </div>
                           )}
                           {node.warnings && node.warnings.length > 0 && (
                             <div className="absolute -top-2 -left-2 z-20">
-                              <Info className="w-4 h-4 text-yellow-500 bg-white rounded-full p-0.5" />
+                              <Info className="w-4 h-4 text-yellow-500 bg-gt-white rounded-full p-0.5" />
                             </div>
                           )}
                           
@@ -906,7 +906,7 @@ export function EnhancedWorkflowCanvas({
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="absolute bottom-4 right-4 w-48 h-32 bg-white border border-gray-300 rounded-lg shadow-lg overflow-hidden"
+                className="absolute bottom-4 right-4 w-48 h-32 bg-gt-white border border-gray-300 rounded-lg shadow-lg overflow-hidden"
               >
                 <div className="relative w-full h-full">
                   <div 
@@ -964,7 +964,7 @@ export function EnhancedWorkflowCanvas({
                 animate={{ width: 320, opacity: 1 }}
                 exit={{ width: 0, opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white border-l border-gray-200 overflow-hidden"
+                className="bg-gt-white border-l border-gray-200 overflow-hidden"
               >
                 <div className="p-4 h-full overflow-y-auto">
                   <div className="flex items-center justify-between mb-4">
@@ -1119,7 +1119,7 @@ export function EnhancedWorkflowCanvas({
         </div>
 
         {/* Status Bar */}
-        <div className="status-bar p-2 bg-white border-t border-gray-200 text-sm text-gray-600 flex items-center justify-between">
+        <div className="status-bar p-2 bg-gt-white border-t border-gray-200 text-sm text-gray-600 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <span>Nodes: {nodes.length}</span>
             <span>Edges: {edges.length}</span>

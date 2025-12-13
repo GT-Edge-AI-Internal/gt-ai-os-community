@@ -635,7 +635,7 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
                       <Clock className="w-3 h-3" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-32 z-50 bg-white border border-gray-200 shadow-lg">
+                  <DropdownMenuContent align="end" className="w-32 z-50 bg-gt-white border border-gray-200 shadow-lg">
                     <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('filterTime', { detail: 'all' }))}>
                       All Time
                     </DropdownMenuItem>
@@ -663,7 +663,7 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
                       <Filter className="w-3 h-3" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-40 z-50 bg-white border border-gray-200 shadow-lg max-h-[300px] overflow-y-auto">
+                  <DropdownMenuContent align="end" className="w-40 z-50 bg-gt-white border border-gray-200 shadow-lg max-h-[300px] overflow-y-auto">
                     <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('filterAgent', { detail: 'all' }))}>
                       All Agents
                     </DropdownMenuItem>

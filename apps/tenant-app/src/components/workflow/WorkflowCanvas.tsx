@@ -223,7 +223,7 @@ export function WorkflowCanvas({
   return (
     <div className="workflow-canvas-container h-full flex flex-col bg-gray-50">
       {/* Toolbar */}
-      <div className="workflow-toolbar p-4 bg-white border-b border-gray-200 flex items-center justify-between">
+      <div className="workflow-toolbar p-4 bg-gt-white border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
           {/* Mode Toggle */}
           <div className="flex bg-gray-100 rounded-lg p-1">
@@ -431,7 +431,7 @@ export function WorkflowCanvas({
       </div>
 
       {/* Status Bar */}
-      <div className="status-bar p-2 bg-white border-t border-gray-200 text-sm text-gray-600">
+      <div className="status-bar p-2 bg-gt-white border-t border-gray-200 text-sm text-gray-600">
         Nodes: {nodes.length} | Edges: {edges.length} | Selected: {selectedNodes.size}
         {isConnecting && connectionStart && (
           <span className="ml-4 text-blue-600">

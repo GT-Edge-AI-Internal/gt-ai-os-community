@@ -244,7 +244,7 @@ export function StorageBreakdown({ observabilityMode, teamId, isTeamObserver }: 
 
   if (loading) {
     return (
-      <div className="bg-white border border-gt-gray-200 rounded-lg p-6 animate-pulse">
+      <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6 animate-pulse">
         <div className="h-6 bg-gt-gray-200 rounded w-48 mb-4"></div>
         <div className="h-80 bg-gt-gray-100 rounded"></div>
       </div>
@@ -261,7 +261,7 @@ export function StorageBreakdown({ observabilityMode, teamId, isTeamObserver }: 
   }
 
   return (
-    <div className="bg-white border border-gt-gray-200 rounded-lg p-6 relative">
+    <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6 relative">
       {/* Subtle loading overlay during refresh */}
       {isRefreshing && (
         <div className="absolute top-0 left-0 right-0 h-1 bg-blue-100 overflow-hidden">
@@ -390,7 +390,7 @@ export function StorageBreakdown({ observabilityMode, teamId, isTeamObserver }: 
                       if (active && payload && payload.length) {
                         const data = payload[0].payload;
                         return (
-                          <div className="bg-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
+                          <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
                             <p className="font-medium text-gt-gray-900 mb-1">{data.file_type}</p>
                             <p className="text-sm text-gt-gray-600">{formatStorageSize(data.storage_mb)}</p>
                             <p className="text-sm text-gt-gray-600">{data.document_count} files</p>
@@ -560,7 +560,7 @@ export function StorageBreakdown({ observabilityMode, teamId, isTeamObserver }: 
                       if (active && payload && payload.length) {
                         const data = payload[0].payload;
                         return (
-                          <div className="bg-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
+                          <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
                             <p className="font-medium text-gt-gray-900 mb-2">{data.fullName}</p>
 
                             {activeStorageTab === 'dataset' && (

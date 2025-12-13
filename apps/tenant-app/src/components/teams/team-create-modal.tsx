@@ -76,7 +76,7 @@ export function TeamCreateModal({
 
           {/* Panel */}
           <motion.div
-            className="fixed right-0 top-0 h-screen w-full max-w-2xl bg-white shadow-2xl z-[1000] overflow-y-auto"
+            className="fixed right-0 top-0 h-screen w-full max-w-2xl bg-gt-white shadow-2xl z-[1000] overflow-y-auto"
             variants={slideLeft}
             initial="initial"
             animate="animate"
@@ -84,7 +84,7 @@ export function TeamCreateModal({
           >
             {/* Header */}
             <div
-              className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 z-10"
+              className="sticky top-0 bg-gt-white border-b border-gray-200 px-6 py-4 z-10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between">
@@ -93,8 +93,8 @@ export function TeamCreateModal({
                     <Users className="w-5 h-5 text-gt-green" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900">Create Team</h2>
-                    <p className="text-sm text-gray-600">Create a new team for collaboration</p>
+                    <h2 className="text-xl font-semibold text-gt-gray-900">Create Team</h2>
+                    <p className="text-sm text-gt-gray-600">Create a new team for collaboration</p>
                   </div>
                 </div>
                 <Button
@@ -128,7 +128,7 @@ export function TeamCreateModal({
                     placeholder="Engineering Team"
                     required
                     autoFocus
-                    className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gt-green focus:border-gt-green"
+                    className="mt-1 w-full px-3 py-2 border border-gt-gray-300 rounded-md bg-gt-white text-gt-gray-900 focus:outline-none focus:ring-2 focus:ring-gt-green focus:border-gt-green"
                   />
                 </div>
 
@@ -144,7 +144,7 @@ export function TeamCreateModal({
                     rows={3}
                     className="mt-1"
                   />
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gt-gray-500 mt-1">
                     Optional: Explain what this team is for and who should join
                   </p>
                 </div>

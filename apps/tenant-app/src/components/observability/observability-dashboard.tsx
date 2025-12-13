@@ -253,10 +253,10 @@ export function ObservabilityDashboard() {
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-gt-white rounded-lg shadow-sm border p-6">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-gt-gray-900 flex items-center gap-3">
               <BarChart3 className="w-8 h-8 text-gt-green" />
               Observability
               {!isAdmin && !isTeamObserver && (
@@ -270,7 +270,7 @@ export function ObservabilityDashboard() {
                 </span>
               )}
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gt-gray-600 mt-1">
               {isAdmin
                 ? 'Monitor usage, track activity, and view conversations across your tenant'
                 : isTeamObserver
@@ -289,7 +289,7 @@ export function ObservabilityDashboard() {
                 onClick={() => setObservabilityMode('individual')}
                 className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
                   observabilityMode === 'individual'
-                    ? 'bg-white text-gt-green shadow-sm'
+                    ? 'bg-gt-white text-gt-green shadow-sm'
                     : 'text-gt-gray-600 hover:text-gt-gray-900'
                 }`}
               >
@@ -299,7 +299,7 @@ export function ObservabilityDashboard() {
                 onClick={() => setObservabilityMode('team')}
                 className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
                   observabilityMode === 'team'
-                    ? 'bg-white text-gt-green shadow-sm'
+                    ? 'bg-gt-white text-gt-green shadow-sm'
                     : 'text-gt-gray-600 hover:text-gt-gray-900'
                 }`}
               >

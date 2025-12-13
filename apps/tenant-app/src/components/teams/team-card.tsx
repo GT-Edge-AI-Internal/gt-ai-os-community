@@ -32,7 +32,7 @@ export function TeamCard({
   return (
     <div
       className={cn(
-        'bg-white border rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-pointer',
+        'bg-gt-white border rounded-lg p-4 hover:shadow-md transition-all duration-200 cursor-pointer',
         className
       )}
       onClick={() => onManage?.(team.id)}

@@ -208,7 +208,7 @@ export function AgentGallery({
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
-              <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+              <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                 <SelectItem value="all">All Categories</SelectItem>
                 {categories.map(category => (
                   <SelectItem key={category} value={category}>
@@ -222,7 +222,7 @@ export function AgentGallery({
               <SelectTrigger className="w-[120px]">
                 <SelectValue placeholder="Tag" />
               </SelectTrigger>
-              <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+              <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                 <SelectItem value="all">All Tags</SelectItem>
                 {tags.map(tag => (
                   <SelectItem key={tag} value={tag}>
@@ -236,7 +236,7 @@ export function AgentGallery({
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Creator" />
               </SelectTrigger>
-              <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+              <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                 <SelectItem value="all">All Creators</SelectItem>
                 {creators.map(creator => (
                   <SelectItem key={creator} value={creator}>
@@ -250,7 +250,7 @@ export function AgentGallery({
               <SelectTrigger className="w-[140px]">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
-              <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+              <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                 <SelectItem value="created_at">Date Created</SelectItem>
                 <SelectItem value="name">Name</SelectItem>
                 <SelectItem value="usage_count">Usage</SelectItem>
@@ -296,7 +296,7 @@ export function AgentGallery({
     <div className={cn("space-y-6", className)}>
       {/* Header - only show if not hidden */}
       {!hideHeader && (
-        <div className="bg-white rounded-lg shadow-sm border p-6">
+        <div className="bg-gt-white rounded-lg shadow-sm border p-6">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
@@ -335,7 +335,7 @@ export function AgentGallery({
             <SelectTrigger className="w-[140px]">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
-            <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+            <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
               <SelectItem value="all">All Categories</SelectItem>
               {categories.map(category => (
                 <SelectItem key={category} value={category}>
@@ -349,7 +349,7 @@ export function AgentGallery({
             <SelectTrigger className="w-[120px]">
               <SelectValue placeholder="Tag" />
             </SelectTrigger>
-            <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+            <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
               <SelectItem value="all">All Tags</SelectItem>
               {tags.map(tag => (
                 <SelectItem key={tag} value={tag}>
@@ -363,7 +363,7 @@ export function AgentGallery({
             <SelectTrigger className="w-[140px]">
               <SelectValue placeholder="Creator" />
             </SelectTrigger>
-            <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+            <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
               <SelectItem value="all">All Creators</SelectItem>
               {creators.map(creator => (
                 <SelectItem key={creator} value={creator}>
@@ -377,7 +377,7 @@ export function AgentGallery({
             <SelectTrigger className="w-[140px]">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
-            <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+            <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
               <SelectItem value="created_at">Date Created</SelectItem>
               <SelectItem value="name">Name</SelectItem>
               <SelectItem value="usage_count">Usage</SelectItem>

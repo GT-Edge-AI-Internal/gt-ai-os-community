@@ -89,7 +89,7 @@ export function DownloadButton({ content, filename, title, className = '' }: Dow
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-48">
+        <div className="absolute top-full right-0 mt-1 bg-gt-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-48">
           <div className="p-2 border-b border-gray-100">
             <div className="text-xs font-medium text-gray-500 mb-1">Download as:</div>
           </div>

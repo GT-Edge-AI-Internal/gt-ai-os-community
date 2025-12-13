@@ -128,7 +128,7 @@ export function ReferencesPanel({
   if (sources.length === 0) return null;
 
   return (
-    <div className={cn('bg-white border border-gt-gray-200 rounded-lg shadow-sm', className)}>
+    <div className={cn('bg-gt-white border border-gt-gray-200 rounded-lg shadow-sm', className)}>
       {/* Header */}
       <button
         onClick={onToggle}

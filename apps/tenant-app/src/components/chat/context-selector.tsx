@@ -280,7 +280,7 @@ export function ContextSelector({
                       "flex items-start space-x-3 p-2 rounded-lg border cursor-pointer transition-all",
                       isSelected
                         ? "bg-gt-green/5 border-gt-green/20"
-                        : "bg-white border-gray-200 hover:bg-gray-50",
+                        : "bg-gt-white border-gray-200 hover:bg-gray-50",
                       disabled && "opacity-50 cursor-not-allowed"
                     )}
                     onClick={() => toggleDataset(dataset)}

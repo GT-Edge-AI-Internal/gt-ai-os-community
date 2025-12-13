@@ -30,7 +30,7 @@ export function Skeleton({ className }: SkeletonProps) {
  */
 export function AgentCardSkeleton() {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+    <div className="bg-gt-white rounded-lg border border-gray-200 p-4 shadow-sm">
       <div className="animate-pulse space-y-3">
         {/* Header with avatar and name */}
         <div className="flex items-center space-x-3">
@@ -79,7 +79,7 @@ export function ConversationSkeleton() {
  */
 export function AgentQuickTileSkeleton() {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+    <div className="bg-gt-white rounded-lg border border-gray-200 p-6 shadow-sm">
       <div className="animate-pulse space-y-4">
         {/* Icon and title */}
         <div className="flex items-center space-x-3">
@@ -111,7 +111,7 @@ export function AgentQuickTileSkeleton() {
  */
 export function DatasetCardSkeleton() {
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
+    <div className="bg-gt-white rounded-lg border border-gray-200 p-4 shadow-sm">
       <div className="animate-pulse space-y-3">
         {/* Header */}
         <div className="flex items-center justify-between">

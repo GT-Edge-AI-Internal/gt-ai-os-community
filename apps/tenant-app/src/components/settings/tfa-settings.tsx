@@ -190,7 +190,7 @@ export function TFASettings() {
       </div>
 
       {/* Status and Toggle */}
-      <div className="bg-white border border-gt-gray-200 rounded-lg p-6 space-y-4">
+      <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div>
@@ -292,7 +292,7 @@ export function TFASettings() {
             {setupStep === 'qr' && (
               <>
                 {/* QR Code Display */}
-                <div className="bg-white p-4 rounded-lg border-2 border-gt-gray-200 flex justify-center">
+                <div className="bg-gt-white p-4 rounded-lg border-2 border-gt-gray-200 flex justify-center">
                   <img
                     src={qrCodeUri}
                     alt="QR Code"

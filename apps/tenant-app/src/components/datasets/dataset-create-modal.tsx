@@ -196,7 +196,7 @@ export function DatasetCreateModal({
           {/* Panel */}
           <motion.div
             key="panel"
-            className="fixed right-0 top-0 h-screen w-full max-w-2xl bg-white shadow-2xl z-[1000] overflow-y-auto"
+            className="fixed right-0 top-0 h-screen w-full max-w-2xl bg-gt-white shadow-2xl z-[1000] overflow-y-auto"
             style={{
               position: 'fixed',
               top: 0,
@@ -212,7 +212,7 @@ export function DatasetCreateModal({
           >
           {/* Header */}
           <div 
-            className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 z-10"
+            className="sticky top-0 bg-gt-white border-b border-gray-200 px-6 py-4 z-10"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between">

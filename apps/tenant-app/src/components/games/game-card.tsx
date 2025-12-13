@@ -138,7 +138,7 @@ export function GameCard({ game, userProgress, onStart, onViewProgress }: GameCa
                   "px-3 py-2 rounded-lg text-sm font-medium border transition-colors",
                   selectedDifficulty === difficulty
                     ? getDifficultyColor(difficulty)
-                    : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
+                    : "bg-gt-white border-gray-200 text-gray-700 hover:bg-gray-50"
                 )}
               >
                 {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}

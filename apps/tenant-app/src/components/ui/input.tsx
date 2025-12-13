@@ -33,6 +33,7 @@ const Input = forwardRef<HTMLInputElement, InputProps & Omit<React.InputHTMLAttr
         value={value}
         className={cn(
           'block w-full px-3 py-2 border border-gt-gray-300 rounded-lg shadow-sm placeholder-gt-gray-400',
+          'bg-gt-white text-gt-gray-900',
           'focus:outline-none focus:ring-2 focus:ring-gt-green focus:border-gt-green',
           'disabled:bg-gt-gray-50 disabled:text-gt-gray-500 disabled:cursor-not-allowed',
           'transition-colors duration-150',
@@ -111,6 +112,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, InputProps & Omit<React.Textare
           ref={ref}
           className={cn(
             'block w-full px-3 py-2 border border-gt-gray-300 rounded-lg shadow-sm placeholder-gt-gray-400',
+            'bg-gt-white text-gt-gray-900',
             'focus:outline-none focus:ring-2 focus:ring-gt-green focus:border-gt-green',
             'disabled:bg-gt-gray-50 disabled:text-gt-gray-500 disabled:cursor-not-allowed',
             'transition-colors duration-150',

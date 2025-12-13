@@ -206,7 +206,7 @@ export function ConversationHistorySidebar({
             placeholder="Search conversations..."
             value={searchQuery}
             onChange={(value) => setSearchQuery(value)}
-            className="pl-7 text-xs h-6 bg-white border-gt-gray-200"
+            className="pl-7 text-xs h-6 bg-gt-white border-gt-gray-200"
             clearable
           />
         </div>
@@ -277,7 +277,7 @@ export function ConversationHistorySidebar({
                             handleCancelRename();
                           }
                         }}
-                        className="text-xs h-6 flex-1 bg-white border border-gt-gray-300 text-gray-900 px-2 rounded focus:outline-none focus:ring-1 focus:ring-gt-green focus:border-gt-green"
+                        className="text-xs h-6 flex-1 bg-gt-white border border-gt-gray-300 text-gray-900 px-2 rounded focus:outline-none focus:ring-1 focus:ring-gt-green focus:border-gt-green"
                         autoFocus
                         onBlur={(e) => {
                           // Add a small delay to allow button clicks to be processed first
@@ -349,7 +349,7 @@ export function ConversationHistorySidebar({
                       <MoreHorizontal className="w-3 h-3" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-32 z-50 bg-white border border-gray-200 shadow-lg">
+                  <DropdownMenuContent align="end" className="w-32 z-50 bg-gt-white border border-gray-200 shadow-lg">
                     <DropdownMenuItem 
                       onClick={(e) => handleStartRename(conversation.id, conversation.title, e)}
                     >
