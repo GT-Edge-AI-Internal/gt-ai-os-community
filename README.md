@@ -2,25 +2,47 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-A self-hosted AI platform for teams and small businesses. Build and deploy custom AI agents with full data privacy and bring-your-own inference via NVIDIA NIM, Ollama, Groq, vLLM, and more.
+A self-hosted AI platform with data privacy for individuals and organizations.
+Build and deploy custom generative AI agents and bring-your-own local or external API inference via NVIDIA NIM, Ollama, Groq, vLLM, SGLang and more.
+
+GT AI OS is ideal for working with documents and files that need data privacy.
+Ensure that you are using local or external inference with sero data retention if you want your data to remain private.
 
 ## Supported Platforms
 
 | Platform | Host Architecture | Status |
 |----------|--------------|--------|
-| **Ubuntu Linux** 24.04 | x86_64 | Supported |
-| **NVIDIA DGX OS 7** (Optimized for Grace Blackwell Architecture) | ARM64 | Supported |
-| **macOS** (Apple Silicon M1+) | ARM64 | Supported |
+| **Ubuntu Linux** 24.04 | x86_64 |
+| **NVIDIA DGX OS 7** (Optimized for Grace Blackwell Architecture) | ARM64 |
+| **macOS** (Apple Silicon M1+) | ARM64 |
+
+Ubuntu VM's running on Proxmox with raw all functions GPU passthrough works.
+Windows is currently not supported.
+macOS x86_64 support is being considered although it will be quite slow.
+
+Note that the install scripts are unique for each OS and hardware architecture.
+
+Embedding model GPU acceleration:
+Only NVIDIA GPU's are supported for embeddings.
+Ensure that your NVIDIA GPU hardware is installed prior to starting the GT AI OS installation.
+NVIDIA drivers and dependencies and tools will be installed during the pre requisites part of the runbook.
+
+If you do not have an NVIDIA GPU in your target install host, then the CPU will be used for running the embedding model.
+CPU vs GPU accelerated embedding will exhibit slow file uploads when adding files to datasets
+
+At v2.0.34, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
+We are looking to fix this in a future release.
+Embedding model is installed by default.
 
 ---
 
 ## Features
 
-- **AI Agent Builder** - Create custom AI agents with your own instructions
+- **AI Agent Builder** - Create custom AI agents with your own system prompts, categorization, role base access and guardrails
 - **Local Model Support** - Run local AI models with Ollama (completely offline)
-- **Document Processing** - Upload documents and ask questions about them
-- **Team Management** - Create teams and control who can access what
-- **Usage Tracking** - See how your AI agents are being used
+- **Document Processing** - Upload documents into datasets and create agents to interact with them
+- **Create Teams** - For setting up a workgroup that has Team based access to agents and dataasets
+- **Observability** - See metrics dashboards including agents, models and dataset usage, chat logs and more
 
 ---
 
@@ -63,7 +85,7 @@ A self-hosted AI platform for teams and small businesses. Build and deploy custo
 │   Control Panel  │      Tenant App      │   Resource Cluster   │
 │    (Admin UI)    │       (User UI)      │(AI Inference Routing)│
 ├──────────────────┴──────────────────────┴──────────────────────┤
-│                          PostgreSQL                            │
+│                          Postgres DB                            │
 │                  Control DB  │  Tenant DB                      │
 └────────────────────────────────────────────────────────────────┘
 ```
