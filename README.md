@@ -68,9 +68,9 @@ Embedding model is installed by default.
 |-------|-------------|
 | [Installation](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Installation) | Detailed setup instructions |
 | [Updating](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Updating) | Keep GT AI OS up to date |
-| [NVIDIA NIM Setup](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/NVIDIA-NIM-Setup) | Enterprise GPU-accelerated inference |
+| [NVIDIA NIM Setup](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Control-Panel-Guide#adding-nvidia-nim-models) | Enterprise GPU-accelerated inference |
 | [Ollama Setup](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Ollama-Setup) | Set up local AI models |
-| [Groq Cloud Setup](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Groq-Cloud-Setup) | Ultra-fast cloud inference |
+| [Groq Cloud Setup](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Control-Panel-Guide#adding-groq-models) | Ultra-fast cloud inference |
 | [Cloudflare Tunnel](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Cloudflare-Tunnel-Setup) | Access GT AI OS from anywhere |
 | [Troubleshooting](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Troubleshooting) | Common issues and solutions |
 
