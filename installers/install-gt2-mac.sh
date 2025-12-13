@@ -470,9 +470,20 @@ create_desktop_shortcut() {
 
     print_info "Creating desktop shortcut..."
 
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    ICON_SOURCE="$SCRIPT_DIR/../apps/tenant-app/public/gt-small-logo.png"
+
     # Create an app bundle for GT 2.0
-    local app_dir="${HOME}/Desktop/GT-2.0.app/Contents/MacOS"
+    local app_base="${HOME}/Desktop/GT-2.0.app/Contents"
+    local app_dir="$app_base/MacOS"
+    local resources_dir="$app_base/Resources"
+
+    # Make necessary directories
     mkdir -p "$app_dir"
+    mkdir -p "$resources_dir"
+
+    # Copy the icon file to the Resources folder
+    cp "$ICON_SOURCE" "$resources_dir/gt-small-logo.png"
 
     cat > "${app_dir}/GT-2.0" << 'EOF'
 #!/bin/bash
@@ -480,6 +491,31 @@ open "http://localhost:3002"
 EOF
 
     chmod +x "${app_dir}/GT-2.0"
+
+    # Create the Info.plist file for the app bundle
+    cat > "$app_base/Info.plist" << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleName</key>
+    <string>GT 2.0</string>
+    <key>CFBundleExecutable</key>
+    <string>GT-2.0</string>
+    <key>CFBundleIdentifier</key>
+    <string>com.gtedgeai.GT-2.0</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleIconFile</key>
+    <string>gt-small-logo.png</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>© 2025 GT Edge AI. All rights reserved.</string>
+</dict>
+</plist>
+EOF
 
     print_success "Desktop shortcut created"
 }
