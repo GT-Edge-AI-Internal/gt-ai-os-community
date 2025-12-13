@@ -2,14 +2,21 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-A self-hosted AI platform with data privacy for individuals and organizations.
+GT AI OS software is intended to provide an easy to use web based generative AI with data privacy for individuals and organizations.
+You can install GT AI OS on Ubuntu, NVIDIA DGX OS 7 ARM and macOS systems.
+
+Minimum 4 CPU cores, 8GB RAM and 50GB SSD storage required for the application.
+Local models, conversation history and datasets will consume additional storage.
+
 Build and deploy custom generative AI agents and bring-your-own local or external API inference via NVIDIA NIM, Ollama, Groq, vLLM, SGLang and more.
 
 GT AI OS is ideal for working with documents and files that need data privacy.
-It is not multimodal and can't generate images, videos or audio.
+It is not multimodal and can't generate or process images, videos or audio.
 
 Ensure that you are using local or external inference with zero data retention features if you want your data to remain private.
 Note that all conversations in GT AI OS are logged locally in it's database and cannot be deleted by any user via the GUI.
+
+The only way to delete conversation logs is via write level access to the database.
 
 ## Supported Platforms
 
