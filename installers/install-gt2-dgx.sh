@@ -24,7 +24,6 @@ RELEASE_URL="https://api.github.com/repos/GT-Edge-AI-Internal/gt-ai-os-community
 UNATTENDED=false
 SKIP_DOCKER_CHECK=false
 USE_RELEASE=false
-INSTALL_OLLAMA=false
 BRANCH="main"
 RUNNING_FROM_REPO=false
 
@@ -68,7 +67,6 @@ OPTIONS:
     -b, --branch BRANCH     Git branch to clone (default: main)
     --skip-docker-check     Skip Docker installation check
     --use-release           Download latest release instead of cloning git repo
-    --install-ollama        Install and configure Ollama for local LLM inference
 
 REQUIREMENTS:
     - NVIDIA DGX OS or Ubuntu with NVIDIA drivers
@@ -82,8 +80,8 @@ EXAMPLES:
     # Interactive installation
     sudo $0
 
-    # Unattended installation with Ollama
-    sudo $0 --unattended --install-ollama
+    # Unattended installation
+    sudo $0 --unattended
 
     # Custom directory with pre-built release
     sudo $0 --dir /data/gt2 --use-release
@@ -120,10 +118,6 @@ parse_args() {
                 ;;
             --use-release)
                 USE_RELEASE=true
-                shift
-                ;;
-            --install-ollama)
-                INSTALL_OLLAMA=true
                 shift
                 ;;
             *)
@@ -296,71 +290,6 @@ check_disk_space() {
     fi
 
     print_success "Available disk space: ${available_gb}GB"
-}
-
-check_ollama() {
-    if [ "$INSTALL_OLLAMA" = false ] && [ "$UNATTENDED" = true ]; then
-        return
-    fi
-
-    print_info "Checking for Ollama..."
-
-    if command -v ollama &> /dev/null; then
-        print_success "Ollama found: $(ollama --version 2>&1 | head -1)"
-        return
-    fi
-
-    print_info "Ollama not found"
-
-    if [ "$INSTALL_OLLAMA" = false ] && [ "$UNATTENDED" = false ]; then
-        read -p "Install Ollama for local LLM inference? (y/n): " install_ollama_choice
-        if [ "$install_ollama_choice" = "y" ]; then
-            INSTALL_OLLAMA=true
-        fi
-    fi
-
-    if [ "$INSTALL_OLLAMA" = true ]; then
-        install_ollama_service
-    fi
-}
-
-install_ollama_service() {
-    print_info "Installing Ollama..."
-
-    # Download and install Ollama
-    curl -fsSL https://ollama.ai/install.sh | sh
-
-    # Configure Ollama to listen on all interfaces
-    mkdir -p /etc/systemd/system/ollama.service.d
-
-    cat > /etc/systemd/system/ollama.service.d/override.conf << 'EOF'
-[Service]
-Environment="OLLAMA_HOST=0.0.0.0:11434"
-Environment="OLLAMA_ORIGINS=*"
-Environment="CUDA_VISIBLE_DEVICES=0"
-Environment="OLLAMA_NUM_PARALLEL=4"
-Environment="OLLAMA_MAX_LOADED_MODELS=1"
-EOF
-
-    # Reload and start Ollama
-    systemctl daemon-reload
-    systemctl enable ollama
-    systemctl start ollama
-
-    # Wait for Ollama to be ready
-    sleep 5
-
-    print_success "Ollama installed and running"
-
-    # Pull a default model
-    if [ "$UNATTENDED" = false ]; then
-        read -p "Pull llama3.1:8b model now? (y/n): " pull_model
-        if [ "$pull_model" = "y" ]; then
-            print_info "Pulling llama3.1:8b (this may take several minutes)..."
-            ollama pull llama3.1:8b
-            print_success "Model downloaded"
-        fi
-    fi
 }
 
 cleanup_existing_containers() {
@@ -654,11 +583,6 @@ display_access_info() {
     echo -e "${BLUE}Access URLs:${NC}"
     echo -e "  Control Panel:  ${GREEN}http://localhost:3001${NC}"
     echo -e "  Tenant App:     ${GREEN}http://localhost:3002${NC}"
-
-    if [ "$INSTALL_OLLAMA" = true ]; then
-        echo -e "  Ollama API:     ${GREEN}http://localhost:11434${NC}"
-    fi
-
     echo ""
     echo -e "${BLUE}Default Credentials:${NC}"
     echo -e "  Username: ${GREEN}gtadmin@test.com${NC}"
@@ -670,16 +594,6 @@ display_access_info() {
     echo "  - Platform: NVIDIA DGX with Grace ARM architecture"
     echo "  - Embeddings: Optimized for 20-core ARM CPU"
     echo "  - Memory: High-memory configuration enabled"
-
-    if [ "$INSTALL_OLLAMA" = true ]; then
-        echo "  - Ollama: Running on port 11434 for local LLM inference"
-        echo ""
-        echo -e "${BLUE}Ollama Commands:${NC}"
-        echo "  Test Ollama:    ollama list"
-        echo "  Ollama status:  systemctl status ollama"
-        echo "  Pull models:    ollama pull <model-name>"
-    fi
-
     echo ""
     echo -e "${BLUE}Useful Commands:${NC}"
     echo "  View logs:      cd ${INSTALL_DIR} && docker compose logs -f"
@@ -848,7 +762,6 @@ main() {
     check_nvidia_container_runtime
     check_ram
     check_disk_space
-    check_ollama
 
     # Check for existing installation FIRST (prompts user before any cleanup)
     # Skip if we're running from within the repo we'd be checking
