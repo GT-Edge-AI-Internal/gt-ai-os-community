@@ -14,7 +14,7 @@ Open an issue on the repo if you have problems with the runbooks.
 Build and deploy custom generative AI agents and bring-your-own local or external API inference via NVIDIA NIM, Ollama, Groq, vLLM, SGLang and more.
 
 GT AI OS is ideal for working with documents and files that need data privacy.
-It is not multimodal and can't generate or process images, videos or audio as of version 2.0.34.
+It is not multimodal and can't generate or process images, videos or audio as of version 2.0.33.
 
 Ensure that you are using local or external inference with zero data retention features if you want your data to remain private.
 Note that all conversations in GT AI OS are logged locally in it's database and cannot be deleted by any user via the GUI.
@@ -42,7 +42,7 @@ Carefully choose the correct installation script for your host.
 Only NVIDIA GPU's are supported for embedding acceleration.
 Ensure that your NVIDIA GPU hardware is installed prior to starting the GT AI OS installation.
 
-At v2.0.34, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
+At v2.0.33, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
 We are looking to fix this in a future release.
 
 NVIDIA drivers and dependencies and tools will be installed during the pre requisites part of the runbook.
