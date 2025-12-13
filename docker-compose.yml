@@ -229,6 +229,7 @@ services:
       - ./scripts/postgresql/unified/00-create-tenant-database.sql:/docker-entrypoint-initdb.d/00-create-database.sql
       - ./scripts/postgresql/tenant-extensions.sql:/docker-entrypoint-initdb.d/00a-init-extensions.sql
       - ./scripts/postgresql/unified/01-create-tenant-roles.sql:/docker-entrypoint-initdb.d/00b-create-roles.sql
+      - ./scripts/postgresql/unified/00c-sync-passwords.sh:/docker-entrypoint-initdb.d/00c-sync-passwords.sh
       - ./scripts/postgresql/unified/04-init-tenant-schema-complete.sql:/docker-entrypoint-initdb.d/01-init-tenant-schema.sql
       - ./scripts/postgresql/unified/05-create-tenant-test-data.sql:/docker-entrypoint-initdb.d/04-create-test-data.sql
       - ./scripts/postgresql/setup-tenant-tablespaces.sql:/docker-entrypoint-initdb.d/02-setup-tablespaces.sql
