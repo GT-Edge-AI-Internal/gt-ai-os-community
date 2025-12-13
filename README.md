@@ -6,7 +6,10 @@ A self-hosted AI platform with data privacy for individuals and organizations.
 Build and deploy custom generative AI agents and bring-your-own local or external API inference via NVIDIA NIM, Ollama, Groq, vLLM, SGLang and more.
 
 GT AI OS is ideal for working with documents and files that need data privacy.
-Ensure that you are using local or external inference with sero data retention if you want your data to remain private.
+It is not multimodal and can't generate images, videos or audio.
+
+Ensure that you are using local or external inference with zero data retention features if you want your data to remain private.
+Note that all conversations in GT AI OS are logged locally in it's database and cannot be deleted by any user via the GUI.
 
 ## Supported Platforms
 
@@ -21,17 +24,20 @@ Windows is currently not supported.
 macOS x86_64 support is being considered although it will be quite slow.
 
 Note that the install scripts are unique for each OS and hardware architecture.
+Carefully choose the correct installation script for your host.
 
-Embedding model GPU acceleration:
-Only NVIDIA GPU's are supported for embeddings.
+## Embedding model GPU acceleration:
+Only NVIDIA GPU's are supported for embedding acceleration.
 Ensure that your NVIDIA GPU hardware is installed prior to starting the GT AI OS installation.
+
+At v2.0.34, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
+We are looking to fix this in a future release.
+
 NVIDIA drivers and dependencies and tools will be installed during the pre requisites part of the runbook.
 
 If you do not have an NVIDIA GPU in your target install host, then the CPU will be used for running the embedding model.
 CPU vs GPU accelerated embedding will exhibit slow file uploads when adding files to datasets
 
-At v2.0.34, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
-We are looking to fix this in a future release.
 Embedding model is installed by default.
 
 ---
