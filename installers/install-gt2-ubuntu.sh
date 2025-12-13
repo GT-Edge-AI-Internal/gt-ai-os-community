@@ -756,6 +756,13 @@ generate_security_tokens() {
             echo "TENANT_POSTGRES_PASSWORD=${tenant_pw}" >> "$env_file"
             print_success "Generated TENANT_POSTGRES_PASSWORD"
         fi
+
+        # Sync TENANT_USER_PASSWORD with TENANT_POSTGRES_PASSWORD (required for docker-compose)
+        if ! grep -q "^TENANT_USER_PASSWORD=" "$env_file" 2>/dev/null; then
+            local tenant_pass=$(grep "^TENANT_POSTGRES_PASSWORD=" "$env_file" | cut -d'=' -f2)
+            echo "TENANT_USER_PASSWORD=${tenant_pass}" >> "$env_file"
+            print_success "Generated TENANT_USER_PASSWORD (synced with TENANT_POSTGRES_PASSWORD)"
+        fi
     fi
 
     # Set ownership if sudo user is available
