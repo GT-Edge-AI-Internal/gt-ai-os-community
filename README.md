@@ -9,7 +9,7 @@ Minimum 4 CPU cores, 8GB RAM and 50GB SSD storage required for the application.
 Local models, conversation history and datasets will consume additional storage.
 
 The provided runbooks are intended to provide a smooth installation and include commands for dependencies.
-Open an issue on the repo is you have problems with the runbooks.
+Open an issue on the repo if you have problems with the runbooks.
 
 Build and deploy custom generative AI agents and bring-your-own local or external API inference via NVIDIA NIM, Ollama, Groq, vLLM, SGLang and more.
 
