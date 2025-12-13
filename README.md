@@ -23,8 +23,8 @@ The only way to delete conversation logs is via write level access to the databa
 
 ## Supported Platforms
 
-| Platform | Host Architecture | Status |
-|----------|--------------|--------|
+| Platform | Host Architecture |
+|----------|--------------|
 | **Ubuntu Linux** 24.04 | x86_64 |
 | **NVIDIA DGX OS 7** (Optimized for Grace Blackwell Architecture) | ARM64 |
 | **macOS** (Apple Silicon M1+) | ARM64 |
