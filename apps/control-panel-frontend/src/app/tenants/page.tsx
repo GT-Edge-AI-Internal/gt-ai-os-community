@@ -143,7 +143,7 @@ export default function TenantsPage() {
         domain: 'betatest',
         template: 'development',
         status: 'suspended',
-        max_users: 50,
+        max_users: 10,
         current_users: 12,
         namespace: 'gt-tenant-betatest',
         resource_count: 5,

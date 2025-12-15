@@ -155,7 +155,7 @@ export default function TenantsPage() {
             Manage your tenant configuration
           </p>
           <p className="text-sm text-amber-600 mt-1">
-            GT AI OS Community Edition: Limited to 50 users per tenant
+            GT AI OS Community Edition: Limited to 10 users per tenant
           </p>
         </div>
       </div>
@@ -210,7 +210,7 @@ export default function TenantsPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Users</p>
-                  <p className="text-2xl font-bold">{tenant.user_count} <span className="text-sm font-normal text-muted-foreground">/ 50</span></p>
+                  <p className="text-2xl font-bold">{tenant.user_count} <span className="text-sm font-normal text-muted-foreground">/ 10</span></p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Domain</p>

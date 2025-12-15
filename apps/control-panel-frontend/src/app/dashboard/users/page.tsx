@@ -329,7 +329,7 @@ export default function UsersPage() {
             Manage users and access permissions
           </p>
           <p className="text-sm text-amber-600 mt-1">
-            GT AI OS Community Edition: Limited to 50 users
+            GT AI OS Community Edition: Limited to 10 users
           </p>
         </div>
         <div className="flex space-x-2">

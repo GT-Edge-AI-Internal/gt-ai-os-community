@@ -23,7 +23,7 @@ router = APIRouter(prefix="/users", tags=["users"])
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # GT AI OS Community Edition - Hardcoded user limit
-MAX_USERS_COMMUNITY = 50
+MAX_USERS_COMMUNITY = 10
 
 
 def get_default_capabilities(user_type: str) -> List[Dict[str, Any]]:

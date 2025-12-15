@@ -82,7 +82,7 @@ Embedding model is installed by default.
 
 | Feature | Community (Free) | Enterprise (Paid) |
 |---------|-----------|------------|
-| **Users** | Up to 50 users | User licenses per seat |
+| **Users** | Up to 10 users | User licenses per seat |
 | **Support** | GitHub Issues | Dedicated human support |
 | **Billing & Reports** | Not included | Full financial tracking |
 | **Pro Agents** | Not included | Pre-built professional agents |
