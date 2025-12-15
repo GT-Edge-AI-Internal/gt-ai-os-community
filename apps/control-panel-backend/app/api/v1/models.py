@@ -30,14 +30,30 @@ def is_private_ip(url: str) -> bool:
     SSRF Protection: Prevents requests to private networks (RFC1918),
     localhost, loopback, and other reserved IP ranges.
     Also resolves hostnames to check if they point to private IPs.
+
+    Exception: Docker networking hostnames (host.docker.internal, ollama-host)
+    are allowed for Community Edition local deployments where services
+    need to reach the host machine from within containers.
     """
     import socket
+
+    # Docker networking hostnames allowed for local model access (Ollama, vLLM, etc.)
+    # These only work inside Docker containers and are explicitly configured in docker-compose
+    DOCKER_ALLOWED_HOSTS = {
+        'host.docker.internal',  # Docker's standard for reaching host (macOS/Windows/Linux)
+        'ollama-host',           # Custom alias for Ollama defined in docker-compose
+        'gateway.docker.internal',  # Docker gateway (sometimes used)
+    }
 
     try:
         parsed = urlparse(url)
         hostname = parsed.hostname
         if not hostname:
             return True
+
+        # Allow Docker networking hostnames for local model access
+        if hostname.lower() in DOCKER_ALLOWED_HOSTS:
+            return False
 
         # Check for localhost variants
         if hostname in ('localhost', '127.0.0.1', '::1', '0.0.0.0', '0', 'localhost.localdomain'):
