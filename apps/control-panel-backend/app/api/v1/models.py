@@ -12,7 +12,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel, Field
 import logging
 import re
-import ipaddress
 from urllib.parse import urlparse
 
 from app.core.database import get_db
@@ -23,65 +22,10 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/models", tags=["Model Management"])
 
 
-def is_private_ip(url: str) -> bool:
-    """
-    Check if URL points to a private/internal IP address.
-
-    SSRF Protection: Prevents requests to private networks (RFC1918),
-    localhost, loopback, and other reserved IP ranges.
-    Also resolves hostnames to check if they point to private IPs.
-
-    Exception: Docker networking hostnames (host.docker.internal, ollama-host)
-    are allowed for Community Edition local deployments where services
-    need to reach the host machine from within containers.
-    """
-    import socket
-
-    # Docker networking hostnames allowed for local model access (Ollama, vLLM, etc.)
-    # These only work inside Docker containers and are explicitly configured in docker-compose
-    DOCKER_ALLOWED_HOSTS = {
-        'host.docker.internal',  # Docker's standard for reaching host (macOS/Windows/Linux)
-        'ollama-host',           # Custom alias for Ollama defined in docker-compose
-        'gateway.docker.internal',  # Docker gateway (sometimes used)
-    }
-
-    try:
-        parsed = urlparse(url)
-        hostname = parsed.hostname
-        if not hostname:
-            return True
-
-        # Allow Docker networking hostnames for local model access
-        if hostname.lower() in DOCKER_ALLOWED_HOSTS:
-            return False
-
-        # Check for localhost variants
-        if hostname in ('localhost', '127.0.0.1', '::1', '0.0.0.0', '0', 'localhost.localdomain'):
-            return True
-
-        # Check RFC1918 and other private ranges
-        try:
-            ip = ipaddress.ip_address(hostname)
-            return ip.is_private or ip.is_loopback or ip.is_reserved or ip.is_link_local
-        except ValueError:
-            # It's a hostname, not an IP - resolve it and check
-            # This prevents DNS rebinding attacks
-            try:
-                resolved_ips = socket.getaddrinfo(hostname, None, socket.AF_UNSPEC, socket.SOCK_STREAM)
-                for family, _, _, _, sockaddr in resolved_ips:
-                    ip_str = sockaddr[0]
-                    try:
-                        ip = ipaddress.ip_address(ip_str)
-                        if ip.is_private or ip.is_loopback or ip.is_reserved or ip.is_link_local:
-                            return True
-                    except ValueError:
-                        continue
-                return False
-            except socket.gaierror:
-                # DNS resolution failed - block to be safe
-                return True
-    except Exception:
-        return True
+# NOTE: SSRF protection removed for Community Edition
+# Community Edition runs locally, so private IP access is legitimate
+# (e.g., Ollama on localhost:11434, vLLM on 192.168.x.x, etc.)
+# Enterprise Edition should re-enable SSRF protection for multi-tenant deployments
 
 
 
@@ -302,15 +246,6 @@ async def test_endpoint_url(
                 error_type="invalid_format"
             )
 
-        # SSRF Protection: Block requests to private/internal IP addresses
-        if is_private_ip(request.endpoint):
-            return HealthCheckResponse(
-                healthy=False,
-                status="unhealthy",
-                error="Access to private/internal IP addresses is not allowed",
-                error_type="invalid_endpoint"
-            )
-
         # Determine test URL based on provider
         base_endpoint = request.endpoint.rstrip('/')
         if request.provider and request.provider in PROVIDER_HEALTH_ENDPOINTS:
@@ -321,7 +256,7 @@ async def test_endpoint_url(
 
         async with httpx.AsyncClient(timeout=10.0, follow_redirects=False) as client:
             try:
-                # codeql[py/full-ssrf] URL validated by is_private_ip() check at line 290
+                # Community Edition: SSRF check removed - private IPs allowed for local deployments
                 response = await client.get(test_url)
                 latency_ms = (time.time() - start_time) * 1000
 
