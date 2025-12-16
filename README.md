@@ -21,7 +21,7 @@ Note that all conversations in GT AI OS are logged locally in it's database and 
 
 The only way to delete conversation logs is via write level access to the database.
 
-| https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki | GT AIOS Wiki |
+[GT AI OS Wiki](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki)
 
 ## Supported Platforms
 
