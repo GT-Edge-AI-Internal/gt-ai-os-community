@@ -305,6 +305,15 @@ check_migration_027() {
     [ "$missing" != "0" ] && [ -n "$missing" ]
 }
 
+check_migration_028() {
+    # Returns true (needs migration) if any model has wrong max_tokens
+    local wrong_value=$(docker exec gentwo-controlpanel-postgres psql -U postgres -d gt2_admin -tAc \
+        "SELECT COUNT(*) FROM model_configs WHERE
+         (model_id = 'llama-3.1-8b-instant' AND max_tokens != 32000) OR
+         (model_id = 'meta-llama/llama-guard-4-12b' AND max_tokens != 1024);" 2>/dev/null || echo "0")
+    [ "$wrong_value" != "0" ] && [ -n "$wrong_value" ]
+}
+
 # Tenant migration checks
 check_migration_T001() {
     local exists=$(docker exec gentwo-tenant-postgres-primary psql -U postgres -d gt2_tenants -tAc \
@@ -410,6 +419,9 @@ run_admin_migrations() {
     # Migration 027: Ensure NVIDIA models are assigned to all tenants
     # This fixes partial 021 migrations where models were added but not assigned
     run_admin_migration "027" "scripts/migrations/027_assign_nvidia_models_to_tenants.sql" "check_migration_027" || return 1
+
+    # Migration 028: Fix Groq model max_tokens (llama-3.1-8b-instant and llama-guard)
+    run_admin_migration "028" "scripts/migrations/028_fix_groq_max_tokens.sql" "check_migration_028" || return 1
 
     log_success "All admin migrations complete"
     return 0

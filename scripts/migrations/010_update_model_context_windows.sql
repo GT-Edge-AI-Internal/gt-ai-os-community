@@ -11,7 +11,7 @@ BEGIN
     -- LLaMA 3.1 8B Instant
     UPDATE model_configs
     SET context_window = 131072,
-        max_tokens = 131072,
+        max_tokens = 32000,
         updated_at = NOW()
     WHERE model_id = 'llama-3.1-8b-instant'
     AND (context_window IS NULL OR max_tokens IS NULL);

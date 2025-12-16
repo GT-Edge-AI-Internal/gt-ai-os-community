@@ -94,7 +94,7 @@ INSERT INTO public.model_configs (
 -- Groq Llama 3.1 8B Instant (fast, cheap)
 ('llama-3.1-8b-instant', 'Groq Llama 3.1 8b Instant', '1.0', 'groq', 'llm',
  'https://api.groq.com/openai/v1/chat/completions',
- 131072, 131072,
+ 131072, 32000,
  '{"reasoning": false, "function_calling": false, "vision": false, "audio": false, "streaming": false, "multilingual": false}'::json,
  0.05, 0.08, true, 'unknown', 0, 0, 100, 0,
  '{"global_access": true}'::json, '[]'::json,
@@ -148,7 +148,7 @@ INSERT INTO public.model_configs (
 -- Groq Llama Guard 4 12B (safety/moderation model)
 ('meta-llama/llama-guard-4-12b', 'Groq Llama Guard 4 12B', '1.0', 'groq', 'llm',
  'https://api.groq.com/openai/v1/chat/completions',
- 131072, 8192,
+ 131072, 1024,
  '{"reasoning": false, "function_calling": false, "vision": false, "audio": false, "streaming": false, "multilingual": false}'::json,
  0.20, 0.20, true, 'unknown', 0, 0, 100, 0,
  '{"global_access": true}'::json, '[]'::json,
