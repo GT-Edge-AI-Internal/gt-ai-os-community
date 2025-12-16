@@ -17,9 +17,6 @@ GT AI OS is ideal for working with documents and files that need data privacy.
 It is not multimodal and can't generate or process images, videos or audio as of version 2.0.33.
 
 Ensure that you are using local or external inference with zero data retention features if you want your data to remain private.
-Note that all conversations in GT AI OS are logged locally in it's database and cannot be deleted by any user via the GUI.
-
-The only way to delete conversation logs is via write level access to the database.
 
 [GT AI OS Wiki](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki)
 
