@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-GT AI OS software is intended to provide easy to use "daily driver" web based generative AI with data privacy for individuals and organizations.
+GT AI OS software is intended to provide easy to use "daily driver" web based generative AI for processing documents & files with data privacy for individuals and organizations.
 You can install GT AI OS on Ubuntu x86, NVIDIA DGX OS 7 ARM and Apple Silicon macOS hosts using Docker.
 
 Minimum 4 CPU cores, 8GB RAM and 50GB SSD storage required for the application.
