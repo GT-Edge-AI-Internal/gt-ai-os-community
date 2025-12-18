@@ -32,7 +32,6 @@ Ubuntu VM's running on Proxmox with raw all functions GPU passthrough works.
 Windows is currently not supported.
 
 macoS Install scripts are designed for Apple Silicon only.
-macOS x86_64 support is being considered although it will be quite slow for embeddings.
 
 Note that the install scripts are unique for each OS and hardware architecture.
 Carefully choose the correct installation script for your host.
