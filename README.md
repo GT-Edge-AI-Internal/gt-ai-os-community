@@ -5,8 +5,10 @@
 GT AI OS software is intended to provide easy to use "daily driver" web based generative AI for processing documents & files with data privacy for individuals and organizations.
 You can install GT AI OS on Ubuntu x86, NVIDIA DGX OS 7 ARM and Apple Silicon macOS hosts using Docker.
 
-Minimum 4 CPU cores, 8GB RAM and 50GB SSD storage required for the application.
-Local models, conversation history and datasets will consume additional storage.
+Minimum 4 CPU cores, 16GB RAM and 50GB SSD storage required for the application.
+GT AI OS will usually use about 7GB RAM when fully installed.
+
+Local models, conversation history and datasets will consume additional SSD or disk storage.
 
 The provided runbooks are intended to provide a smooth installation and include commands for dependencies.
 Open an issue on the repo if you have problems with the runbooks.
