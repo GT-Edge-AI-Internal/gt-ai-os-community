@@ -39,7 +39,7 @@ Carefully choose the correct installation script for your host.
 ## Embedding model GPU acceleration:
 NVIDIA GPU's and Apple Silicon will significantly accelerate embedding acceleration (uploading files and documents for Retrieval Augemented Generation "RAG").
 Ensure that your NVIDIA GPU hardware is installed prior to starting the GT AI OS installation.
-There are no special drivers or dependencies for using Apple Silicon.
+There are no aditional drivers or dependencies for using Apple Silicon to accelerate the embedding model that is part of the standard installation.
 
 At v2.0.33, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
 We are looking to fix this in a future release.
