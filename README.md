@@ -111,11 +111,9 @@ Embedding model is installed by default.
 
 ---
 
-## Contributing
+## Bug and issue reporting:
 
 Found a bug? Have an idea? Open an issue: https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/issues
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 
