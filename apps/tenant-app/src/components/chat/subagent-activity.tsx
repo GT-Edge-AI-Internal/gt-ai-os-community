@@ -209,7 +209,7 @@ const SubagentActivity: React.FC<SubagentActivityProps> = ({
                               animate={{ scale: 1, opacity: 1 }}
                               transition={{ duration: 0.2 }}
                               className={`
-                                bg-white border rounded-lg p-3 cursor-pointer transition-all
+                                bg-gt-white border rounded-lg p-3 cursor-pointer transition-all
                                 ${selectedSubagent === subagent.id ? 'border-indigo-500 shadow-md' : 'border-gray-200 hover:border-gray-300'}
                               `}
                               onClick={() => {

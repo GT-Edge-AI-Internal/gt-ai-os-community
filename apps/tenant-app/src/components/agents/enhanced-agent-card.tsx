@@ -188,7 +188,7 @@ export function EnhancedAgentCard({
       <motion.div
         variants={staggerItem}
         className={cn(
-          "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-gt-green transition-all duration-200",
+          "bg-gt-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:border-gt-green transition-all duration-200",
           className
         )}
         onMouseEnter={() => setIsHovered(true)}
@@ -354,10 +354,10 @@ export function EnhancedAgentCard({
                       <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-gt-green rounded-full flex items-center justify-center">
                         <div className={cn(
                           'w-2 h-2 rounded-sm',
-                          agent.personalityType === 'geometric' && 'bg-white rotate-45',
-                          agent.personalityType === 'organic' && 'bg-white rounded-full',
-                          agent.personalityType === 'minimal' && 'bg-white',
-                          agent.personalityType === 'technical' && 'bg-white'
+                          agent.personalityType === 'geometric' && 'bg-gt-white rotate-45',
+                          agent.personalityType === 'organic' && 'bg-gt-white rounded-full',
+                          agent.personalityType === 'minimal' && 'bg-gt-white',
+                          agent.personalityType === 'technical' && 'bg-gt-white'
                         )} />
                       </div>
                     </TooltipTrigger>
@@ -402,7 +402,7 @@ export function EnhancedAgentCard({
                     <MoreVertical className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="z-[100] bg-white">
+                <DropdownMenuContent align="end" className="z-[100] bg-gt-white">
                   {isOwner && (
                     <>
                       <DropdownMenuItem onClick={() => onEdit?.(agent)}>

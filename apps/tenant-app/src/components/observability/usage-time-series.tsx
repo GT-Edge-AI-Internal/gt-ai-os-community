@@ -48,7 +48,7 @@ export function UsageTimeSeries({ filters }: { filters: ObservabilityFilters }) 
 
   if (loading) {
     return (
-      <div className="bg-white border border-gt-gray-200 rounded-lg p-6">
+      <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6">
         <div className="h-8 bg-gt-gray-200 rounded w-48 mb-6 animate-pulse"></div>
         <div className="h-80 bg-gt-gray-100 rounded animate-pulse"></div>
       </div>
@@ -66,7 +66,7 @@ export function UsageTimeSeries({ filters }: { filters: ObservabilityFilters }) 
 
   if (!data || data.length === 0) {
     return (
-      <div className="bg-white border border-gt-gray-200 rounded-lg p-6 text-center">
+      <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6 text-center">
         <p className="text-gt-gray-600">No activity data available for this time period</p>
       </div>
     );
@@ -109,7 +109,7 @@ export function UsageTimeSeries({ filters }: { filters: ObservabilityFilters }) 
   const config = getMetricConfig();
 
   return (
-    <div className="bg-white border border-gt-gray-200 rounded-lg p-6">
+    <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold text-gt-gray-900">Usage Over Time</h2>
@@ -120,7 +120,7 @@ export function UsageTimeSeries({ filters }: { filters: ObservabilityFilters }) 
             onClick={() => setActiveMetric('conversations')}
             className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
               activeMetric === 'conversations'
-                ? 'bg-white text-gt-gray-900 shadow-sm'
+                ? 'bg-gt-white text-gt-gray-900 shadow-sm'
                 : 'text-gt-gray-600 hover:text-gt-gray-900'
             }`}
           >
@@ -130,7 +130,7 @@ export function UsageTimeSeries({ filters }: { filters: ObservabilityFilters }) 
             onClick={() => setActiveMetric('messages')}
             className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
               activeMetric === 'messages'
-                ? 'bg-white text-gt-gray-900 shadow-sm'
+                ? 'bg-gt-white text-gt-gray-900 shadow-sm'
                 : 'text-gt-gray-600 hover:text-gt-gray-900'
             }`}
           >
@@ -140,7 +140,7 @@ export function UsageTimeSeries({ filters }: { filters: ObservabilityFilters }) 
             onClick={() => setActiveMetric('tokens')}
             className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
               activeMetric === 'tokens'
-                ? 'bg-white text-gt-gray-900 shadow-sm'
+                ? 'bg-gt-white text-gt-gray-900 shadow-sm'
                 : 'text-gt-gray-600 hover:text-gt-gray-900'
             }`}
           >

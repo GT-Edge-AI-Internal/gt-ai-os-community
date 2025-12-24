@@ -61,7 +61,7 @@ export function UsageBreakdowns({ filters }: { filters: ObservabilityFilters }) 
     return (
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-white border border-gt-gray-200 rounded-lg p-6 animate-pulse">
+          <div key={i} className="bg-gt-white border border-gt-gray-200 rounded-lg p-6 animate-pulse">
             <div className="h-6 bg-gt-gray-200 rounded w-32 mb-4"></div>
             <div className="h-64 bg-gt-gray-100 rounded"></div>
           </div>
@@ -120,7 +120,7 @@ interface BreakdownCardProps {
 function BreakdownCard({ title, icon, data, valueLabel }: BreakdownCardProps) {
   if (!data || data.length === 0) {
     return (
-      <div className="bg-white border border-gt-gray-200 rounded-lg p-6">
+      <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6">
         <div className="flex items-center gap-2 mb-4">
           {icon}
           <h3 className="text-lg font-semibold text-gt-gray-900">{title}</h3>
@@ -131,7 +131,7 @@ function BreakdownCard({ title, icon, data, valueLabel }: BreakdownCardProps) {
   }
 
   return (
-    <div className="bg-white border border-gt-gray-200 rounded-lg p-6">
+    <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         {icon}

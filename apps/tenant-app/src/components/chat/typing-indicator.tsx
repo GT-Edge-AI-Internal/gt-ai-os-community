@@ -264,7 +264,7 @@ export function StreamingIndicator({
               <div className="text-white whitespace-pre-wrap">
                 {currentText}
                 {showCursor && (
-                  <span className="inline-block w-2 h-4 bg-white ml-1 animate-pulse"></span>
+                  <span className="inline-block w-2 h-4 bg-gt-white ml-1 animate-pulse"></span>
                 )}
               </div>
             </div>

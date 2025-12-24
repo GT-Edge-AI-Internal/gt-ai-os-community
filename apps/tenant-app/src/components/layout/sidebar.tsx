@@ -20,7 +20,9 @@ import {
   Clock,
   Filter,
   BarChart3,
-  Users
+  Users,
+  Moon,
+  Sun
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -34,6 +36,7 @@ import { useChatStore } from '@/stores/chat-store';
 import { getInitials } from '@/lib/utils';
 import { getAuthToken, getTenantInfo } from '@/services/auth';
 import { getUserRole } from '@/lib/permissions';
+import { useTheme } from '@/providers/theme-provider';
 
 interface SidebarProps {
   user: User | null;
@@ -45,6 +48,7 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
   const pathname = usePathname();
   const { logout } = useAuthStore();
   const { unreadCounts } = useChatStore();
+  const { theme, toggleTheme } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [tenantInfo, setTenantInfo] = useState<{name: string; domain: string} | null>(null);
   const [availableAgents, setAvailableAgents] = useState<{id: string, name: string}[]>([]);
@@ -263,13 +267,17 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
         isCollapsed ? "w-16 opacity-100 translate-x-0 delay-300" : "w-16 opacity-0 translate-x-0 pointer-events-none delay-0"
       )}>
         {/* Logo with Expand Arrow */}
-        <div 
+        <div
           className={cn(
             "cursor-pointer p-2 rounded-xl transition-all duration-200 backdrop-blur-md border",
-            isTabHovered 
-              ? "bg-white/70 border-white/60 shadow-md" 
-              : "bg-white/30 border-white/40"
+            isTabHovered
+              ? "shadow-md"
+              : ""
           )}
+          style={{
+            backgroundColor: isTabHovered ? 'rgba(255, 255, 255, 0.7)' : 'var(--gt-gray-100)',
+            borderColor: isTabHovered ? 'rgba(255, 255, 255, 0.6)' : 'var(--gt-gray-200)'
+          }}
           onMouseEnter={() => setIsTabHovered(true)}
           onMouseLeave={() => setIsTabHovered(false)}
           onClick={handleCollapseToggle}
@@ -294,9 +302,9 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
                 isTabHovered ? "opacity-100" : "opacity-0"
               )}>
                 <ChevronRight className={cn(
-                  "w-4 h-4 text-black transition-all duration-300",
+                  "w-4 h-4 transition-all duration-300",
                   showPulse && "text-gt-green"
-                )} />
+                )} style={{ color: showPulse ? 'var(--gt-green)' : 'var(--gt-gray-900)' }} />
               </div>
             </div>
           </div>
@@ -307,45 +315,42 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
               href="/agents"
               className={cn(
                 "p-2 rounded-xl transition-all duration-200 backdrop-blur-md border",
-                pathname === '/agents'
-                  ? "bg-gt-green/20 border-gt-green/40 shadow-md"
-                  : "bg-white/30 border-white/40 hover:bg-white/50"
+                pathname === '/agents' && "shadow-md"
               )}
+              style={{
+                backgroundColor: pathname === '/agents' ? 'rgba(0, 208, 132, 0.2)' : 'var(--gt-gray-100)',
+                borderColor: pathname === '/agents' ? 'rgba(0, 208, 132, 0.4)' : 'var(--gt-gray-200)'
+              }}
             >
-              <Bot className={cn(
-                "w-5 h-5 transition-colors",
-                pathname === '/agents' ? "text-gt-green" : "text-gt-gray-700"
-              )} />
+              <Bot className="w-5 h-5 transition-colors" style={{ color: pathname === '/agents' ? 'var(--gt-green)' : 'var(--gt-gray-700)' }} />
             </Link>
 
             <Link
               href="/datasets"
               className={cn(
                 "p-2 rounded-xl transition-all duration-200 backdrop-blur-md border",
-                pathname === '/datasets'
-                  ? "bg-gt-green/20 border-gt-green/40 shadow-md"
-                  : "bg-white/30 border-white/40 hover:bg-white/50"
+                pathname === '/datasets' && "shadow-md"
               )}
+              style={{
+                backgroundColor: pathname === '/datasets' ? 'rgba(0, 208, 132, 0.2)' : 'var(--gt-gray-100)',
+                borderColor: pathname === '/datasets' ? 'rgba(0, 208, 132, 0.4)' : 'var(--gt-gray-200)'
+              }}
             >
-              <Database className={cn(
-                "w-5 h-5 transition-colors",
-                pathname === '/datasets' ? "text-gt-green" : "text-gt-gray-700"
-              )} />
+              <Database className="w-5 h-5 transition-colors" style={{ color: pathname === '/datasets' ? 'var(--gt-green)' : 'var(--gt-gray-700)' }} />
             </Link>
 
             <Link
               href="/teams"
               className={cn(
                 "p-2 rounded-xl transition-all duration-200 backdrop-blur-md border",
-                pathname === '/teams'
-                  ? "bg-gt-green/20 border-gt-green/40 shadow-md"
-                  : "bg-white/30 border-white/40 hover:bg-white/50"
+                pathname === '/teams' && "shadow-md"
               )}
+              style={{
+                backgroundColor: pathname === '/teams' ? 'rgba(0, 208, 132, 0.2)' : 'var(--gt-gray-100)',
+                borderColor: pathname === '/teams' ? 'rgba(0, 208, 132, 0.4)' : 'var(--gt-gray-200)'
+              }}
             >
-              <Users className={cn(
-                "w-5 h-5 transition-colors",
-                pathname === '/teams' ? "text-gt-green" : "text-gt-gray-700"
-              )} />
+              <Users className="w-5 h-5 transition-colors" style={{ color: pathname === '/teams' ? 'var(--gt-green)' : 'var(--gt-gray-700)' }} />
             </Link>
 
             {/* Observability - All Users */}
@@ -353,15 +358,14 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
               href="/observability"
               className={cn(
                 "p-2 rounded-xl transition-all duration-200 backdrop-blur-md border",
-                pathname === '/observability'
-                  ? "bg-gt-green/20 border-gt-green/40 shadow-md"
-                  : "bg-white/30 border-white/40 hover:bg-white/50"
+                pathname === '/observability' && "shadow-md"
               )}
+              style={{
+                backgroundColor: pathname === '/observability' ? 'rgba(0, 208, 132, 0.2)' : 'var(--gt-gray-100)',
+                borderColor: pathname === '/observability' ? 'rgba(0, 208, 132, 0.4)' : 'var(--gt-gray-200)'
+              }}
             >
-              <BarChart3 className={cn(
-                "w-5 h-5 transition-colors",
-                pathname === '/observability' ? "text-gt-green" : "text-gt-gray-700"
-              )} />
+              <BarChart3 className="w-5 h-5 transition-colors" style={{ color: pathname === '/observability' ? 'var(--gt-green)' : 'var(--gt-gray-700)' }} />
             </Link>
           </div>
 
@@ -384,12 +388,13 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
                     setUserManuallyExpanded(true);
                   }
                 }}
-                className={cn(
-                  "p-2 rounded-xl transition-all duration-200 backdrop-blur-md border",
-                  "bg-white/30 border-white/40 hover:bg-white/50 cursor-pointer"
-                )}
+                className="p-2 rounded-xl transition-all duration-200 backdrop-blur-md border cursor-pointer"
+                style={{
+                  backgroundColor: 'var(--gt-gray-100)',
+                  borderColor: 'var(--gt-gray-200)'
+                }}
               >
-                <History className="w-5 h-5 text-gt-gray-700" />
+                <History className="w-5 h-5" style={{ color: 'var(--gt-gray-700)' }} />
               </button>
             </div>
           </div>
@@ -399,7 +404,11 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
           <div className="mt-4">
             <div
               onClick={() => setShowUserMenu(!showUserMenu)}
-              className="p-2 rounded-xl transition-all duration-200 backdrop-blur-md border bg-white/30 border-white/40 hover:bg-white/50 relative cursor-pointer"
+              className="p-2 rounded-xl transition-all duration-200 backdrop-blur-md border relative cursor-pointer"
+              style={{
+                backgroundColor: 'var(--gt-gray-100)',
+                borderColor: 'var(--gt-gray-200)'
+              }}
             >
               <div className="w-6 h-6 bg-gt-green rounded-full flex items-center justify-center text-white text-xs font-medium">
                 {user ? getInitials(user.full_name || user.email || '') : '?'}
@@ -407,9 +416,31 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
 
               {/* User Menu Dropdown for collapsed state */}
               {showUserMenu && (
-                <div className="absolute left-full bottom-0 ml-2 bg-white rounded-lg shadow-lg border border-gt-gray-200 py-1 z-50 min-w-48">
+                <div className="absolute left-full bottom-0 ml-2 rounded-lg shadow-lg border py-1 z-50 min-w-48" style={{ backgroundColor: 'var(--gt-white)', borderColor: 'var(--gt-gray-200)' }}>
                   <button
-                    className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center space-x-3"
+                    className="w-full px-4 py-2 text-left text-sm flex items-center space-x-3"
+                    style={{ color: 'var(--gt-gray-700)' }}
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--gt-gray-50)'}
+                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                    onClick={toggleTheme}
+                  >
+                    {theme === 'dark' ? (
+                      <>
+                        <Sun className="w-4 h-4" />
+                        <span>Light mode</span>
+                      </>
+                    ) : (
+                      <>
+                        <Moon className="w-4 h-4" />
+                        <span>Dark mode</span>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    className="w-full px-4 py-2 text-left text-sm flex items-center space-x-3"
+                    style={{ color: '#dc2626' }}
+                    onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => e.currentTarget.style.backgroundColor = '#fef2f2'}
+                    onMouseOut={(e: React.MouseEvent<HTMLButtonElement>) => e.currentTarget.style.backgroundColor = 'transparent'}
                     onClick={() => {
                       logout();
                       setShowUserMenu(false);
@@ -425,10 +456,15 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
         </div>
 
       {/* Full Sidebar - Same interface for all screen sizes */}
-      <div className={cn(
-        'absolute top-0 left-0 bottom-0 w-80 z-40 bg-gradient-to-r from-white from-90% to-gt-gray-100 transform transition-all duration-500 ease-out flex flex-col overflow-hidden',
-        isCollapsed ? 'opacity-0 -translate-x-full pointer-events-none delay-0' : 'opacity-100 translate-x-0 delay-200'
-      )}>
+      <div
+        className={cn(
+          'absolute top-0 left-0 bottom-0 w-80 z-40 transform transition-all duration-500 ease-out flex flex-col overflow-hidden',
+          isCollapsed ? 'opacity-0 -translate-x-full pointer-events-none delay-0' : 'opacity-100 translate-x-0 delay-200'
+        )}
+        style={{
+          background: `linear-gradient(to right, var(--gt-white) 90%, var(--gt-gray-100))`
+        }}
+      >
         {/* Header - Unified interface for all screen sizes */}
         <div className="flex items-center p-4 relative">
           <div className="flex items-center space-x-3">
@@ -459,8 +495,8 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
         {/* Tenant Name - Above Navigation */}
         {tenantInfo && (
           <div className="px-4 pb-2 flex justify-center">
-            <div className="px-4 py-2 rounded-lg bg-gt-gray-100 border border-gt-gray-200">
-              <p className="text-base font-semibold text-gt-gray-800 text-center break-words max-w-full">
+            <div className="px-4 py-2 rounded-lg border" style={{ backgroundColor: 'var(--gt-gray-100)', borderColor: 'var(--gt-gray-200)' }}>
+              <p className="text-base font-semibold text-center break-words max-w-full" style={{ color: 'var(--gt-gray-800)' }}>
                 {tenantInfo.name}
               </p>
             </div>
@@ -564,16 +600,16 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
 
         {/* Conversation History (All pages) */}
         <div className="flex-1 px-4 pb-4 min-h-0">
-          <div className={cn(
-            "h-full max-h-full p-3 rounded-lg transition-colors duration-200 border border-gt-gray-200",
-            "bg-gt-gray-50 flex flex-col overflow-hidden"
-          )}>
+          <div
+            className="h-full max-h-full p-3 rounded-lg transition-colors duration-200 border flex flex-col overflow-hidden"
+            style={{ backgroundColor: 'var(--gt-gray-50)', borderColor: 'var(--gt-gray-200)' }}
+          >
             {/* Navigation Header */}
             <div className="flex items-center justify-between mb-3 flex-shrink-0">
               <div className="flex items-center space-x-2">
-                <History className="w-4 h-4 text-gt-gray-700" />
-                <span className="text-sm font-medium text-gt-gray-800">Conversations</span>
-                <span className="text-xs text-gt-gray-500 ml-2" id="conversation-count">
+                <History className="w-4 h-4" style={{ color: 'var(--gt-gray-700)' }} />
+                <span className="text-sm font-medium" style={{ color: 'var(--gt-gray-800)' }}>Conversations</span>
+                <span className="text-xs ml-2" style={{ color: 'var(--gt-gray-500)' }} id="conversation-count">
                   {/* Count will be updated by conversation component */}
                 </span>
                 {/* Green pulse indicator when there are unread messages */}
@@ -599,7 +635,7 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
                       <Clock className="w-3 h-3" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-32 z-50 bg-white border border-gray-200 shadow-lg">
+                  <DropdownMenuContent align="end" className="w-32 z-50 bg-gt-white border border-gray-200 shadow-lg">
                     <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('filterTime', { detail: 'all' }))}>
                       All Time
                     </DropdownMenuItem>
@@ -627,7 +663,7 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
                       <Filter className="w-3 h-3" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-40 z-50 bg-white border border-gray-200 shadow-lg max-h-[300px] overflow-y-auto">
+                  <DropdownMenuContent align="end" className="w-40 z-50 bg-gt-white border border-gray-200 shadow-lg max-h-[300px] overflow-y-auto">
                     <DropdownMenuItem onClick={() => window.dispatchEvent(new CustomEvent('filterAgent', { detail: 'all' }))}>
                       All Agents
                     </DropdownMenuItem>
@@ -669,16 +705,19 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
             <div className="relative">
               <div
                 onClick={() => setShowUserMenu(!showUserMenu)}
-                className="w-full flex items-center space-x-3 px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer bg-gt-gray-100 border border-gt-gray-200 hover:bg-gt-gray-200"
+                className="w-full flex items-center space-x-3 px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer border"
+                style={{ backgroundColor: 'var(--gt-gray-100)', borderColor: 'var(--gt-gray-200)' }}
+                onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--gt-gray-200)'}
+                onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--gt-gray-100)'}
               >
                   <div className="w-8 h-8 bg-gt-green rounded-full flex items-center justify-center text-white text-sm font-medium">
                     {user ? getInitials(user.full_name || user.email || '') : '?'}
                   </div>
                   <div className="flex-1 text-left">
-                    <p className="font-medium">
+                    <p className="font-medium" style={{ color: 'var(--gt-gray-900)' }}>
                       {user?.full_name || 'Unknown User'}
                     </p>
-                    <p className="text-xs capitalize text-gt-gray-600">
+                    <p className="text-xs capitalize" style={{ color: 'var(--gt-gray-600)' }}>
                       {user?.user_type?.replace('_', ' ') || 'User'}
                     </p>
                   </div>
@@ -686,9 +725,31 @@ export function Sidebar({ user, onCollapseChange, onSelectConversation }: Sideba
 
                 {/* User Dropdown Menu */}
               {showUserMenu && (
-                <div className="absolute bottom-full left-0 right-0 mb-2 bg-white rounded-lg shadow-lg border border-gt-gray-200 py-1 z-50">
+                <div className="absolute bottom-full left-0 right-0 mb-2 rounded-lg shadow-lg border py-1 z-50" style={{ backgroundColor: 'var(--gt-white)', borderColor: 'var(--gt-gray-200)' }}>
                   <button
-                    className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 flex items-center space-x-3"
+                    className="w-full px-4 py-2 text-left text-sm flex items-center space-x-3"
+                    style={{ color: 'var(--gt-gray-700)' }}
+                    onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => e.currentTarget.style.backgroundColor = 'var(--gt-gray-50)'}
+                    onMouseOut={(e: React.MouseEvent<HTMLButtonElement>) => e.currentTarget.style.backgroundColor = 'transparent'}
+                    onClick={toggleTheme}
+                  >
+                    {theme === 'dark' ? (
+                      <>
+                        <Sun className="w-4 h-4" />
+                        <span>Light mode</span>
+                      </>
+                    ) : (
+                      <>
+                        <Moon className="w-4 h-4" />
+                        <span>Dark mode</span>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    className="w-full px-4 py-2 text-left text-sm flex items-center space-x-3"
+                    style={{ color: '#dc2626' }}
+                    onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => e.currentTarget.style.backgroundColor = '#fef2f2'}
+                    onMouseOut={(e: React.MouseEvent<HTMLButtonElement>) => e.currentTarget.style.backgroundColor = 'transparent'}
                     onClick={() => {
                       logout();
                       setShowUserMenu(false);

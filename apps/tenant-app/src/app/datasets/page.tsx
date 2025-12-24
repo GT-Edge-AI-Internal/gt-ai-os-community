@@ -200,24 +200,24 @@ function DatasetsPageContent() {
   // Get access group color
   const getAccessColor = (accessGroup: AccessGroup) => {
     switch (accessGroup) {
-      case 'individual': return 'text-gray-600';
+      case 'individual': return 'text-gt-gray-600';
       case 'team': return 'text-blue-600';
       case 'organization': return 'text-green-600';
-      default: return 'text-gray-600';
+      default: return 'text-gt-gray-600';
     }
   };
 
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-gt-white rounded-lg shadow-sm border p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+            <h1 className="text-2xl font-bold text-gt-gray-900 flex items-center gap-3">
               <Database className="w-8 h-8 text-gt-green" />
               Dataset Management Hub
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gt-gray-600 mt-1">
               Manage your datasets and documents for RAG in one unified interface
             </p>
           </div>
@@ -270,14 +270,14 @@ function DatasetsPageContent() {
       )}
 
       {/* Main Content Area */}
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-gt-white rounded-lg shadow-sm border p-6">
         <div className="space-y-6">
           {/* Controls */}
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                 <div className="flex flex-col sm:flex-row gap-4 flex-1">
                   {/* Search */}
                   <div className="relative flex-1 max-w-md">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 z-10" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gt-gray-400 w-4 h-4 z-10" />
                     <Input
                       type="text"
                       placeholder="Search datasets..."
@@ -290,7 +290,7 @@ function DatasetsPageContent() {
 
                   {/* Access Filter */}
                   <div className="flex items-center gap-2">
-                    <Filter className="w-4 h-4 text-gray-400" />
+                    <Filter className="w-4 h-4 text-gt-gray-400" />
                     <Select value={accessFilter} onValueChange={(value: AccessFilter) => setAccessFilter(value)}>
                       <SelectTrigger className="w-40">
                         <SelectValue placeholder="Filter by access" />
@@ -354,9 +354,9 @@ function DatasetsPageContent() {
 
           {!loading && filteredDatasets.length === 0 && (
                 <div className="text-center py-12">
-                  <Database className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">No datasets found</h3>
-                  <p className="text-gray-600 mb-6">
+                  <Database className="w-12 h-12 text-gt-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gt-gray-900 mb-2">No datasets found</h3>
+                  <p className="text-gt-gray-600 mb-6">
                     {searchQuery 
                       ? `No datasets match "${searchQuery}"`
                       : "Create your first dataset to get started"

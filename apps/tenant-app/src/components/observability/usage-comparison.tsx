@@ -40,7 +40,7 @@ export function UsageComparison({ agentData, modelData }: UsageComparisonProps) 
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
+        <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
           <p className="font-medium text-gt-gray-900 mb-2">{data.fullName}</p>
           <p className="text-sm text-gt-gray-600">
             <span className="font-medium text-gt-green">{data.conversations.toLocaleString()}</span> conversations
@@ -56,7 +56,7 @@ export function UsageComparison({ agentData, modelData }: UsageComparisonProps) 
   };
 
   return (
-    <div className="bg-white border border-gt-gray-200 rounded-lg p-6">
+    <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6">
       {/* Header with Toggle */}
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-gt-gray-900 flex items-center gap-2">
@@ -79,7 +79,7 @@ export function UsageComparison({ agentData, modelData }: UsageComparisonProps) 
             onClick={() => setCompareMode('agents')}
             className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
               compareMode === 'agents'
-                ? 'bg-white text-gt-green shadow-sm'
+                ? 'bg-gt-white text-gt-green shadow-sm'
                 : 'text-gt-gray-600 hover:text-gt-gray-900'
             }`}
           >
@@ -89,7 +89,7 @@ export function UsageComparison({ agentData, modelData }: UsageComparisonProps) 
             onClick={() => setCompareMode('models')}
             className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
               compareMode === 'models'
-                ? 'bg-white text-blue-600 shadow-sm'
+                ? 'bg-gt-white text-blue-600 shadow-sm'
                 : 'text-gt-gray-600 hover:text-gt-gray-900'
             }`}
           >

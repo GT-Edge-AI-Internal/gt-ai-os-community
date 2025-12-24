@@ -6,16 +6,19 @@ import { useAuthStore } from '@/stores/auth-store';
 import { useChatStore } from '@/stores/chat-store';
 import { Button } from '@/components/ui/button';
 import { getInitials, cn } from '@/lib/utils';
-import { 
-  Menu, 
-  Plus, 
-  MessageSquare, 
-  User as UserIcon, 
-  Settings, 
+import {
+  Menu,
+  Plus,
+  MessageSquare,
+  User as UserIcon,
+  Settings,
   LogOut,
   Wifi,
-  WifiOff
+  WifiOff,
+  Moon,
+  Sun
 } from 'lucide-react';
+import { useTheme } from '@/providers/theme-provider';
 
 interface HeaderProps {
   user: User | null;
@@ -25,6 +28,7 @@ interface HeaderProps {
 export function Header({ user, onMenuClick }: HeaderProps) {
   const { logout } = useAuthStore();
   const { connected, createConversation } = useChatStore();
+  const { theme, toggleTheme } = useTheme();
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const handleNewConversation = async () => {
@@ -78,7 +82,7 @@ export function Header({ user, onMenuClick }: HeaderProps) {
 
             {/* User Dropdown Menu */}
             {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gt-gray-200 py-1 z-50">
+              <div className="absolute right-0 mt-2 w-56 bg-gt-white rounded-lg shadow-lg border border-gt-gray-200 py-1 z-50">
                 {/* User Info */}
                 <div className="px-4 py-3 border-b border-gt-gray-100">
                   <p className="text-sm font-medium text-gt-gray-900">
@@ -105,6 +109,23 @@ export function Header({ user, onMenuClick }: HeaderProps) {
                   >
                     <Settings className="w-4 h-4" />
                     <span>Settings</span>
+                  </button>
+
+                  <button
+                    className="w-full px-4 py-2 text-left text-sm text-gt-gray-700 hover:bg-gt-gray-50 flex items-center space-x-3"
+                    onClick={toggleTheme}
+                  >
+                    {theme === 'dark' ? (
+                      <>
+                        <Sun className="w-4 h-4" />
+                        <span>Light mode</span>
+                      </>
+                    ) : (
+                      <>
+                        <Moon className="w-4 h-4" />
+                        <span>Dark mode</span>
+                      </>
+                    )}
                   </button>
 
                   <div className="border-t border-gt-gray-100 my-1"></div>

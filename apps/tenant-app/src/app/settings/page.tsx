@@ -25,7 +25,7 @@ export default function SettingsPage() {
             </div>
 
             {/* Profile Information */}
-            <div className="bg-white border border-gt-gray-200 rounded-lg p-6 space-y-4">
+            <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6 space-y-4">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-gt-green rounded-full flex items-center justify-center">
                   <User className="w-8 h-8 text-white" />
@@ -67,7 +67,7 @@ export default function SettingsPage() {
                 </p>
               </div>
 
-              <div className="bg-white border border-gt-gray-200 rounded-lg p-6">
+              <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6">
                 <p className="text-sm text-gt-gray-500">Additional preferences coming soon...</p>
               </div>
             </div>

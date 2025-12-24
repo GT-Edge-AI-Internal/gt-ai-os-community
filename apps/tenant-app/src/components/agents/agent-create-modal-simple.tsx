@@ -31,7 +31,7 @@ export function SimpleAgentCreateModal({
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" onClick={onClose}>
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <div 
-          className="bg-white rounded-lg shadow-xl max-w-md w-full p-6"
+          className="bg-gt-white rounded-lg shadow-xl max-w-md w-full p-6"
           onClick={(e) => e.stopPropagation()}
         >
           <h2 className="text-xl font-semibold mb-4">Create Agent</h2>

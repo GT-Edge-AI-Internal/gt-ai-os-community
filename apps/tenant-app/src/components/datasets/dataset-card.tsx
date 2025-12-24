@@ -110,7 +110,7 @@ export function DatasetCard({
   return (
     <div
       className={cn(
-        'bg-white border rounded-lg p-4 hover:shadow-md transition-all duration-200',
+        'bg-gt-white border rounded-lg p-4 hover:shadow-md transition-all duration-200',
         isProcessing && 'border-blue-300 bg-blue-50/30',
         dataset.processing_status === 'failed' && 'border-red-300 bg-red-50/30',
         className

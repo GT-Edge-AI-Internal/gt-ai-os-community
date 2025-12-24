@@ -126,7 +126,7 @@ export function CategoryManager({ isOpen, onClose, onCategoriesUpdated }: Catego
 
       <motion.div
         key="modal"
-        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-white rounded-lg shadow-2xl z-[1002]"
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl bg-gt-white rounded-lg shadow-2xl z-[1002]"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}

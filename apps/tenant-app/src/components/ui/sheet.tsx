@@ -67,7 +67,7 @@ export function SheetContent({
   return (
     <div
       className={cn(
-        'fixed z-[51] bg-white shadow-lg transition-all duration-300 ease-in-out',
+        'fixed z-[51] bg-gt-white shadow-lg transition-all duration-300 ease-in-out',
         sideClasses[side],
         className
       )}
