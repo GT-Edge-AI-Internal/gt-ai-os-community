@@ -2,11 +2,13 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-GT AI OS software is intended to provide easy to use "daily driver" web based generative AI with data privacy for individuals and organizations.
+GT AI OS software is intended to provide easy to use "daily driver" web based generative AI for processing documents & files with data privacy for individuals and organizations.
 You can install GT AI OS on Ubuntu x86, NVIDIA DGX OS 7 ARM and Apple Silicon macOS hosts using Docker.
 
-Minimum 4 CPU cores, 8GB RAM and 50GB SSD storage required for the application.
-Local models, conversation history and datasets will consume additional storage.
+Minimum 4 CPU cores, 16GB RAM and 50GB SSD storage required for the application.
+GT AI OS will usually use about 7GB RAM when fully installed.
+
+Local models, conversation history and datasets will consume additional SSD or disk storage.
 
 The provided runbooks are intended to provide a smooth installation and include commands for dependencies.
 Open an issue on the repo if you have problems with the runbooks.
@@ -17,9 +19,8 @@ GT AI OS is ideal for working with documents and files that need data privacy.
 It is not multimodal and can't generate or process images, videos or audio as of version 2.0.33.
 
 Ensure that you are using local or external inference with zero data retention features if you want your data to remain private.
-Note that all conversations in GT AI OS are logged locally in it's database and cannot be deleted by any user via the GUI.
 
-The only way to delete conversation logs is via write level access to the database.
+[GT AI OS Wiki](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki)
 
 ## Supported Platforms
 
@@ -33,14 +34,14 @@ Ubuntu VM's running on Proxmox with raw all functions GPU passthrough works.
 Windows is currently not supported.
 
 macoS Install scripts are designed for Apple Silicon only.
-macOS x86_64 support is being considered although it will be quite slow for embeddings.
 
 Note that the install scripts are unique for each OS and hardware architecture.
 Carefully choose the correct installation script for your host.
 
 ## Embedding model GPU acceleration:
-Only NVIDIA GPU's are supported for embedding acceleration.
+NVIDIA GPU's and Apple Silicon will significantly accelerate embedding acceleration (uploading files and documents for Retrieval Augemented Generation "RAG").
 Ensure that your NVIDIA GPU hardware is installed prior to starting the GT AI OS installation.
+There are no aditional drivers or dependencies for using Apple Silicon to accelerate the embedding model that is part of the standard installation.
 
 At v2.0.33, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
 We are looking to fix this in a future release.
@@ -110,11 +111,9 @@ Embedding model is installed by default.
 
 ---
 
-## Contributing
+## Bug and issue reporting:
 
 Found a bug? Have an idea? Open an issue: https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/issues
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 

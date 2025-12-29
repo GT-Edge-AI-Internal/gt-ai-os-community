@@ -9,7 +9,7 @@ All contributions are handled through GitHub Issues.
 ### Bug Reports
 
 To report a bug, please open a new issue at:
-https://github.com/gt-edge-ai/gt-ai-os-community/issues
+https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/issues
 
 Include the following information:
 - Description of the issue
