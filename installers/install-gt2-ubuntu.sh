@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 INSTALLER_VERSION="1.0.0"
 INSTALL_DIR="/opt/gt2"
 MIN_UBUNTU_VERSION="22.04"
-MIN_RAM_GB=16
+MIN_RAM_GB=8
 MIN_DISK_GB=20
 GITHUB_REPO="https://github.com/GT-Edge-AI-Internal/gt-ai-os-community.git"
 RELEASE_URL="https://api.github.com/repos/GT-Edge-AI-Internal/gt-ai-os-community/releases/latest"
@@ -75,7 +75,7 @@ OPTIONS:
 REQUIREMENTS:
     - Ubuntu 22.04 or higher
     - x86_64 architecture
-    - 16GB+ RAM
+    - 8GB+ RAM
     - 20GB+ free disk space
     - sudo access
 

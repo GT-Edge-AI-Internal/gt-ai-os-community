@@ -15,7 +15,7 @@ NC='\033[0m' # No Color
 # Configuration
 INSTALLER_VERSION="1.0.0"
 INSTALL_DIR="/opt/gt2"
-MIN_RAM_GB=64
+MIN_RAM_GB=32
 MIN_DISK_GB=50
 GITHUB_REPO="https://github.com/GT-Edge-AI-Internal/gt-ai-os-community.git"
 RELEASE_URL="https://api.github.com/repos/GT-Edge-AI-Internal/gt-ai-os-community/releases/latest"
@@ -71,7 +71,7 @@ OPTIONS:
 REQUIREMENTS:
     - NVIDIA DGX OS or Ubuntu with NVIDIA drivers
     - ARM64 architecture (Grace)
-    - 64GB+ RAM
+    - 32GB+ RAM
     - 50GB+ free disk space
     - NVIDIA Container Runtime
     - sudo access

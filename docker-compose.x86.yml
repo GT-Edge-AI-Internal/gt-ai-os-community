@@ -35,17 +35,17 @@ services:
   tenant-postgres-primary:
     environment:
       # x86_64 Performance settings - optimized for typical server specs
-      POSTGRES_SHARED_BUFFERS: 2GB
-      POSTGRES_EFFECTIVE_CACHE_SIZE: 6GB
+      POSTGRES_SHARED_BUFFERS: 1GB
+      POSTGRES_EFFECTIVE_CACHE_SIZE: 3GB
       POSTGRES_MAINTENANCE_WORK_MEM: 512MB
       POSTGRES_MAX_CONNECTIONS: 300
       POSTGRES_WORK_MEM: 128MB
     deploy:
       resources:
         limits:
-          memory: 8G
-        reservations:
           memory: 4G
+        reservations:
+          memory: 2G
     labels:
       - "gt2.platform=x86_64"
 
@@ -69,8 +69,8 @@ services:
     deploy:
       resources:
         limits:
-          memory: 16G
+          memory: 4G
         reservations:
-          memory: 8G
+          memory: 3G
     labels:
       - "gt2.platform=x86_64"
