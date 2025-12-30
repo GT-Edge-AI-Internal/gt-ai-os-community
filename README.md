@@ -40,18 +40,19 @@ Carefully choose the correct installation script for your host.
 
 ## Embedding model GPU acceleration:
 NVIDIA GPU's and Apple Silicon will significantly accelerate embedding acceleration (uploading files and documents for Retrieval Augemented Generation "RAG").
-Ensure that your NVIDIA GPU hardware is installed prior to starting the GT AI OS installation.
-There are no aditional drivers or dependencies for using Apple Silicon to accelerate the embedding model that is part of the standard installation.
+As of release 2.0.34 the minimum GPU VRAM needed at installation time is 4GB as the embedding model installed is teh BAAI/bge-m3 which consumes around 3.78GB once fully loaded onto the GPU.
+We will be adjusting the installation scripts in future release so that smaller GPU's down to 1GB can be used on mini desktop computers.
 
-At v2.0.33, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
+Ensure that your NVIDIA GPU hardware is physically installed prior to starting the GT AI OS installation.
+Note that all NVIDIA drivers and dependencies will be installed during the standard Ubuntu runbook.
+
+There are no aditional drivers or dependencies needed for using Apple Silicon to accelerate the embedding model as that is part of the standard installation.
+
+At v2.0.34, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
 We are looking to fix this in a future release.
 
-NVIDIA drivers and dependencies and tools will be installed during the pre requisites part of the runbook.
-
-If you do not have an NVIDIA GPU in your target install host, then the CPU will be used for running the embedding model.
-CPU vs GPU accelerated embedding will exhibit slow file uploads when adding files to datasets
-
-Embedding model is installed by default.
+If you do not have an NVIDIA GPU installed in your host, then the CPU and host RAM will be used for running the embedding model.
+CPU vs GPU accelerated embedding will result in slower file uploads when adding files to datasets.
 
 ---
 
