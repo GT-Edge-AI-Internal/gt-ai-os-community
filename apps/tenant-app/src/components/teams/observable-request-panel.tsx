@@ -43,7 +43,7 @@ export function ObservableRequestPanel() {
       animate={{ opacity: 1, y: 0 }}
       className="mb-6"
     >
-      <div className="bg-white border-2 border-green-200 rounded-lg shadow-sm overflow-hidden">
+      <div className="bg-gt-white border-2 border-green-200 rounded-lg shadow-sm overflow-hidden">
         {/* Header - Always visible */}
         <div
           onClick={() => setIsExpanded(!isExpanded)}

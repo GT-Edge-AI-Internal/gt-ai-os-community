@@ -344,7 +344,7 @@ export function UsageCombinedView({
   const TimeSeriesTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
+        <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
           <p className="text-sm text-gt-gray-600 mb-1">{payload[0].payload.fullDate}</p>
           <p className="text-sm font-medium" style={{ color: getMetricColor() }}>
             {payload[0].value.toLocaleString()} {timeSeriesMetric}
@@ -359,7 +359,7 @@ export function UsageCombinedView({
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
+        <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
           <p className="font-medium text-gt-gray-900 mb-2">{data.fullName}</p>
           <p className="text-sm text-gt-gray-600">
             <span className="font-medium text-gt-green">{data.conversations.toLocaleString()}</span> conversations
@@ -405,7 +405,7 @@ export function UsageCombinedView({
   };
 
   return (
-    <div className="bg-white border border-gt-gray-200 rounded-lg p-6">
+    <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6">
       {/* Header with Title and Filters */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gt-gray-900 flex items-center gap-2">
@@ -540,7 +540,7 @@ export function UsageCombinedView({
           {/* Custom Date Range Modal */}
           {showCustomDatePicker && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-              <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+              <div className="bg-gt-white rounded-lg p-6 max-w-md w-full mx-4">
                 <h3 className="text-lg font-semibold text-gt-gray-900 mb-4">Custom Date & Time Range</h3>
                 <div className="space-y-4">
                   <div>
@@ -625,7 +625,7 @@ export function UsageCombinedView({
               onClick={() => setDisplayTimezone('local')}
               className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
                 displayTimezone === 'local'
-                  ? 'bg-white text-gt-gray-900 shadow-sm'
+                  ? 'bg-gt-white text-gt-gray-900 shadow-sm'
                   : 'text-gt-gray-600 hover:text-gt-gray-900'
               }`}
               title={`Show times in your local timezone (${browserTimezone})`}
@@ -636,7 +636,7 @@ export function UsageCombinedView({
               onClick={() => setDisplayTimezone('utc')}
               className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
                 displayTimezone === 'utc'
-                  ? 'bg-white text-gt-gray-900 shadow-sm'
+                  ? 'bg-gt-white text-gt-gray-900 shadow-sm'
                   : 'text-gt-gray-600 hover:text-gt-gray-900'
               }`}
               title="Show times in UTC"
@@ -659,7 +659,7 @@ export function UsageCombinedView({
       </div>
 
       {/* Chart Content Wrapper (for export) */}
-      <div ref={chartRef} data-export-target className="bg-white p-4">
+      <div ref={chartRef} data-export-target className="bg-gt-white p-4">
         {/* Filter Context Banner (included in export) */}
         <div className="mb-4 pb-3 border-b border-gt-gray-200">
           <div className="flex items-center justify-between text-sm text-gt-gray-600">

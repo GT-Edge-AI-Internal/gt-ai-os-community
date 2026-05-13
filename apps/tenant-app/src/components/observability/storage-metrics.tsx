@@ -25,7 +25,7 @@ function MetricCard({ title, value, icon, format = 'number' }: MetricCardProps) 
     : typeof value === 'number' ? value.toLocaleString() : value;
 
   return (
-    <div className="bg-white border border-gt-gray-200 rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow">
+    <div className="bg-gt-white border border-gt-gray-200 rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between mb-3">
         <div className="w-10 h-10 bg-gt-green/10 rounded-lg flex items-center justify-center">
           {icon}
@@ -74,7 +74,7 @@ export function StorageMetrics() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-white border border-gt-gray-200 rounded-lg p-6 animate-pulse">
+          <div key={i} className="bg-gt-white border border-gt-gray-200 rounded-lg p-6 animate-pulse">
             <div className="w-12 h-12 bg-gt-gray-200 rounded-lg mb-4"></div>
             <div className="h-4 bg-gt-gray-200 rounded w-24 mb-2"></div>
             <div className="h-8 bg-gt-gray-200 rounded w-32"></div>

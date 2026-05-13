@@ -171,14 +171,14 @@ export function DocumentViewModal({
 
       {/* Modal content - slide in from right */}
       <div className={cn(
-        "bg-white h-full w-full max-w-4xl overflow-hidden shadow-xl",
+        "bg-gt-white h-full w-full max-w-4xl overflow-hidden shadow-xl",
         "transform transition-all duration-300 ease-out",
         "translate-x-0 opacity-100",
         className
       )}>
 
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-white">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gt-white">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
               <FileText className="w-5 h-5 text-white" />
