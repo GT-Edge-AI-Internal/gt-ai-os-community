@@ -121,7 +121,7 @@ function ToolCard({ tool, compact = false }: { tool: ToolExecution; compact?: bo
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex items-center space-x-3">
-          <div className={cn('p-1.5 rounded-md bg-white shadow-sm')}>
+          <div className={cn('p-1.5 rounded-md bg-gt-white shadow-sm')}>
             <toolConfig.icon className={cn('w-4 h-4', toolConfig.color)} />
           </div>
 
@@ -181,7 +181,7 @@ function ToolCard({ tool, compact = false }: { tool: ToolExecution; compact?: bo
           {tool.arguments && Object.keys(tool.arguments).length > 0 && (
             <div>
               <h5 className="text-xs font-medium text-gt-gray-700 mb-1">Arguments:</h5>
-              <div className="bg-white rounded p-2 text-xs font-mono">
+              <div className="bg-gt-white rounded p-2 text-xs font-mono">
                 <pre className="whitespace-pre-wrap text-gt-gray-600">
                   {JSON.stringify(tool.arguments, null, 2)}
                 </pre>
@@ -193,7 +193,7 @@ function ToolCard({ tool, compact = false }: { tool: ToolExecution; compact?: bo
           {tool.result && (
             <div>
               <h5 className="text-xs font-medium text-gt-gray-700 mb-1">Result:</h5>
-              <div className="bg-white rounded p-2 text-xs">
+              <div className="bg-gt-white rounded p-2 text-xs">
                 {typeof tool.result === 'string' ? (
                   <div className="text-gt-gray-600 whitespace-pre-wrap">
                     {tool.result}
@@ -281,7 +281,7 @@ export function ToolExecutionPanel({ tools, className, compact = false }: ToolEx
   }
 
   return (
-    <div className={cn('bg-white border border-gt-gray-200 rounded-lg', className)}>
+    <div className={cn('bg-gt-white border border-gt-gray-200 rounded-lg', className)}>
       {/* Panel Header */}
       <div
         className="flex items-center justify-between p-3 border-b border-gt-gray-200 cursor-pointer hover:bg-gt-gray-50"

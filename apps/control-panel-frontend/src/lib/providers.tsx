@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
 import { SessionMonitor } from '@/providers/session-monitor';
+import { ThemeProvider } from '@/providers/theme-provider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -29,9 +30,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionMonitor>
-        {children}
-      </SessionMonitor>
+      <ThemeProvider>
+        <SessionMonitor>
+          {children}
+        </SessionMonitor>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

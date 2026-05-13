@@ -204,7 +204,7 @@ export function DatasetDetailsDrawer({
 
             {/* Drawer Panel */}
             <motion.div
-              className="fixed right-0 top-0 h-full w-full max-w-5xl bg-white shadow-2xl z-40 overflow-hidden flex flex-col"
+              className="fixed right-0 top-0 h-full w-full max-w-5xl bg-gt-white shadow-2xl z-40 overflow-hidden flex flex-col"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -240,7 +240,7 @@ export function DatasetDetailsDrawer({
               {loading ? (
                 <div className="space-y-6">
                   {/* Loading skeleton */}
-                  <div className="bg-white rounded-lg shadow-sm border p-6 space-y-4">
+                  <div className="bg-gt-white rounded-lg shadow-sm border p-6 space-y-4">
                     <Skeleton className="h-10 w-64" />
                     <Skeleton className="h-4 w-96" />
                     <div className="flex gap-4">
@@ -253,7 +253,7 @@ export function DatasetDetailsDrawer({
               ) : dataset ? (
                 <>
                   {/* Dataset Header */}
-                  <div className="bg-white rounded-lg shadow-sm border p-6">
+                  <div className="bg-gt-white rounded-lg shadow-sm border p-6">
                     <div className="flex justify-between items-start">
                       <div className="space-y-3 flex-1">
                         <div className="flex items-center gap-3">
@@ -333,7 +333,7 @@ export function DatasetDetailsDrawer({
 
 
                   {/* Documents Section */}
-                  <div className="bg-white rounded-lg shadow-sm border p-6">
+                  <div className="bg-gt-white rounded-lg shadow-sm border p-6">
                     <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
                       <FileText className="w-5 h-5 text-gt-green" />
                       Documents in Dataset

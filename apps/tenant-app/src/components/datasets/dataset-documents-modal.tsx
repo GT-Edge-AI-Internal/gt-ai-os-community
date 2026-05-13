@@ -303,7 +303,7 @@ export function DatasetDocumentsModal({
           {/* Shelf Panel */}
           <motion.div
             key="panel"
-            className="fixed right-0 top-0 h-screen w-full max-w-3xl bg-white shadow-2xl z-[60] overflow-hidden flex flex-col"
+            className="fixed right-0 top-0 h-screen w-full max-w-3xl bg-gt-white shadow-2xl z-[60] overflow-hidden flex flex-col"
             style={{
               position: 'fixed',
               top: 0,
@@ -352,7 +352,7 @@ export function DatasetDocumentsModal({
                   'px-4 py-2 rounded-lg border text-sm font-medium transition-colors',
                   statusFilter === 'all'
                     ? 'bg-gt-green text-white border-gt-green'
-                    : 'bg-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
+                    : 'bg-gt-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
                 )}
               >
                 All ({documents.length})
@@ -363,7 +363,7 @@ export function DatasetDocumentsModal({
                   'px-4 py-2 rounded-lg border text-sm font-medium transition-colors',
                   statusFilter === 'completed'
                     ? 'bg-gt-green text-white border-gt-green'
-                    : 'bg-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
+                    : 'bg-gt-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
                 )}
               >
                 Processed ({statusCounts.completed || 0})
@@ -374,7 +374,7 @@ export function DatasetDocumentsModal({
                   'px-4 py-2 rounded-lg border text-sm font-medium transition-colors',
                   statusFilter === 'processing'
                     ? 'bg-gt-green text-white border-gt-green'
-                    : 'bg-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
+                    : 'bg-gt-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
                 )}
               >
                 Processing ({statusCounts.processing || 0})
@@ -385,7 +385,7 @@ export function DatasetDocumentsModal({
                   'px-4 py-2 rounded-lg border text-sm font-medium transition-colors',
                   statusFilter === 'pending'
                     ? 'bg-gt-green text-white border-gt-green'
-                    : 'bg-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
+                    : 'bg-gt-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
                 )}
               >
                 Pending ({statusCounts.pending || 0})
@@ -396,7 +396,7 @@ export function DatasetDocumentsModal({
                   'px-4 py-2 rounded-lg border text-sm font-medium transition-colors',
                   statusFilter === 'failed'
                     ? 'bg-gt-green text-white border-gt-green'
-                    : 'bg-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
+                    : 'bg-gt-white text-gt-gray-700 border-gt-gray-300 hover:bg-gt-gray-50'
                 )}
               >
                 Failed ({statusCounts.failed || 0})

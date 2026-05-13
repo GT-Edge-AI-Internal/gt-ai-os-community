@@ -386,7 +386,7 @@ export function ConversationBrowser({
 
   if (loading && conversations.length === 0) {
     return (
-      <div className="bg-white border border-gt-gray-200 rounded-lg p-6">
+      <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6">
         <div className="h-8 bg-gt-gray-200 rounded w-64 mb-4 animate-pulse"></div>
         <div className="space-y-3">
           {[...Array(5)].map((_, i) => (
@@ -407,7 +407,7 @@ export function ConversationBrowser({
   }
 
   return (
-    <div className="bg-white border border-gt-gray-200 rounded-lg overflow-hidden">
+    <div className="bg-gt-white border border-gt-gray-200 rounded-lg overflow-hidden">
       {/* Filter Bar */}
       <div className="p-6 border-b border-gt-gray-200 space-y-4">
         {/* Search and Filters Row */}
@@ -450,7 +450,7 @@ export function ConversationBrowser({
 
           {/* User Filter - Show for admins in individual mode only */}
           {observabilityMode === 'individual' && isAdmin && (
-            <div className="flex items-center gap-2 border border-gt-gray-300 rounded-lg px-3 py-1.5 min-w-[140px] w-40 bg-white">
+            <div className="flex items-center gap-2 border border-gt-gray-300 rounded-lg px-3 py-1.5 min-w-[140px] w-40 bg-gt-white">
               <User className="w-4 h-4 text-gt-gray-500 flex-shrink-0" />
               <select
                 value={selectedUser}
@@ -478,7 +478,7 @@ export function ConversationBrowser({
                 setSelectedAgent(e.target.value);
                 setCurrentPage(0);
               }}
-              className="w-full appearance-none border border-gt-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gt-green bg-white cursor-pointer text-transparent"
+              className="w-full appearance-none border border-gt-gray-300 rounded-lg pl-3 pr-8 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gt-green bg-gt-white cursor-pointer text-transparent"
               style={{ backgroundImage: 'none' }}
             >
               <option value="">All Agents</option>
@@ -520,7 +520,7 @@ export function ConversationBrowser({
                   setCurrentPage(0);
                 }
               }}
-              className="border border-gt-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gt-green bg-white"
+              className="border border-gt-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gt-green bg-gt-white"
             >
               <option value="all">All Time</option>
               <option value={1}>Last 24 hours</option>
@@ -554,7 +554,7 @@ export function ConversationBrowser({
               setSortBy(e.target.value);
               setCurrentPage(0);
             }}
-            className="border border-gt-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gt-green bg-white min-w-[160px] w-44"
+            className="border border-gt-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gt-green bg-gt-white min-w-[160px] w-44"
           >
             <option value="created_at:desc">Created (Newest)</option>
             <option value="created_at:asc">Created (Oldest)</option>
@@ -649,7 +649,7 @@ export function ConversationBrowser({
       {/* Custom Date & Time Range Modal */}
       {showCustomDatePicker && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+          <div className="bg-gt-white rounded-lg p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold text-gt-gray-900 mb-4">Custom Date & Time Range</h3>
             <div className="space-y-4">
               <div>
@@ -767,7 +767,7 @@ export function ConversationBrowser({
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gt-gray-200">
+          <tbody className="bg-gt-white divide-y divide-gt-gray-200">
             {conversations.length === 0 ? (
               <tr>
                 <td colSpan={9} className="px-6 py-12 text-center">
@@ -865,7 +865,7 @@ export function ConversationBrowser({
                               {detail.messages.map((message, idx) => (
                                 <div
                                   key={message.id}
-                                  className="bg-white border border-gt-gray-200 rounded-lg p-4"
+                                  className="bg-gt-white border border-gt-gray-200 rounded-lg p-4"
                                 >
                                   <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center gap-2">

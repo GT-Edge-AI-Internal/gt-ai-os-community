@@ -29,7 +29,7 @@ const Checkbox = React.forwardRef<
       />
       <div
         className={cn(
-          'w-4 h-4 rounded border border-gt-gray-300 bg-white transition-colors duration-200 cursor-pointer flex items-center justify-center',
+          'w-4 h-4 rounded border border-gt-gray-300 bg-gt-white transition-colors duration-200 cursor-pointer flex items-center justify-center',
           checked && 'bg-gt-green border-gt-green',
           disabled && 'opacity-50 cursor-not-allowed',
           className
