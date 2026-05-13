@@ -155,7 +155,7 @@ export function FavoriteAgentSelectorModal({
                 <SelectTrigger className="flex-1">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
-                <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+                <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                   <SelectItem value="all">All Categories</SelectItem>
                   {categories.map(category => (
                     <SelectItem key={category} value={category}>
@@ -170,7 +170,7 @@ export function FavoriteAgentSelectorModal({
                 <SelectTrigger className="flex-1">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
-                <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+                <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                   <SelectItem value="name">Name</SelectItem>
                   <SelectItem value="created_at">Date Created</SelectItem>
                 </SelectContent>

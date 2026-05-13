@@ -59,7 +59,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <div className="h-screen flex bg-gt-gray-50">
       {/* Sidebar */}
-      <Sidebar 
+      <Sidebar
         user={user}
         onCollapseChange={setSidebarCollapsed}
         onSelectConversation={(conversationId) => {
@@ -77,7 +77,7 @@ export function AppLayout({ children }: AppLayoutProps) {
       {/* Main Content */}
       <div className="flex-1 transition-all duration-700 ease-out">
         {/* Page Content */}
-        <main className="h-full bg-gt-white overflow-auto">
+        <main className="h-full overflow-auto bg-gt-white">
           {children}
         </main>
       </div>

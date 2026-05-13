@@ -221,7 +221,7 @@ export function ConfigurationPanel({
           {/* Panel */}
           <motion.div
             className={cn(
-              "fixed right-0 top-0 h-full w-full max-w-4xl bg-white dark:bg-gray-900 shadow-2xl z-50 overflow-hidden",
+              "fixed right-0 top-0 h-full w-full max-w-4xl bg-gt-white dark:bg-gray-900 shadow-2xl z-50 overflow-hidden",
               className
             )}
             variants={slideUp}

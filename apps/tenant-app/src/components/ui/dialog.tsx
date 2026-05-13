@@ -32,7 +32,7 @@ interface DialogContentProps {
 
 export function DialogContent({ children, className = '' }: DialogContentProps) {
   return (
-    <div className={`bg-white rounded-lg shadow-xl max-w-lg w-full mx-4 ${className}`}>
+    <div className={`bg-gt-white rounded-lg shadow-xl max-w-lg w-full mx-4 ${className}`}>
       {children}
     </div>
   );

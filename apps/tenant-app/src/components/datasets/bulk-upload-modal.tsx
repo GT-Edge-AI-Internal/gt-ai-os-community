@@ -327,7 +327,7 @@ export function BulkUploadModal({
           {/* Panel */}
           <motion.div
             key="panel"
-            className="fixed right-0 top-0 h-screen w-full max-w-2xl bg-white shadow-2xl z-[1000] overflow-hidden flex flex-col"
+            className="fixed right-0 top-0 h-screen w-full max-w-2xl bg-gt-white shadow-2xl z-[1000] overflow-hidden flex flex-col"
             style={{
               position: 'fixed',
               top: 0,
@@ -342,7 +342,7 @@ export function BulkUploadModal({
             exit="exit"
           >
             {/* Header */}
-            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 z-10">
+            <div className="sticky top-0 bg-gt-white border-b border-gray-200 px-6 py-4 z-10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-gt-green/10 rounded-lg flex items-center justify-center">

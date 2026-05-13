@@ -174,7 +174,7 @@ export function ProcessingStatus({
   const failedStep = steps.find(s => s.status === 'failed');
 
   return (
-    <div className={cn('bg-white border rounded-lg p-4', className)}>
+    <div className={cn('bg-gt-white border rounded-lg p-4', className)}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">

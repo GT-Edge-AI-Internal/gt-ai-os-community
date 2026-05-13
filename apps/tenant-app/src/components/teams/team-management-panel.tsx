@@ -347,7 +347,7 @@ export function TeamManagementPanel({
 
           {/* Panel */}
           <motion.div
-            className="fixed right-0 top-0 h-screen w-full max-w-4xl bg-white shadow-2xl z-[1000] overflow-y-auto"
+            className="fixed right-0 top-0 h-screen w-full max-w-4xl bg-gt-white shadow-2xl z-[1000] overflow-y-auto"
             variants={slideLeft}
             initial="initial"
             animate="animate"
@@ -355,7 +355,7 @@ export function TeamManagementPanel({
           >
             {/* Header */}
             <div
-              className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 z-10"
+              className="sticky top-0 bg-gt-white border-b border-gray-200 px-6 py-4 z-10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between">
@@ -706,7 +706,7 @@ export function TeamManagementPanel({
                                 </thead>
                                 <tbody>
                                   {members.filter(m => !m.is_owner).map((member, idx) => (
-                                    <tr key={member.user_id} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                                    <tr key={member.user_id} className={idx % 2 === 0 ? 'bg-gt-white' : 'bg-gray-50'}>
                                       {(team.can_manage || team.user_permission === 'manager') && (
                                         <td className="px-4 py-3">
                                         <Checkbox
@@ -867,7 +867,7 @@ export function TeamManagementPanel({
                               className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow"
                             >
                               {/* Resource Header */}
-                              <div className="flex items-center justify-between p-4 bg-white">
+                              <div className="flex items-center justify-between p-4 bg-gt-white">
                                 <div className="flex items-center gap-3 flex-1">
                                   <button
                                     onClick={() => toggleResourceExpansion(resourceKey)}
@@ -923,7 +923,7 @@ export function TeamManagementPanel({
                                       return (
                                         <div
                                           key={member.user_id}
-                                          className="flex items-center justify-between p-2 bg-white rounded border"
+                                          className="flex items-center justify-between p-2 bg-gt-white rounded border"
                                         >
                                           <span className="text-sm font-medium text-gray-900">
                                             {member.user_name || member.user_email}
