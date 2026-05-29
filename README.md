@@ -2,99 +2,154 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-GT AI OS software is intended to provide easy to use "daily driver" web based generative AI for processing documents & files with data privacy for individuals and organizations.
-You can install GT AI OS on Ubuntu x86, NVIDIA DGX OS 7 ARM and Apple Silicon macOS hosts using Docker.
+GT AI OS Community Edition is a self-hosted, web-based generative AI platform for individuals and teams who need document-centric workflows with strong data-privacy controls. Install on **Ubuntu (x86_64)**, **NVIDIA DGX OS 7 (ARM64)**, or **Apple Silicon macOS** using Docker and the runbooks in this repository’s wiki.
 
-[Start Installation ](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Installation)
+---
 
-Minimum 4 CPU cores, 16GB RAM and 50GB SSD storage required for the application.
-GT AI OS will usually use about 7GB RAM when fully installed.
+## Installation
 
-Local models, conversation history and datasets will consume additional SSD or disk storage.
+Choose your platform for step-by-step instructions:
 
-The provided runbooks are intended to provide a smooth installation and include commands for dependencies.
-Open an issue on the repo if you have problems with the runbooks.
+| Platform | Guide |
+|----------|-------|
+| **Ubuntu** 24.04 (x86_64) | [Installation — Ubuntu](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Installation#ubuntu-installation) |
+| **NVIDIA DGX OS 7** (ARM64) | [Installation — DGX](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Installation#dgx-installation) |
+| **macOS** (Apple Silicon M1+) | [Installation — macOS](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Installation#macos-installation) |
 
-Build and deploy custom generative AI agents and bring-your-own local or external API inference via NVIDIA NIM, Ollama, Groq, vLLM, SGLang and more.
+Each platform uses its own install script. Select the guide that matches your OS and CPU architecture.
 
-GT AI OS is ideal for working with documents and files that need data privacy.
-It is not multimodal and can't generate or process images, videos or audio as of version 2.0.33.
+**Start here:** [Installation (wiki)](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Installation)
 
-Ensure that you are using local or external inference with zero data retention features if you want your data to remain private.
+---
 
-[GT AI OS Wiki](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki)
+## Update an existing installation
 
-## Supported Platforms
+From your clone of this repository:
 
-| Platform | Host Architecture |
-|----------|--------------|
-| **Ubuntu Linux** 24.04 | x86_64 |
-| **NVIDIA DGX OS 7** (Optimized for Grace Blackwell Architecture) | ARM64 |
-| **macOS** (Apple Silicon M1+) | ARM64 |
+**macOS:**
 
-Ubuntu VM's running on Proxmox with raw all functions GPU passthrough works.
-Windows is currently not supported.
+```bash
+cd ~/gt-ai-os-community && git pull && bash scripts/deploy.sh
+```
 
-macoS Install scripts are designed for Apple Silicon only.
+**Ubuntu:**
 
-Note that the install scripts are unique for each OS and hardware architecture.
-Carefully choose the correct installation script for your host.
+```bash
+cd ~/gt-ai-os-community && git pull && bash scripts/deploy.sh
+```
 
-## Embedding model GPU acceleration:
-NVIDIA GPU's and Apple Silicon will significantly accelerate embedding acceleration (uploading files and documents for Retrieval Augemented Generation "RAG").
-As of release 2.0.34 the minimum GPU VRAM needed at installation time is 4GB as the embedding model installed is teh BAAI/bge-m3 which consumes around 3.78GB once fully loaded onto the GPU.
-We will be adjusting the installation scripts in future release so that smaller GPU's down to 1GB can be used on mini desktop computers.
+**DGX:**
 
-Ensure that your NVIDIA GPU hardware is physically installed prior to starting the GT AI OS installation.
-Note that all NVIDIA drivers and dependencies will be installed during the standard Ubuntu runbook.
+```bash
+cd ~/gt-ai-os-community && sudo git pull && sudo bash scripts/deploy.sh
+```
 
-There are no aditional drivers or dependencies needed for using Apple Silicon to accelerate the embedding model as that is part of the standard installation.
+For troubleshooting and release notes, see [Updating](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Updating).
 
-At v2.0.34, once you install GT AI OS, you cannot install GPU hardware and switch from CPU to GPU for embeddings.
-We are looking to fix this in a future release.
+---
 
-If you do not have an NVIDIA GPU installed in your host, then the CPU and host RAM will be used for running the embedding model.
-CPU vs GPU accelerated embedding will result in slower file uploads when adding files to datasets.
+## Access
+
+| App | URL | Default login (first install) |
+|-----|-----|-----------------------------|
+| Control Panel | http://localhost:3001 | `gtadmin@test.com` / `Test@123` |
+| Tenant App | http://localhost:3002 | `gtadmin@test.com` / `Test@123` |
+
+Change default passwords after first sign-in in production use.
+
+---
+
+## Platform requirements
+
+| Platform | Architecture | Minimum resources |
+|----------|--------------|-------------------|
+| **Ubuntu** 24.04 | x86_64 | 4 CPU cores, 16 GB RAM, 50 GB SSD |
+| **DGX OS 7** | ARM64 (Grace) | See [DGX installation guide](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Installation#dgx-installation) |
+| **macOS** | Apple Silicon (M1+) | 16 GB RAM, 20 GB+ free disk |
+
+A typical install uses about **7 GB RAM** at steady state. Local models, conversation history, and datasets require additional disk space.
+
+**Supported:** Ubuntu on Proxmox with GPU passthrough. **Not supported:** Windows hosts.
+
+Install scripts for macOS target **Apple Silicon only** (not Intel Macs).
+
+---
+
+## Inference and privacy
+
+- Connect **local** inference (Ollama) or **external** APIs (NVIDIA NIM, Groq, vLLM, SGLang, and others supported in the Control Panel).
+- For document workflows, use **local models** or providers that offer **zero data retention** when privacy is required.
+- As of **v2.0.33**, Community Edition is **not multimodal**: it does not generate or process images, video, or audio in the core product path.
+
+---
+
+## Embeddings and GPU acceleration
+
+Retrieval-augmented generation (RAG) uses an embedding model to index uploaded files. **NVIDIA GPUs** and **Apple Silicon** accelerate embedding and dataset ingestion.
+
+| Topic | Detail |
+|-------|--------|
+| **Embedding model (v2.0.34+)** | `BAAI/bge-m3` (~3.78 GB VRAM when loaded on GPU) |
+| **Minimum GPU VRAM at install** | 4 GB (smaller GPUs may be supported in a future release) |
+| **Ubuntu + NVIDIA** | Install the GPU before running the Ubuntu runbook; drivers are installed by the runbook |
+| **macOS** | No extra drivers; Metal acceleration is part of the standard install |
+| **CPU-only** | Supported; dataset uploads are slower without GPU acceleration |
+| **GPU added after install** | Not supported for switching embeddings CPU→GPU in v2.0.34; planned for a future release |
 
 ---
 
 ## Features
 
-- **AI Agent Builder** - Create custom AI agents with your own system prompts, categorization, role base access and guardrails
-- **Local Model Support** - Run local AI models with Ollama (completely offline)
-- **Document Processing** - Upload documents into datasets and create agents to interact with them
-- **Create Teams** - For setting up a workgroup that has Team based access to agents and dataasets
-- **Observability** - See metrics dashboards including agents, models and dataset usage, chat logs and more
+- **Agent builder** — Custom agents with system prompts, categories, role-based access, and guardrails
+- **Local models** — Run models with Ollama for offline inference
+- **Document processing** — Datasets and RAG-backed chat over your files
+- **Teams** — Shared access to agents and datasets within a workgroup
+- **Observability** — Usage dashboards, chat logs, and operational metrics
 
 ---
 
 ## Documentation
 
+Full guides are in the **[wiki](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki)**:
+
 | Topic | Description |
 |-------|-------------|
-| [Installation](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Installation) | Detailed setup instructions |
-| [Updating](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Updating) | Keep GT AI OS up to date |
-| [NVIDIA NIM Setup](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Control-Panel-Guide#adding-nvidia-nim-models) | Enterprise GPU-accelerated inference |
-| [Ollama Setup](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Ollama-Setup) | Set up local AI models |
-| [Groq Cloud Setup](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Control-Panel-Guide#adding-groq-models) | Ultra-fast cloud inference |
-| [Cloudflare Tunnel](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Cloudflare-Tunnel-Setup) | Access GT AI OS from anywhere |
-| [Troubleshooting](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Troubleshooting) | Common issues and solutions |
+| [Installation](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Installation) | Fresh install for Ubuntu, DGX, and macOS |
+| [Updating](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Updating) | Upgrade an existing deployment |
+| [Control Panel Guide](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Control-Panel-Guide) | Admin configuration |
+| [Tenant App Guide](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Tenant-App-Guide) | End-user guide |
+| [Ollama Setup](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Ollama-Setup) | Local model configuration |
+| [NVIDIA NIM](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Control-Panel-Guide#adding-nvidia-nim-models) | GPU-accelerated cloud inference |
+| [Groq](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Control-Panel-Guide#adding-groq-models) | Fast cloud inference |
+| [Cloudflare Tunnel](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Cloudflare-Tunnel-Setup) | Remote access without port forwarding |
+| [Troubleshooting](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/wiki/Troubleshooting) | Common issues |
+
+---
+
+## Quick commands
+
+```bash
+docker compose ps              # Service status
+docker compose logs -f         # Follow logs
+docker compose down            # Stop stack
+docker compose up -d           # Start stack
+```
 
 ---
 
 ## Community vs Enterprise
 
-| Feature | Community (Free) | Enterprise (Paid) |
-|---------|-----------|------------|
-| **Users** | Up to 10 users | User licenses per seat |
-| **Support** | GitHub Issues | Dedicated human support |
-| **Billing & Reports** | Not included | Full financial tracking |
-| **Pro Agents** | Not included | Pre-built professional agents |
-| **AI Inference** | BYO/DIY | Fully Managed |
-| **Setup** | DIY | Fully Managed |
-| **Uptime Guarantee** | Self | 99.99% uptime SLA |
+| Capability | Community (free) | Enterprise (paid) |
+|------------|------------------|-------------------|
+| **Users** | Up to 10 | Licensed seats |
+| **Support** | GitHub Issues | Dedicated support |
+| **Billing and reports** | — | Financial controls |
+| **Professional agents** | — | Pre-built agent packs |
+| **Inference** | Bring your own | Fully managed option |
+| **Deployment** | Self-hosted (DIY) | Managed deployment |
+| **Uptime** | Self-operated | 99.99% SLA (managed) |
 
-**Want Enterprise?** [Contact GT Edge AI](https://gtedge.ai/contact-us/)
+**Enterprise:** [Contact GT Edge AI](https://gtedge.ai/contact-us/)
 
 ---
 
@@ -105,33 +160,26 @@ CPU vs GPU accelerated embedding will result in slower file uploads when adding 
 │                          GT AI OS                              │
 ├──────────────────┬──────────────────────┬──────────────────────┤
 │   Control Panel  │      Tenant App      │   Resource Cluster   │
-│    (Admin UI)    │       (User UI)      │(AI Inference Routing)│
+│    (Admin UI)    │       (User UI)      │ (AI inference routing)│
 ├──────────────────┴──────────────────────┴──────────────────────┤
-│                          Postgres DB                            │
-│                  Control DB  │  Tenant DB                      │
+│                         PostgreSQL                              │
+│                  Control DB  │  Tenant DB                       │
 └────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Bug and issue reporting:
+## Support
 
-Found a bug? Have an idea? Open an issue: https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/issues
-
----
-
-## Security
-
-Found a security issue? Report via [our contact form](https://gtedge.ai/contact-us)
-
-See [SECURITY.md](SECURITY.md) for our security policy.
+- **Runbook issues:** [GitHub Issues](https://github.com/GT-Edge-AI-Internal/gt-ai-os-community/issues)
+- **Security:** [SECURITY.md](SECURITY.md) and [contact GT Edge AI](https://gtedge.ai/contact-us)
 
 ---
 
 ## License
 
-Apache License 2.0 - See [LICENSE](LICENSE)
+Apache License 2.0 — see [LICENSE](LICENSE).
 
 ---
 
-**GT AI OS Community Edition** | Made by [GT Edge AI](https://gtedge.ai)
+**GT AI OS Community Edition** · [GT Edge AI](https://gtedge.ai)
