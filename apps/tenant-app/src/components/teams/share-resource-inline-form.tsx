@@ -217,7 +217,7 @@ export function ShareResourceInlineForm({
                 {searchQuery ? `No ${resourceType}s found matching "${searchQuery}"` : `No ${resourceType}s available to share`}
               </div>
             ) : (
-              <div className="space-y-2 max-h-48 overflow-y-auto border rounded-lg p-2 bg-white">
+              <div className="space-y-2 max-h-48 overflow-y-auto border rounded-lg p-2 bg-gt-white">
                 {filteredResources.map(resource => (
                   <div
                     key={resource.id}
@@ -295,7 +295,7 @@ export function ShareResourceInlineForm({
               </div>
             </div>
 
-            <div className="space-y-2 max-h-40 overflow-y-auto border rounded-lg p-3 bg-white">
+            <div className="space-y-2 max-h-40 overflow-y-auto border rounded-lg p-3 bg-gt-white">
               {teamMembers.map(member => {
                 const hasRead = userPermissions[member.user_id] === 'read' || userPermissions[member.user_id] === 'edit';
                 const hasEdit = userPermissions[member.user_id] === 'edit';

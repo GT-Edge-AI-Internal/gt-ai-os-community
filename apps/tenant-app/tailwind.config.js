@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: ["class"],
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -21,20 +22,20 @@ module.exports = {
       },
       colors: {
         gt: {
-          white: '#ffffff',
-          black: '#000000',
-          green: '#00d084',
+          white: 'var(--gt-white)',
+          black: 'var(--gt-black)',
+          green: 'var(--gt-green)',
           gray: {
-            50: '#fafbfc',
-            100: '#f4f6f8',
-            200: '#e8ecef',
-            300: '#d1d9e0',
-            400: '#9aa5b1',
-            500: '#677489',
-            600: '#4a5568',
-            700: '#2d3748',
-            800: '#1a202c',
-            900: '#171923',
+            50: 'var(--gt-gray-50)',
+            100: 'var(--gt-gray-100)',
+            200: 'var(--gt-gray-200)',
+            300: 'var(--gt-gray-300)',
+            400: 'var(--gt-gray-400)',
+            500: 'var(--gt-gray-500)',
+            600: 'var(--gt-gray-600)',
+            700: 'var(--gt-gray-700)',
+            800: 'var(--gt-gray-800)',
+            900: 'var(--gt-gray-900)',
           },
         },
       },

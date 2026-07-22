@@ -296,7 +296,7 @@ export function DocumentList({
       )}
 
       {/* Document List */}
-        <div className="bg-white border rounded-lg overflow-hidden">
+        <div className="bg-gt-white border rounded-lg overflow-hidden">
           <div className="divide-y divide-gray-200">
             {filteredDocuments.map((document) => (
               <div key={document.id} className="p-4 hover:bg-gray-50">

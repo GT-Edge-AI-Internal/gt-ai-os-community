@@ -185,7 +185,7 @@ const ToolCallIndicator: React.FC<ToolCallIndicatorProps> = ({
       {showParameters && toolCall.parameters && Object.keys(toolCall.parameters).length > 0 && (
         <div className="mb-3">
           <h5 className="text-sm font-medium text-gray-700 mb-2">Parameters:</h5>
-          <div className="bg-white rounded p-2 space-y-1">
+          <div className="bg-gt-white rounded p-2 space-y-1">
             {Object.entries(toolCall.parameters).map(([key, value]) => (
               <div key={key} className="flex items-start text-sm">
                 <span className="font-mono text-gray-600 mr-2">{key}:</span>
@@ -202,7 +202,7 @@ const ToolCallIndicator: React.FC<ToolCallIndicatorProps> = ({
       {showResult && toolCall.status === 'completed' && toolCall.result && (
         <div className="mt-3">
           <h5 className="text-sm font-medium text-gray-700 mb-2">Result:</h5>
-          <div className="bg-white rounded p-2 max-h-40 overflow-auto">
+          <div className="bg-gt-white rounded p-2 max-h-40 overflow-auto">
             <pre className="text-xs text-gray-800 whitespace-pre-wrap">
               {formatResult(toolCall.result)}
             </pre>

@@ -27,7 +27,7 @@ export function AgentQuickTile({
   return (
     <div
       className={cn(
-        'group bg-white border rounded-xl p-5 cursor-pointer transition-all duration-200',
+        'group bg-gt-white border rounded-xl p-5 cursor-pointer transition-all duration-200',
         'hover:shadow-lg hover:border-gt-green hover:-translate-y-1',
         'flex flex-col',
         className

@@ -81,7 +81,7 @@ export function LoginForm({ tenantName = '' }: LoginFormProps) {
             </a>
           </div>
           {tenantName && (
-            <div className="mt-4 inline-block px-6 py-3 bg-white shadow-md border border-gt-gray-200 rounded-lg">
+            <div className="mt-4 inline-block px-6 py-3 bg-gt-white shadow-md border border-gt-gray-200 rounded-lg">
               <p className="text-lg font-semibold text-gt-gray-900">{tenantName}</p>
             </div>
           )}

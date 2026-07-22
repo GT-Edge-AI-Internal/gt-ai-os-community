@@ -520,10 +520,10 @@ function AgentsPage() {
     <AppLayout>
       <div className="p-6 space-y-6">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm border p-6">
+        <div className="bg-gt-white rounded-lg shadow-sm border p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+              <h1 className="text-2xl font-bold text-gt-gray-900 flex items-center gap-3">
                 <Bot className="w-8 h-8 text-gt-green" />
                 {viewMode === 'quick' ? 'Favorite Agents' : 'Agent Configuration'}
               </h1>
@@ -587,13 +587,13 @@ function AgentsPage() {
           <>
             {/* Quick View: Empty State or Agent Tiles */}
             {favoriteAgentIds.length === 0 ? (
-              <div className="bg-white rounded-lg shadow-sm border p-12">
+              <div className="bg-gt-white rounded-lg shadow-sm border p-12">
                 <div className="text-center max-w-md mx-auto">
                   <Star className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  <h3 className="text-xl font-semibold text-gt-gray-900 mb-2">
                     No favorites selected
                   </h3>
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gt-gray-600 mb-6">
                     Click on the button below to select your Favorite Agents from the list of agents available in the catalog.
                   </p>
                   <Button
@@ -627,7 +627,7 @@ function AgentsPage() {
                       <SelectTrigger className="w-[140px]">
                         <SelectValue placeholder="Category" />
                       </SelectTrigger>
-                      <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+                      <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                         <SelectItem value="all">All Categories</SelectItem>
                         {categories.map(category => (
                           <SelectItem key={category} value={category}>
@@ -641,7 +641,7 @@ function AgentsPage() {
                       <SelectTrigger className="w-[120px]">
                         <SelectValue placeholder="Tag" />
                       </SelectTrigger>
-                      <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+                      <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                         <SelectItem value="all">All Tags</SelectItem>
                         {tags.map(tag => (
                           <SelectItem key={tag} value={tag}>
@@ -655,7 +655,7 @@ function AgentsPage() {
                       <SelectTrigger className="w-[140px]">
                         <SelectValue placeholder="Creator" />
                       </SelectTrigger>
-                      <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+                      <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                         <SelectItem value="all">All Creators</SelectItem>
                         {creators.map(creator => (
                           <SelectItem key={creator} value={creator}>
@@ -669,7 +669,7 @@ function AgentsPage() {
                       <SelectTrigger className="w-[160px]">
                         <SelectValue placeholder="Sort by" />
                       </SelectTrigger>
-                      <SelectContent className="z-[100] backdrop-blur-sm bg-white/95 border shadow-lg" position="popper" sideOffset={5}>
+                      <SelectContent className="z-[100] backdrop-blur-sm bg-gt-white/95 border shadow-lg" position="popper" sideOffset={5}>
                         <SelectItem value="created_at">Date Created</SelectItem>
                         <SelectItem value="name">Name</SelectItem>
                         <SelectItem value="usage_count">Usage (Global)</SelectItem>
@@ -682,7 +682,7 @@ function AgentsPage() {
 
                 {/* Agent Tiles Grid (4 columns) */}
                 {filteredFavoriteAgents.length === 0 ? (
-                  <div className="text-center py-12 bg-white rounded-lg border">
+                  <div className="text-center py-12 bg-gt-white rounded-lg border">
                     <Search className="w-12 h-12 text-gray-300 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 mb-2">No agents found</h3>
                     <p className="text-gray-600">Try adjusting your search or filter criteria.</p>

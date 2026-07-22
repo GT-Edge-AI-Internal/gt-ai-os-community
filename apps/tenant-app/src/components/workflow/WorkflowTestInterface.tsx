@@ -216,7 +216,7 @@ export function WorkflowTestInterface({
     <TooltipProvider>
       <div className={cn("workflow-test-interface h-full flex flex-col", className)}>
         {/* Header */}
-        <div className="p-4 border-b bg-white">
+        <div className="p-4 border-b bg-gt-white">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-gray-900">Workflow Testing</h2>
@@ -235,7 +235,7 @@ export function WorkflowTestInterface({
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="flex-1 flex flex-col">
-          <div className="border-b bg-white px-4">
+          <div className="border-b bg-gt-white px-4">
             <TabsList className="grid w-full max-w-md grid-cols-3">
               <TabsTrigger value="run" className="flex items-center gap-1">
                 <Play className="w-4 h-4" />

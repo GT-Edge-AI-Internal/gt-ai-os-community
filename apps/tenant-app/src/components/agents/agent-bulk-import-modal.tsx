@@ -217,7 +217,7 @@ export function AgentBulkImportModal({ isOpen, onClose, onImportComplete }: Agen
                           </div>
                         ))}
                       </div>
-                      <label className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer transition-colors">
+                      <label className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-gt-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer transition-colors">
                         Add More Files
                         <input
                           type="file"
@@ -235,7 +235,7 @@ export function AgentBulkImportModal({ isOpen, onClose, onImportComplete }: Agen
                         Drag and drop your CSV files here
                       </p>
                       <p className="text-xs text-gray-500 mb-4">or</p>
-                      <label className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer transition-colors">
+                      <label className="inline-flex items-center justify-center rounded-md border border-gray-300 bg-gt-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer transition-colors">
                         Choose Files
                         <input
                           type="file"

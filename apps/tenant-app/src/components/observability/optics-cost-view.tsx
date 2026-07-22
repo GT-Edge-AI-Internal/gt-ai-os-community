@@ -152,7 +152,7 @@ export function OpticsCostView() {
   // Show disabled state
   if (settings && !settings.enabled) {
     return (
-      <div className="bg-white border border-gt-gray-200 rounded-lg p-8 text-center">
+      <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-8 text-center">
         <AlertCircle className="w-12 h-12 text-gt-gray-400 mx-auto mb-4" />
         <h3 className="text-lg font-semibold text-gt-gray-900 mb-2">Optics Not Enabled</h3>
         <p className="text-gt-gray-600 max-w-md mx-auto">
@@ -165,7 +165,7 @@ export function OpticsCostView() {
 
   if (loading && !costData) {
     return (
-      <div className="bg-white border border-gt-gray-200 rounded-lg p-6 animate-pulse">
+      <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6 animate-pulse">
         <div className="h-6 bg-gt-gray-200 rounded w-48 mb-4"></div>
         <div className="h-80 bg-gt-gray-100 rounded"></div>
       </div>
@@ -186,7 +186,7 @@ export function OpticsCostView() {
   return (
     <div className="space-y-6">
       {/* Header with Date Range */}
-      <div className="bg-white border border-gt-gray-200 rounded-lg p-6">
+      <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gt-gray-900 flex items-center gap-2">
             <DollarSign className="w-5 h-5 text-green-600" />
@@ -199,7 +199,7 @@ export function OpticsCostView() {
                 <select
                   value={selectedUserId || ''}
                   onChange={(e) => setSelectedUserId(e.target.value || undefined)}
-                  className="appearance-none bg-white border border-gt-gray-200 rounded-lg px-3 py-1.5 pr-8 text-sm text-gt-gray-700 hover:border-gt-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent cursor-pointer"
+                  className="appearance-none bg-gt-white border border-gt-gray-200 rounded-lg px-3 py-1.5 pr-8 text-sm text-gt-gray-700 hover:border-gt-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent cursor-pointer"
                 >
                   <option value="">All Users</option>
                   {users.map((user) => (
@@ -280,7 +280,7 @@ export function OpticsCostView() {
       {/* Visualizations Grid */}
       <div className="grid grid-cols-12 gap-6">
         {/* Cost by Model - Pie Chart */}
-        <div className="col-span-5 bg-white border border-gt-gray-200 rounded-lg p-6">
+        <div className="col-span-5 bg-gt-white border border-gt-gray-200 rounded-lg p-6">
           <h4 className="text-sm font-semibold text-gt-gray-900 mb-4 flex items-center gap-2">
             <TrendingUp className="w-4 h-4 text-green-600" />
             Inference Cost by Model
@@ -307,7 +307,7 @@ export function OpticsCostView() {
                       if (active && payload && payload.length) {
                         const data = payload[0].payload as ModelCostBreakdown;
                         return (
-                          <div className="bg-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
+                          <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
                             <p className="font-medium text-gt-gray-900 mb-1">{data.model_name}</p>
                             <p className="text-sm text-green-600 font-semibold">{data.cost_display}</p>
                             <p className="text-xs text-gt-gray-600">{formatTokens(data.tokens)} tokens</p>
@@ -352,7 +352,7 @@ export function OpticsCostView() {
         </div>
 
         {/* Cost by Model - Bar Chart */}
-        <div className="col-span-7 bg-white border border-gt-gray-200 rounded-lg p-6">
+        <div className="col-span-7 bg-gt-white border border-gt-gray-200 rounded-lg p-6">
           <h4 className="text-sm font-semibold text-gt-gray-900 mb-4 flex items-center gap-2">
             <Cpu className="w-4 h-4 text-blue-600" />
             Token Usage by Model
@@ -381,7 +381,7 @@ export function OpticsCostView() {
                     if (active && payload && payload.length) {
                       const data = payload[0].payload as ModelCostBreakdown;
                       return (
-                        <div className="bg-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
+                        <div className="bg-gt-white border border-gt-gray-200 rounded-lg p-3 shadow-lg">
                           <p className="font-medium text-gt-gray-900 mb-1">{data.model_name}</p>
                           <p className="text-sm text-blue-600">{formatTokens(data.tokens)} tokens</p>
                           <p className="text-sm text-green-600">{data.cost_display}</p>

@@ -1435,10 +1435,10 @@ function ChatPage() {
 
   return (
     <AppLayout>
-      <div className="h-full flex flex-col bg-white">
+      <div className="h-full flex flex-col bg-gt-white">
         {/* Header */}
         <div className="w-full px-6 py-4">
-          <div className="bg-white rounded-lg shadow-sm border p-6" ref={headerRef}>
+          <div className="bg-gt-white rounded-lg shadow-sm border p-6" ref={headerRef}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <MessageCircle className="w-8 h-8 text-gt-green" />
@@ -1461,7 +1461,7 @@ function ChatPage() {
                             updateConversationName(chatName);
                           }
                         }}
-                        className="px-3 py-1 text-sm border border-gt-gray-300 rounded-md bg-white text-gray-900 focus:outline-none focus:ring-1 focus:ring-gt-green focus:border-gt-green w-32 sm:w-auto"
+                        className="px-3 py-1 text-sm border border-gt-gray-300 rounded-md bg-gt-white text-gray-900 focus:outline-none focus:ring-1 focus:ring-gt-green focus:border-gt-green w-32 sm:w-auto"
                         autoFocus
                       />
                     ) : (
@@ -1564,7 +1564,7 @@ function ChatPage() {
         </div>
 
         {/* Messages Area - Centered layout for empty state */}
-        <div className="flex-1 overflow-y-auto bg-white flex flex-col min-h-0">
+        <div className="flex-1 overflow-y-auto bg-gt-white flex flex-col min-h-0">
             {messages.length === 0 ? (
               /* Empty State - Centered */
               <div className="flex-1 flex items-center justify-center">
@@ -1639,7 +1639,7 @@ function ChatPage() {
                                             "text-sm rounded-full border transition-colors",
                                             isBudgetExceeded
                                               ? "bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed"
-                                              : "bg-white border-gt-gray-300 text-gt-gray-700 hover:bg-gt-green/10 hover:border-gt-green hover:text-gt-green"
+                                              : "bg-gt-white border-gt-gray-300 text-gt-gray-700 hover:bg-gt-green/10 hover:border-gt-green hover:text-gt-green"
                                           )}
                                         >
                                           {prompt}
@@ -1647,7 +1647,7 @@ function ChatPage() {
                                       </span>
                                     </TooltipTrigger>
                                     {isBudgetExceeded && (
-                                      <TooltipContent side="top" sideOffset={8} className="bg-white text-gt-gray-900 border-gt-gray-200">
+                                      <TooltipContent side="top" sideOffset={8} className="bg-gt-white text-gt-gray-900 border-gt-gray-200">
                                         <p className="text-sm">Chat disabled - budget exceeded</p>
                                       </TooltipContent>
                                     )}
@@ -1688,7 +1688,7 @@ function ChatPage() {
                           <p className="text-gt-gray-900 whitespace-pre-wrap pr-8">{message.content}</p>
                           <button
                             onClick={() => copyMessage(message.id, message.content)}
-                            className="absolute top-2 right-2 !opacity-100 p-1 bg-white hover:bg-gray-100 rounded text-gray-500 hover:text-gray-700 transition-all shadow-sm"
+                            className="absolute top-2 right-2 !opacity-100 p-1 bg-gt-white hover:bg-gray-100 rounded text-gray-500 hover:text-gray-700 transition-all shadow-sm"
                             title="Copy message"
                           >
                             {copiedMessages.has(message.id) ? (
@@ -1753,7 +1753,7 @@ function ChatPage() {
                                 <button
                                   onClick={() => copyMessage(message.id, message.content)}
                                   className={cn(
-                                    "flex items-center gap-1 px-2 py-1 bg-white hover:bg-gray-100 rounded text-xs text-gray-600 hover:text-gray-800 transition-all shadow-sm",
+                                    "flex items-center gap-1 px-2 py-1 bg-gt-white hover:bg-gray-100 rounded text-xs text-gray-600 hover:text-gray-800 transition-all shadow-sm",
                                     "!opacity-100"
                                   )}
                                   title="Copy message"
@@ -1845,11 +1845,11 @@ function ChatPage() {
         </div>
 
         {/* Chat Input Container - Positioned at bottom */}
-        <div className="sticky bottom-0 w-full flex justify-center p-6 bg-white">
+        <div className="sticky bottom-0 w-full flex justify-center p-6 bg-gt-white">
           <div className="w-full max-w-3xl space-y-2">
             {/* Collapsible File Attachments Panel */}
             {conversationFiles.length > 0 && (
-              <div className="bg-white rounded-2xl border border-gt-gray-200 shadow-sm overflow-hidden">
+              <div className="bg-gt-white rounded-2xl border border-gt-gray-200 shadow-sm overflow-hidden">
                 <button
                   onClick={() => setIsFilePanelExpanded(!isFilePanelExpanded)}
                   className="w-full px-4 py-2 flex items-center justify-between hover:bg-gt-gray-50 transition-colors"
@@ -1879,7 +1879,7 @@ function ChatPage() {
                       }[file.processing_status] || '❓';
 
                       return (
-                        <div key={file.id} className="flex items-start space-x-3 p-2 rounded-lg border border-gt-gray-200 bg-gt-gray-50 hover:bg-white transition-colors">
+                        <div key={file.id} className="flex items-start space-x-3 p-2 rounded-lg border border-gt-gray-200 bg-gt-gray-50 hover:bg-gt-white transition-colors">
                           <FileText className="h-4 w-4 mt-0.5 text-gt-gray-400" />
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center space-x-2">
@@ -1938,7 +1938,7 @@ function ChatPage() {
 
             {/* Main Chat Input */}
             <div className="space-y-2">
-              <div className="bg-white rounded-2xl border border-gt-gray-200 shadow-sm p-2">
+              <div className="bg-gt-white rounded-2xl border border-gt-gray-200 shadow-sm p-2">
                 <div className="flex items-center gap-2">
                 {/* Left Action Buttons */}
                 <div className="flex items-start gap-1">
@@ -2015,7 +2015,7 @@ function ChatPage() {
                             )}
                           </Button>
                         </TooltipTrigger>
-                        <TooltipContent side="top" sideOffset={8} className="bg-white text-gt-gray-900 border-gt-gray-200">
+                        <TooltipContent side="top" sideOffset={8} className="bg-gt-white text-gt-gray-900 border-gt-gray-200">
                           <p className="text-sm">
                             {isBudgetExceeded
                               ? 'File uploads disabled - budget exceeded'
@@ -2083,7 +2083,7 @@ function ChatPage() {
                         </div>
                       </TooltipTrigger>
                       {isBudgetExceeded && (
-                        <TooltipContent side="top" sideOffset={8} className="bg-white text-gt-gray-900 border-gt-gray-200">
+                        <TooltipContent side="top" sideOffset={8} className="bg-gt-white text-gt-gray-900 border-gt-gray-200">
                           <p className="text-sm">Chat disabled - budget exceeded</p>
                         </TooltipContent>
                       )}
@@ -2108,7 +2108,7 @@ function ChatPage() {
                           </Button>
                         </span>
                       </TooltipTrigger>
-                      <TooltipContent side="top" sideOffset={8} className="bg-white text-gt-gray-900 border-gt-gray-200">
+                      <TooltipContent side="top" sideOffset={8} className="bg-gt-white text-gt-gray-900 border-gt-gray-200">
                         <p className="text-sm">
                           {isBudgetExceeded
                             ? 'Chat disabled - budget exceeded'

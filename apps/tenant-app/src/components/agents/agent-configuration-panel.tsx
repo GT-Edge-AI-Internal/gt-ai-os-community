@@ -771,7 +771,7 @@ export function AgentConfigurationPanel({
       <motion.div
         key="panel"
         className={cn(
-          "fixed right-0 top-0 h-screen w-full max-w-4xl bg-white shadow-2xl z-[1000]",
+          "fixed right-0 top-0 h-screen w-full max-w-4xl bg-gt-white shadow-2xl z-[1000]",
           className
         )}
         style={{ 
@@ -1424,7 +1424,7 @@ export function AgentConfigurationPanel({
                                 onChange={(value) => handleInputChange('system_prompt', typeof value === 'string' ? value : value.target.value)}
                                 placeholder="You are a helpful AI Agent..."
                                 rows={8}
-                                className="font-mono text-sm text-gray-900 bg-white"
+                                className="font-mono text-sm text-gray-900 bg-gt-white"
                               />
                             </div>
                           </CardContent>

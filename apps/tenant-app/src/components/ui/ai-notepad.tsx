@@ -70,7 +70,7 @@ export function AINotepad({ contents, title = "AI Notepad", className = '' }: AI
         case 'html':
           return (
             <div 
-              className="w-full h-full overflow-auto p-4 bg-white rounded"
+              className="w-full h-full overflow-auto p-4 bg-gt-white rounded"
               dangerouslySetInnerHTML={{ __html: content.content }}
             />
           );

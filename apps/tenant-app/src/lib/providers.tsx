@@ -5,6 +5,7 @@ import { useState, ReactNode, useEffect } from 'react';
 import { isTokenValid } from '@/services/auth';
 import { useChatStore } from '@/stores/chat-store';
 import { SessionMonitor } from '@/providers/session-monitor';
+import { ThemeProvider } from '@/providers/theme-provider';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -104,18 +105,20 @@ export function Providers({ children }: ProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Session Monitor - server-authoritative session management (Issue #264) */}
-      <SessionMonitor>
-        {/* Network Status Indicator */}
-        {(!isOnline || !isServerReachable) && (
-          <div className="fixed top-0 left-0 right-0 bg-yellow-500 text-white text-center py-2 text-sm z-50">
-            {!isOnline ? '📡 No internet connection - working offline' : '⚠️ Server unreachable - showing cached data'}
+      <ThemeProvider>
+        {/* Session Monitor - server-authoritative session management (Issue #264) */}
+        <SessionMonitor>
+          {/* Network Status Indicator */}
+          {(!isOnline || !isServerReachable) && (
+            <div className="fixed top-0 left-0 right-0 bg-yellow-500 text-white text-center py-2 text-sm z-50">
+              {!isOnline ? '📡 No internet connection - working offline' : '⚠️ Server unreachable - showing cached data'}
+            </div>
+          )}
+          <div className={(!isOnline || !isServerReachable) ? 'pt-10' : ''}>
+            {children}
           </div>
-        )}
-        <div className={(!isOnline || !isServerReachable) ? 'pt-10' : ''}>
-          {children}
-        </div>
-      </SessionMonitor>
+        </SessionMonitor>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
