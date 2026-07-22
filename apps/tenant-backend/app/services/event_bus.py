@@ -595,6 +595,7 @@ class TenantEventBus:
     ) -> List[Event]:
         """Get event history with optional filters"""
         events = []
+        safe_event_store_root = self.event_store_path.resolve()
         
         # Determine date range
         if not end_date:
@@ -606,7 +607,13 @@ class TenantEventBus:
         current_date = start_date
         while current_date <= end_date:
             date_str = current_date.strftime("%Y-%m-%d")
-            event_file = self.event_store_path / f"events_{date_str}.jsonl"
+            event_file = (self.event_store_path / f"events_{date_str}.jsonl").resolve()
+            try:
+                event_file.relative_to(safe_event_store_root)
+            except ValueError:
+                logger.warning(f"Blocked event history access outside tenant store: {event_file}")
+                current_date = current_date.replace(day=current_date.day + 1)
+                continue
             
             if event_file.exists():
                 with open(event_file, "r") as f:
