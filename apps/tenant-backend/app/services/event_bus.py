@@ -596,6 +596,7 @@ class TenantEventBus:
         """Get event history with optional filters"""
         events = []
         safe_store_root = self.event_store_path.resolve()
+        safe_event_store_root = self.event_store_path.resolve()
         
         # Determine date range
         if not end_date:
@@ -614,6 +615,11 @@ class TenantEventBus:
                 resolved_event_file.relative_to(safe_store_root)
             except ValueError:
                 logger.warning(f"Blocked unsafe event history path: {resolved_event_file}")
+            event_file = (self.event_store_path / f"events_{date_str}.jsonl").resolve()
+            try:
+                event_file.relative_to(safe_event_store_root)
+            except ValueError:
+                logger.warning(f"Blocked event history access outside tenant store: {event_file}")
                 current_date = current_date.replace(day=current_date.day + 1)
                 continue
             
