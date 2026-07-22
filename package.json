@@ -29,7 +29,7 @@
     "claude:stop": ".claude/scripts/stop-mcp.sh"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.24.3",
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "@playwright/test": "^1.57.0",
     "@types/node": "^24.2.1",
     "@typescript-eslint/parser": "^8.39.1",
