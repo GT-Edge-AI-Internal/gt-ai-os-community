@@ -22,10 +22,10 @@ PyJWT==2.10.1
 # HTTP Client & Requests
 httpx==0.28.1
 requests==2.32.5
-aiohttp==3.13.2
+aiohttp==3.14.1
 
 # WebSocket Support
-python-socketio==5.15.0
+python-socketio==5.16.2
 websockets==12.0
 
 # File Handling & Upload
@@ -33,7 +33,7 @@ python-magic==0.4.27
 aiofiles==23.2.1
 
 # Document Processing for RAG Pipeline
-pypdf==6.4.1           # PDF text extraction (migrated from abandoned PyPDF2)
+pypdf==6.13.3           # PDF text extraction (migrated from abandoned PyPDF2)
 python-docx==1.1.0     # DOCX text extraction
 beautifulsoup4==4.12.2 # HTML parsing
 lxml==4.9.3            # XML/HTML processing
