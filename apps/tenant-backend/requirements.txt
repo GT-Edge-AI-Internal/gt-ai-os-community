@@ -15,13 +15,14 @@ psycopg2-binary==2.9.9       # PostgreSQL adapter for SQLAlchemy (binary version
 # Authentication & Security
 python-jose[cryptography]==3.4.0
 passlib[bcrypt]==1.7.4
+python-multipart==0.0.32
 python-multipart==0.0.31
 bcrypt==4.1.3
-PyJWT==2.10.1
+PyJWT==2.13.0
 
 # HTTP Client & Requests
 httpx==0.28.1
-requests==2.32.5
+requests==2.34.2
 aiohttp==3.14.1
 
 # WebSocket Support
@@ -36,9 +37,9 @@ aiofiles==23.2.1
 pypdf==6.13.3           # PDF text extraction (migrated from abandoned PyPDF2)
 python-docx==1.1.0     # DOCX text extraction
 beautifulsoup4==4.12.2 # HTML parsing
-lxml==4.9.3            # XML/HTML processing
+lxml==6.1.1            # XML/HTML processing
 openpyxl==3.1.2        # Excel file support
-markdown==3.5.1        # Markdown processing
+markdown==3.10.2        # Markdown processing
 pandas==2.0.3          # CSV processing
 numpy==1.24.4          # Required by pandas, pin to 1.x to avoid binary incompatibility
 
@@ -55,7 +56,7 @@ structlog==23.2.0
 psutil==5.9.6
 
 # Environment & Configuration
-python-dotenv==1.0.0
+python-dotenv==1.2.2
 
 # Vector Database - PGVector Integration
 pgvector==0.4.1  # PGVector Python client for vector operations
