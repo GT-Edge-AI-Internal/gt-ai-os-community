@@ -4,6 +4,8 @@
 
 GT AI OS Community Edition is a self-hosted, web-based generative AI platform for individuals and teams who need document-centric workflows with strong data-privacy controls. Install on **Ubuntu (x86_64)**, **NVIDIA DGX OS 7 (ARM64)**, or **Apple Silicon macOS** using Docker and the runbooks in this repository’s wiki.
 
+> **🚀 New: GT AI OS Gen 3 is here.** Check out our next-generation platform at [github.com/GT-Edge-AI/GT-AI-OS](https://github.com/GT-Edge-AI/GT-AI-OS).
+
 ---
 
 ## Installation
