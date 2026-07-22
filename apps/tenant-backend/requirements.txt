@@ -33,7 +33,7 @@ python-magic==0.4.27
 aiofiles==23.2.1
 
 # Document Processing for RAG Pipeline
-pypdf==6.4.1           # PDF text extraction (migrated from abandoned PyPDF2)
+pypdf==6.13.3           # PDF text extraction (migrated from abandoned PyPDF2)
 python-docx==1.1.0     # DOCX text extraction
 beautifulsoup4==4.12.2 # HTML parsing
 lxml==4.9.3            # XML/HTML processing
