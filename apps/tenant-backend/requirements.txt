@@ -22,7 +22,7 @@ PyJWT==2.10.1
 # HTTP Client & Requests
 httpx==0.28.1
 requests==2.32.5
-aiohttp==3.13.2
+aiohttp==3.14.1
 
 # WebSocket Support
 python-socketio==5.15.0
