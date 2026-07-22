@@ -15,6 +15,7 @@ from pydantic import BaseModel, Field
 from app.services.event_bus import TenantEventBus, TriggerType, EVENT_CATALOG
 from app.services.automation_executor import AutomationChainExecutor
 from app.core.dependencies import get_current_user, get_tenant_domain
+from app.core.path_security import sanitize_tenant_domain
 
 logger = logging.getLogger(__name__)
 
@@ -228,7 +229,8 @@ async def list_automations(
 ):
     """List automations with optional filtering"""
     try:
-        event_bus = TenantEventBus(tenant_domain)
+        safe_tenant_domain = sanitize_tenant_domain(tenant_domain)
+        event_bus = TenantEventBus(safe_tenant_domain)
         
         # Get automations
         owner_filter = current_user if owner_only else None
@@ -450,7 +452,8 @@ async def test_automation(
 ):
     """Test automation with sample data"""
     try:
-        event_bus = TenantEventBus(tenant_domain)
+        safe_tenant_domain = sanitize_tenant_domain(tenant_domain)
+        event_bus = TenantEventBus(safe_tenant_domain)
         
         # Get automation
         automation = await event_bus.get_automation(automation_id)
@@ -499,7 +502,8 @@ async def get_automation_stats(
 ):
     """Get automation statistics for current user"""
     try:
-        event_bus = TenantEventBus(tenant_domain)
+        safe_tenant_domain = sanitize_tenant_domain(tenant_domain)
+        event_bus = TenantEventBus(safe_tenant_domain)
         
         # Get user's automations
         automations = await event_bus.list_automations(owner_id=current_user)
