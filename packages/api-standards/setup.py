@@ -21,8 +21,8 @@ setup(
     ],
     extras_require={
         "dev": [
-            "pytest>=7.4.0",
-            "pytest-asyncio>=0.21.0",
+            "pytest>=9.1.1",
+            "pytest-asyncio>=1.4.0",
             "pytest-cov>=4.1.0",
             "black>=23.0.0",
             "mypy>=1.5.0",
