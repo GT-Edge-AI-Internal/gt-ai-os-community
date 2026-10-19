@@ -1,10 +1,19 @@
 ---
 name: Bug Report
-about: Report a bug to help us improve GT AI OS
+about: Security patches only. Other bugs belong in Gen 3.
 title: '[Bug] '
 labels: bug
 assignees: ''
 ---
+
+> [!IMPORTANT]
+> ## 🚀 GT AI OS Gen 3 is here, and it is our actively supported platform
+>
+> **This repository is Gen 2 (Community Edition).** Gen 2 is no longer actively supported except for security patches. All active development and support now happen in Gen 3. If you are starting a new deployment, **start with Gen 3**.
+>
+> ### 👉 [**Go to GT AI OS Gen 3 → github.com/GT-Edge-AI/GT-AI-OS**](https://github.com/GT-Edge-AI/GT-AI-OS)
+>
+> Open an issue here only for a **security vulnerability** in Gen 2. For any other bug, use Gen 3.
 
 ## Describe the Bug
 A clear and concise description of what the bug is.

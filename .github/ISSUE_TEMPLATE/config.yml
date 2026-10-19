@@ -1,0 +1,7 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GT AI OS Gen 3 (actively supported)
+    url: https://github.com/GT-Edge-AI/GT-AI-OS
+    about: >
+      This repository is Gen 2. It is no longer actively supported except for
+      security patches. Start new deployments, bugs, and features in Gen 3.
